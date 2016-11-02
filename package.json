@@ -1,0 +1,39 @@
+{
+  "name": "rcs-core",
+  "version": "0.0.1",
+  "description": "The core of rename-css-selectors",
+  "main": "lib/rcs.js",
+  "scripts": {
+    "test": "mocha --recursive",
+    "coverage": "istanbul cover _mocha -- --recursive",
+    "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
+  },
+  "keywords": [
+    "css",
+    "minify",
+    "rename",
+    "selectors",
+    "shrink",
+    "classes",
+    "compress",
+    "styles",
+    "munch"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/jpeer264/rcs-core"
+  },
+  "dependencies": {
+    "decimal-to-any": "^1.0.0",
+    "fs-extra": "^0.30.0",
+    "lodash": "^4.16.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.14",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2"
+  },
+  "author": "Jan Peer Stöcklmair",
+  "license": "MIT"
+}

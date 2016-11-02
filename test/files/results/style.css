@@ -1,0 +1,73 @@
+.a {
+    content: 'block';
+}
+
+.b {
+    content: 'block__element';
+}
+
+.c {
+    content: 'block__element--modifier';
+}
+
+.d{
+    content: 'block--modifier';
+}
+
+.e:before {
+    content: 'before';
+}
+
+.c {
+    content: 'block__element--modifier';
+}
+
+#f {
+    content: 'id';
+}
+
+.g[src] {
+    content: 'attribute';
+}
+
+@media screen and (min-width: .40em) {
+    #f {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+/**
+ * a description
+ */
+@media screen and (min-width: 40em)
+
+{
+    #f
+    {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+h1 {
+    color: red;
+}
+
+.h {
+    content: 'reveal';
+    color: #eee;
+    font-size: .5rem;
+}
+
+.i.h {
+    content: 'js reveal';
+}
+
+.j.h {
+    content: 'js reveal';
+}
+
+.k {
+    content: 'js-reveal';
+}

@@ -1,0 +1,6 @@
+{
+    "exclude": [
+        "own-file",
+        "no-js"
+    ]
+}
