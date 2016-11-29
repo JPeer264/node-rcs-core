@@ -198,7 +198,7 @@ describe('rcs selector library', () => {
         });
     });
 
-    describe.only('setExclude', () => {
+    describe('setExclude', () => {
         beforeEach(() => {
             rcs.selectorLibrary.excludes = []
         });
