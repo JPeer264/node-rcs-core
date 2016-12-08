@@ -3,6 +3,7 @@
 const rcs    = require('../lib/rcs');
 const fs     = require('fs-extra');
 const path   = require('path');
+const json   = require('json-extra');
 const expect = require('chai').expect;
 
 const testCwd = 'test/files/testCache';
@@ -36,7 +37,7 @@ describe('helper.js', () => {
     });
 
     it('should read a json file and turn it to an object', done => {
-        const obj = rcs.helper.readJsonToObjSync('test/files/config.json');
+        const obj = json.readToObjSync('test/files/config.json');
 
         expect(obj).to.be.an('object');
 
@@ -44,7 +45,7 @@ describe('helper.js', () => {
     });
 
     it('should fail to read a file', done => {
-        const obj = rcs.helper.readJsonToObjSync('not/existing/path/config.json');
+        const obj = json.readToObjSync('not/existing/path/config.json');
 
         expect(obj).to.be.false;
 
