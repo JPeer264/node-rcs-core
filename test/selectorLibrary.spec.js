@@ -197,4 +197,46 @@ describe('rcs selector library', () => {
             done();
         });
     });
+
+    describe('setExclude', () => {
+        beforeEach(() => {
+            rcs.selectorLibrary.excludes = []
+        });
+
+        it('should avoid adding more of the same exludes | should enable array', done => {
+            const excludes = [
+                'one-value',
+                'one-value',
+                'another-value'
+            ];
+
+            rcs.selectorLibrary.setExclude(excludes);
+
+            expect(rcs.selectorLibrary.excludes.length).to.equal(2);
+
+            done();
+        });
+
+        it('should enable array', done => {
+            const excludes = [
+                'one-value',
+                'another-value'
+            ];
+
+            rcs.selectorLibrary.setExclude(excludes);
+
+            expect(rcs.selectorLibrary.excludes.length).to.equal(2);
+
+            done();
+        });
+
+        it('should enable excludes', done => {
+            rcs.selectorLibrary.setExclude('one-value');
+            rcs.selectorLibrary.setExclude('second-value');
+
+            expect(rcs.selectorLibrary.excludes.length).to.equal(2);
+
+            done();
+        });
+    });
 });
