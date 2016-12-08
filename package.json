@@ -26,6 +26,7 @@
   "dependencies": {
     "decimal-to-any": "^1.0.0",
     "fs-extra": "^0.30.0",
+    "json-extra": "^0.5.0",
     "lodash": "^4.16.4"
   },
   "devDependencies": {
