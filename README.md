@@ -21,7 +21,7 @@
 
 #### Methods
 - [save](#save)
-- [objectToJson](#objectToJson)
+- [objectToJson](#objecttojson)
 
 ##### save
 
