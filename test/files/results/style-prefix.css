@@ -26,7 +26,7 @@
     content: 'id';
 }
 
-.g[src] {
+.prefixed-g[src] {
     content: 'attribute';
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
@@ -55,7 +55,7 @@ h1 {
     color: red;
 }
 
-.prefixed-prefixed-h {
+.prefixed-h {
     content: 'reveal';
     color: #eee;
     font-size: .5rem;
