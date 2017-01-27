@@ -56,6 +56,26 @@ describe('rcs file replace', () => {
                 });
             });
 
+            it('should prefix all selectors', done => {
+                rcs.replace.fileCss(fixturesCwd + '/style.css', {
+                    prefix: 'prefixed-'
+                }, (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style-prefix.css', 'utf8'));
+
+                    done();
+                });
+            });
+
+            it('should prefix all selectors with no random name', done => {
+                rcs.replace.fileCss(fixturesCwd + '/style.css', {
+                    prefix: 'prefixed-',
+                    preventRandomName: true
+                }, (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style-prefix-preventrandomname.css', 'utf8'));
+
+                    done();
+                });
+            });
 
             it('should modify the second one with the values from the first', done => {
                 rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {

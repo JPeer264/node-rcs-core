@@ -1,0 +1,74 @@
+.prefixed-jp-block {
+    content: 'block';
+}
+
+.prefixed-jp-block__element {
+    content: 'block__element';
+}
+
+.prefixed-jp-block__element--modifier {
+    content: 'block__element--modifier';
+}
+
+.prefixed-jp-block--modifier{
+    content: 'block--modifier';
+}
+
+.prefixed-jp-pseudo:before {
+    content: 'before';
+}
+
+.prefixed-jp-block__element--modifier {
+    content: 'block__element--modifier';
+}
+
+#prefixed-id {
+    content: 'id';
+}
+
+.prefixed-jp-attribute[src] {
+    content: 'attribute';
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+@media screen and (min-width: .40em) {
+    #id {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+/**
+ * a description
+ */
+@media screen and (min-width: 40em)
+
+{
+    #prefixed-id
+    {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+h1 {
+    color: red;
+}
+
+.prefixed-reveal {
+    content: 'reveal';
+    color: #eee;
+    font-size: .5rem;
+}
+
+.prefixed-js.prefixed-reveal {
+    content: 'js reveal';
+}
+
+.prefixed-no-js.prefixed-reveal {
+    content: 'js reveal';
+}
+
+.prefixed-js-reveal {
+    content: 'js-reveal';
+}
