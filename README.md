@@ -246,7 +246,7 @@ const allValues = rcs.selectorLibrary.getAll();
 
 > Sets a specific selector into the selectorLibrary
 
-**rcs.selectorLibrary.set(selector)**
+**rcs.selectorLibrary.set(selector[, options])**
 
 Example:
 
@@ -282,7 +282,7 @@ rcs.selectorLibrary.get('no-js'); // no-js
 
 > Returns the metainformation of the selector and generates a new name for the selector
 
-**rcs.selectorLibrary.setValue(selector)**
+**rcs.selectorLibrary.setValue(selector[, options])**
 
 Example:
 
