@@ -23,12 +23,44 @@ describe('rcs selector library', () => {
             done();
         });
 
+        it('should set a new custom value', done => {
+            rcs.selectorLibrary.set('.test', 'random-name');
+
+            expect(rcs.selectorLibrary.get('.test')).to.equal('random-name');
+            expect(rcs.selectorLibrary.get('test')).to.equal('random-name');
+
+            done();
+        });
+
+        it('should set a new custom value with selector type', done => {
+            rcs.selectorLibrary.set('.test', '.random-name');
+
+            expect(rcs.selectorLibrary.get('.test')).to.equal('random-name');
+            expect(rcs.selectorLibrary.get('test')).to.equal('random-name');
+
+            done();
+        });
+
         it('should set an object value', done => {
             const setValueObject = rcs.selectorLibrary.setValue('.test');
 
             expect(setValueObject.type).to.equal('class');
             expect(setValueObject.selector).to.equal('.test');
             expect(setValueObject.compressedSelector).to.equal('a');
+
+            done();
+        });
+
+        it('should set multiple values', done => {
+            rcs.selectorLibrary.setValues({
+                '.test': 'a',
+                '.class': '.b',
+                '.selector': 'c'
+            });
+
+            expect(rcs.selectorLibrary.get('test')).to.equal('a');
+            expect(rcs.selectorLibrary.get('.class')).to.equal('b');
+            expect(rcs.selectorLibrary.get('.selector')).to.equal('c');
 
             done();
         });
