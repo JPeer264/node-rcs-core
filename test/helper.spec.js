@@ -26,6 +26,18 @@ describe('helper.js', () => {
         });
     });
 
+    it('should not overwrite the same file', done => {
+        const filePath = path.join(testCwd, '/../config.json');
+        const oldFile = fs.readFileSync(filePath, 'utf8');
+
+        rcs.helper.save(filePath, 'test content', err => {
+            expect(err.message).to.equal('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
+            expect(fs.readFileSync(filePath, 'utf8')).to.equal(oldFile);
+
+            done();
+        });
+    });
+
     it('should generatea readable json string from a json object', done => {
         const object = { a: 1, b:2, c:3 };
         const jsonString = rcs.helper.objectToJson(object);

@@ -27,7 +27,11 @@
 
 > Saves a file into any path
 
-**rcs.helper.save(destinationPath, data, cb)**
+**rcs.helper.save(destinationPath, data[, options] cb)**
+
+Options:
+
+- overwrite (Boolean): If it should overwrite an existing file. Default `false`.
 
 Example:
 
