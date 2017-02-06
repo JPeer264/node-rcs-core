@@ -197,6 +197,7 @@ const replacedStringSingleQuote = rcs.replace.string("'my-id'"); // returns 'a'
 - [set](#set)
 - [setExclude](#setexclude)
 - [setValue](#setvalue)
+- [setValues](#setvalues)
 
 ##### get
 
@@ -250,7 +251,7 @@ const allValues = rcs.selectorLibrary.getAll();
 
 > Sets a specific selector into the selectorLibrary
 
-**rcs.selectorLibrary.set(selector[, options])**
+**rcs.selectorLibrary.set(selector[, [renamedSelector, ] options])**
 
 Example:
 
@@ -286,7 +287,7 @@ rcs.selectorLibrary.get('no-js'); // no-js
 
 > Returns the metainformation of the selector and generates a new name for the selector
 
-**rcs.selectorLibrary.setValue(selector[, options])**
+**rcs.selectorLibrary.setValue(selector[, [renamedSelector, ] options])**
 
 Example:
 
@@ -306,4 +307,20 @@ myClassMeta returns:
     }
  */
 
+```
+
+##### setValues
+
+> Calls `selectorLibrary.set` internally
+
+**rcs.selectorLibrary.setValues(selectors)**
+
+```js
+const rcs = require('rcs-core');
+
+rcs.selectorLibrary.setValues({
+    '.a-selector': '.abc',
+    '.another-selector': 't',
+    '.slider': 'u'
+});
 ```
