@@ -140,6 +140,29 @@ describe('rcs selector library', () => {
             done();
         });
 
+        it('should get the right values with the option plainCompressed', done => {
+            rcs.selectorLibrary.set([
+                '.testme'
+            ], {
+                prefix: 'prefix-'
+            });
+
+            const plainArray = rcs.selectorLibrary.getAll({
+                plainCompressed: true
+            });
+
+            const array = rcs.selectorLibrary.getAll();
+
+            expect(plainArray).to.be.an('object');
+            expect(array).to.be.an('object');
+            expect(plainArray.test).to.equal('a');
+            expect(plainArray.testme).to.equal('d');
+            expect(array.test).to.equal('a');
+            expect(array.testme).to.equal('prefix-d');
+
+            done();
+        });
+
         it('should return a regex of compressed with classes', done => {
             const regex = rcs.selectorLibrary.getAll({
                 origValues: false,
