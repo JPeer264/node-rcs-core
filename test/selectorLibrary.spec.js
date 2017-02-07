@@ -152,6 +152,34 @@ describe('rcs selector library', () => {
             done();
         });
 
+        it('should return an array with selectors', done => {
+            const array = rcs.selectorLibrary.getAll({
+                origValues: true,
+                isSelectors: true
+            });
+
+            expect(array).to.have.any.keys('.test', '#id', '.jp-selector');
+            expect(array).to.not.have.any.keys('.a', '#b', '.c');
+            expect(array['.test']).to.equal('a');
+            expect(array['#id']).to.equal('b');
+
+            done();
+        });
+
+        it('should return an array with compressed selectors', done => {
+            const array = rcs.selectorLibrary.getAll({
+                origValues: false,
+                isSelectors: true
+            });
+
+            expect(array).to.have.any.keys('.a', '#b', '.c');
+            expect(array).to.not.have.any.keys('.test', '#id', '.jp-selector');
+            expect(array['.a']).to.equal('test');
+            expect(array['#b']).to.equal('id');
+
+            done();
+        });
+
         it('should return a regex of non compressed with classes', done => {
             const regex = rcs.selectorLibrary.getAll({
                 origValues: true,
