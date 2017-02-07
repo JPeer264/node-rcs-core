@@ -4,16 +4,16 @@ const rcs    = require('../lib/rcs');
 const expect = require('chai').expect;
 
 describe('rcs selector library', () => {
+    beforeEach(() => {
+        // reset counter and selectors for tests
+        rcs.selectorLibrary.selectors           = {};
+        rcs.selectorLibrary.compressedSelectors = {};
+        rcs.selectorLibrary.excludes            = [];
+
+        rcs.nameGenerator.resetCountForTests();
+    });
+
     describe('set new values', () => {
-        beforeEach(() => {
-            // reset counter and selectors for tests
-            rcs.selectorLibrary.selectors           = {};
-            rcs.selectorLibrary.compressedSelectors = {};
-            rcs.selectorLibrary.excludes            = [];
-
-            rcs.nameGenerator.resetCountForTests();
-        });
-
         it('should set a new value and get this value', done => {
             rcs.selectorLibrary.set('.test');
 
@@ -28,6 +28,18 @@ describe('rcs selector library', () => {
 
             expect(rcs.selectorLibrary.get('.test')).to.equal('random-name');
             expect(rcs.selectorLibrary.get('test')).to.equal('random-name');
+
+            done();
+        });
+
+        it('should set a new custom value', done => {
+            rcs.selectorLibrary.set('.test', 'random-name');
+            rcs.selectorLibrary.set('.test2', 'random-name');
+            rcs.selectorLibrary.set('.test3', 'random-name');
+
+            expect(rcs.selectorLibrary.get('.test')).to.equal('random-name');
+            expect(rcs.selectorLibrary.get('.test2')).to.equal('a');
+            expect(rcs.selectorLibrary.get('.test3')).to.equal('b');
 
             done();
         });
@@ -90,10 +102,6 @@ describe('rcs selector library', () => {
 
     describe('get values', () => {
         beforeEach(() => {
-            // reset counter and selectors for tests
-            rcs.selectorLibrary.selectors = {};
-            rcs.nameGenerator.resetCountForTests();
-
             rcs.selectorLibrary.set([
                 '.test',
                 '#id',
