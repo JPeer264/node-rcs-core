@@ -235,6 +235,7 @@ Options:
 - regexCss (boolean): This will return a regex of all setted selectors in the selectorLibrary, optimized for CSS files. Default: `false`
 - isSelectors (boolean): If true it will also add the ID or CLASS prefix (# or .). Default: `false`
 - extended (boolean): If true it will all selectors with stored metadata. Has NO EFFECT in combination with the option REGEX. Default: `false`
+- plainCompressed (boolean): Just affects if extended is `false`. Get the non pre/suffixed renamed selector. Default: `false`
 
 Example:
 
