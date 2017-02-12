@@ -77,6 +77,35 @@ describe('rcs file replace', () => {
                 });
             });
 
+            it('should replace the selector attributes correctly', done => {
+                rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css-attributes.css', 'utf8'));
+
+                    done();
+                });
+            });
+
+            it('should replace the selector attributes with pre and suffixes correctly', done => {
+                rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', {
+                    prefix: 'prefix-',
+                    suffix: '-suffix'
+                },(err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css-attributes-pre-suffix.css', 'utf8'));
+
+                    done();
+                });
+            });
+
+            it('should replace the selector attributes without caring about attribute selectors', done => {
+                rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', {
+                    ignoreAttributeSelector: true
+                },(err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css-attributes-ignore.css', 'utf8'));
+
+                    done();
+                });
+            });
+
             it('should modify the second one with the values from the first', done => {
                 rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
                     rcs.replace.fileCss(fixturesCwd + '/style2.css', (err, data) => {
@@ -86,7 +115,6 @@ describe('rcs file replace', () => {
                     });
                 });
             });
-
 
             it('should fail', done => {
                 rcs.replace.fileCss('non/exisiting/path.css', (err, data) => {
