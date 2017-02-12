@@ -98,6 +98,8 @@ describe('rcs file replace', () => {
 
             it('should replace the selector attributes without caring about attribute selectors', done => {
                 rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', {
+                    prefix: 'prefix-',
+                    suffix: '-suffix',
                     ignoreAttributeSelector: true
                 },(err, data) => {
                     expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css-attributes-ignore.css', 'utf8'));
