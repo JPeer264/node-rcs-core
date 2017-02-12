@@ -198,6 +198,8 @@ const replacedStringSingleQuote = rcs.replace.string("'my-id'"); // returns 'a'
 - [setExclude](#setexclude)
 - [setValue](#setvalue)
 - [setValues](#setvalues)
+- [setAttributeSelector](#setattributeselector)
+- [isInAttributeSelector](#isinattributeselector)
 
 ##### get
 
@@ -297,17 +299,15 @@ const rcs = require('rcs-core');
 
 const myClassMeta = rcs.selectorLibrary.setValue('.my-class');
 
-/*
-myClassMeta returns:
-    {
-        type: 'class',
-        typeChar: '.',
-        selector: '.my-class',
-        modifiedSelector: 'my-class',
-        compressedSelector: 'a'
-    }
- */
-
+// myClassMeta returns:
+//
+// {
+//      type: 'class',
+//      typeChar: '.',
+//      selector: '.my-class',
+//      modifiedSelector: 'my-class',
+//      compressedSelector: 'a'
+// }
 ```
 
 ##### setValues
@@ -324,4 +324,46 @@ rcs.selectorLibrary.setValues({
     '.another-selector': 't',
     '.slider': 'u'
 });
+```
+
+##### setAttributeSelector
+
+> Sets the attribute selector into `this.attributeSelectors`
+
+**rcs.selectorLibrary.setAttributeSelector(attributeSelector)**
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.setAttributeSelector('[class$="selector"]');
+
+// sets the following into this.attributeSelectors
+//
+// {
+//      '.$selector': {
+//          type: 'class',
+//          typeChar: '.',
+//          originalString: '[class$="selector"]',
+//          regexType: $
+//      }
+// }
+```
+
+##### isInAttributeSelector
+
+> check wheter a selector is set by an CSS attribute selector or not
+
+**rcs.selectorLibrary.isInAttributeSelector(selector)**
+
+Example:
+
+```js
+// first set some attribute selectors with `rcs.selectorLibrary.setAttributeSelectors`
+rcs.setAttributeSelector('[class*="lect"]');
+
+rcs.isInAttributeSelector('.select'); // true
+rcs.isInAttributeSelector('.selct');  // false
+rcs.isInAttributeSelector('#select'); // false
 ```
