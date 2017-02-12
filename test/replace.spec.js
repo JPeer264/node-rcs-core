@@ -12,6 +12,7 @@ describe('rcs file replace', () => {
     beforeEach(() => {
         // reset counter and selectors for tests
         rcs.selectorLibrary.selectors           = {};
+        rcs.selectorLibrary.attributeSelectors  = {};
         rcs.selectorLibrary.compressedSelectors = {};
         rcs.selectorLibrary.excludes            = [];
 
