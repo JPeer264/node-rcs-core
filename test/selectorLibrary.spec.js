@@ -6,9 +6,10 @@ const expect = require('chai').expect;
 describe('rcs selector library', () => {
     beforeEach(() => {
         // reset counter and selectors for tests
-        rcs.selectorLibrary.selectors           = {};
-        rcs.selectorLibrary.compressedSelectors = {};
         rcs.selectorLibrary.excludes            = [];
+        rcs.selectorLibrary.selectors           = {};
+        rcs.selectorLibrary.attributeSelectors  = {};
+        rcs.selectorLibrary.compressedSelectors = {};
 
         rcs.nameGenerator.resetCountForTests();
     });
@@ -97,6 +98,18 @@ describe('rcs selector library', () => {
             expect(rcs.selectorLibrary.get('not-set')).to.equal('not-set');
 
             done();
+        });
+
+        it('should set attribute selectors correctly', () => {
+            rcs.selectorLibrary.setAttributeSelector('[class*="test"]');
+            rcs.selectorLibrary.setAttributeSelector([
+                '[id^="header"]',
+            ]);
+
+            expect(rcs.selectorLibrary.attributeSelectors['.*test']).to.be.an('object');
+            expect(rcs.selectorLibrary.attributeSelectors['.*test'].originalString).to.equal('[class*="test"]');
+            expect(rcs.selectorLibrary.attributeSelectors['#^header']).to.be.an('object');
+            expect(rcs.selectorLibrary.attributeSelectors['#^header'].originalString).to.equal('[id^="header"]');
         });
     });
 

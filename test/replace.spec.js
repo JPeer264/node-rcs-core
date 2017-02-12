@@ -85,7 +85,7 @@ describe('rcs file replace', () => {
                 });
             });
 
-            it('should replace the selector attributes with pre and suffixes correctly', done => {
+            it.only('should replace the selector attributes with pre and suffixes correctly', done => {
                 rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', {
                     prefix: 'prefix-',
                     suffix: '-suffix'
