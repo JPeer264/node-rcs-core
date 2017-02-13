@@ -100,7 +100,9 @@ describe('a test', () => {
 #### Methods
 
 - [file](#file)
+- [fileSync](#fileSync)
 - [fileCss](#filecss)
+- [fileCssSync](#filecsssync)
 - [buffer](#buffer)
 - [bufferCss](#buffercss)
 - [string](#string)
@@ -112,6 +114,8 @@ describe('a test', () => {
 > Note: runs internally `buffer`
 
 **rcs.replace.file(filepath[, options], cb)**
+
+Sync: `fileSync`
 
 Example:
 
@@ -135,6 +139,8 @@ rcs.replace.file('./my/file/script.js', (err, data) => {
 > Note: runs internally `buffer`
 
 **rcs.replace.fileCss(filepath[, options], cb)**
+
+Sync: `fileCssSync`
 
 Example:
 
