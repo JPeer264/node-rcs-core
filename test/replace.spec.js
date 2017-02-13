@@ -128,6 +128,16 @@ describe('rcs file replace', () => {
                 });
             });
         });
+
+        describe('fileSync', () => {
+            it('should replace the selector attributes correctly', () => {
+                const cssData = rcs.replace.fileCssSync(fixturesCwd + '/style.css');
+                const htmlData = rcs.replace.fileSync(fixturesCwd + '/index.html');
+
+                expect(cssData.data).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
+                expect(htmlData.data).to.equal(fs.readFileSync(resultsCwd + '/index.html', 'utf8'));
+            });
+        });
     });
 
     describe('replace any file', () => {
