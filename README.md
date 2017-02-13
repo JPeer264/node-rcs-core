@@ -21,6 +21,7 @@
 
 #### Methods
 - [save](#save)
+- [saveSync](#save)
 - [objectToJson](#objecttojson)
 
 ##### save
@@ -28,6 +29,8 @@
 > Saves a file into any path
 
 **rcs.helper.save(destinationPath, data[, options] cb)**
+
+Sync: `saveSync`
 
 Options:
 
@@ -100,9 +103,9 @@ describe('a test', () => {
 #### Methods
 
 - [file](#file)
-- [fileSync](#fileSync)
+- [fileSync](#file)
 - [fileCss](#filecss)
-- [fileCssSync](#filecsssync)
+- [fileCssSync](#filecss)
 - [buffer](#buffer)
 - [bufferCss](#buffercss)
 - [string](#string)
