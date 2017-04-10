@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "array-includes": "^3.0.2",
-    "decimal-to-any": "^1.0.0",
+    "decimal-to-any": "1.0.0",
     "fs-extra": "^2.0.0",
     "json-extra": "^0.5.0",
     "lodash": "^4.17.4"
