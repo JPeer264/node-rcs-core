@@ -33,6 +33,12 @@ describe('rcs file replace', () => {
                 expect(decoder.write(data)).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
             });
 
+            it('should return the modified and minified css buffer', () => {
+                const data = rcs.replace.bufferCss(new Buffer('.class{background-color:red}.class-two{color:rgb(0,0,0)}.class-three{color:rgb(1,1,1)}'));
+
+                expect(decoder.write(data)).to.equal('.a{background-color:red}.b{color:rgb(0,0,0)}.c{color:rgb(1,1,1)}');
+            });
+
             it('should modify the second one with the values from the first', () => {
                 const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style.css'));
                 const buffer2 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style2.css'));
