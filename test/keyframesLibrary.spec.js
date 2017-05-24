@@ -25,6 +25,32 @@ describe('rcs keyframes library', () => {
             expect(rcs.keyframesLibrary.get('animate')).to.equal('b');
             expect(rcs.keyframesLibrary.get('more')).to.equal('c');
         });
+
+        it('should get the minified values', () => {
+            rcs.keyframesLibrary.compressedKeyframes = {
+                move: 'a',
+                animate: 'b',
+                more: 'c',
+            };
+
+            expect(rcs.keyframesLibrary.get('move', { origKeyframes: false })).to.equal('a');
+            expect(rcs.keyframesLibrary.get('animate', { origKeyframes: false })).to.equal('b');
+            expect(rcs.keyframesLibrary.get('more', { origKeyframes: false })).to.equal('c');
+        });
+
+
+        it('should not get excluded values but already set ones', () => {
+            rcs.keyframesLibrary.excludes = ['move'];
+            rcs.keyframesLibrary.keyframes = {
+                move: 'a',
+                animate: 'b',
+                more: 'c',
+            };
+
+            expect(rcs.keyframesLibrary.get('move')).to.equal('move');
+            expect(rcs.keyframesLibrary.get('animate')).to.equal('b');
+            expect(rcs.keyframesLibrary.get('more')).to.equal('c');
+        });
     });
 
     describe('set', () => {
@@ -55,6 +81,16 @@ describe('rcs keyframes library', () => {
 
             expect(rcs.keyframesLibrary.keyframes['move']).to.not.exist;
             expect(rcs.keyframesLibrary.keyframes['shouldexist']).to.equal('a');
+        });
+
+        it('should not set twice', () => {
+            rcs.keyframesLibrary.set('move');
+            rcs.keyframesLibrary.set('move');
+            rcs.keyframesLibrary.set('animate');
+
+            expect(Object.keys(rcs.keyframesLibrary.keyframes).length).to.equal(2);
+            expect(rcs.keyframesLibrary.keyframes['move']).to.equal('a');
+            expect(rcs.keyframesLibrary.keyframes['animate']).to.equal('b');
         });
 
         it('should not set multiple keyframes', () => {
@@ -91,6 +127,27 @@ describe('rcs keyframes library', () => {
             expect(rcs.keyframesLibrary.keyframes['move']).to.not.exist;
             expect(rcs.keyframesLibrary.keyframes['no']).to.not.exist;
             expect(rcs.keyframesLibrary.keyframes['shouldexist']).to.equal('a');
+        });
+    });
+
+    describe('exclude', () => {
+        it('should exclude variables', () => {
+            rcs.keyframesLibrary.setExclude(['move', 'no']);
+
+            expect(rcs.keyframesLibrary.excludes.length).to.equal(2);
+        });
+
+        it('should just exclude once', () => {
+            rcs.keyframesLibrary.setExclude(['move', 'move']);
+
+            expect(rcs.keyframesLibrary.excludes.length).to.equal(1);
+            expect(rcs.keyframesLibrary.excludes[0]).to.equal('move');
+        });
+
+        it('should exclude nothing', () => {
+            rcs.keyframesLibrary.setExclude();
+
+            expect(rcs.keyframesLibrary.excludes.length).to.equal(0);
         });
     });
 
