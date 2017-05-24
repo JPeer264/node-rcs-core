@@ -3,7 +3,7 @@
 const rcs    = require('../lib/rcs');
 const expect = require('chai').expect;
 
-describe.only('rcs keyframes library', () => {
+describe('rcs keyframes library', () => {
     beforeEach(() => {
         // reset counter and keyframes for tests
         rcs.keyframesLibrary.excludes            = [];
@@ -67,6 +67,19 @@ describe.only('rcs keyframes library', () => {
             expect(rcs.keyframesLibrary.keyframes['move']).to.equal('a');
             expect(rcs.keyframesLibrary.keyframes['animate']).to.equal('b');
             expect(rcs.keyframesLibrary.keyframes['more']).to.equal('c');
+        });
+
+        it('should not set multiple excluded of multiple setted keyframes', () => {
+            rcs.keyframesLibrary.setExclude(['move', 'animate']);
+            rcs.keyframesLibrary.set([
+                'move',
+                'animate',
+                'more',
+            ]);
+
+            expect(rcs.keyframesLibrary.keyframes['move']).to.not.exist;
+            expect(rcs.keyframesLibrary.keyframes['animate']).to.not.exist;
+            expect(rcs.keyframesLibrary.keyframes['more']).to.equal('a');
         });
 
         it('should not set multiple excluded keyframes', () => {
