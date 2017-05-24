@@ -5,6 +5,7 @@
   "main": "lib/rcs.js",
   "scripts": {
     "test": "mocha --recursive",
+    "prepush": "npm test",
     "coverage": "istanbul cover _mocha -- --recursive",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
   },
@@ -33,6 +34,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
+    "husky": "^0.13.3",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   },
