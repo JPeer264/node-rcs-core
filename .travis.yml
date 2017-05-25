@@ -2,9 +2,9 @@ language: node_js
 sudo: true
 dist: trusty
 node_js:
-  - "4.0"
-  - "5.0"
-  - "6.0"
+  - 4
+  - 5
+  - 6
 install:
   - yarn
 script: npm run test
