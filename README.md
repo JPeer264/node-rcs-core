@@ -137,9 +137,9 @@ rcs.replace.file('./my/file/script.js', (err, data) => {
 
 ##### fileCss
 
-> Reads a CSS file, stores all selectors in `rcs.selectorLibrary` and replaces them
+> Reads a CSS file, stores all selectors in `rcs.selectorLibrary` and replaces them (basically the same as [bufferCss](#buffercss))
 
-> Note: runs internally `buffer`
+Options: [see here](#buffercss)
 
 **rcs.replace.fileCss(filepath[, options], cb)**
 
@@ -177,13 +177,17 @@ const replacedBuffer = rcs.replace.buffer(new Buffer('document.getElementById("m
 
 > Stores all selectors in `rcs.selectorLibrary` and replaces them
 
+Options:
+
+- replaceKeyframes (boolean): Renames the names in `animation-name` or `animation` if a specific `@keyframes` was triggered before. Default: `false`
+
 **rcs.replace.bufferCss(Buffer[, options])**
 
 Example:
 
 ```js
 const rcs = require('rcs-core');
-const replacedBuffer = rcs.replace.buffer(new Buffer('#my-id: {}');
+const replacedBuffer = rcs.replace.buffer(new Buffer('#my-id: {}', { replaceKeyframes: true });
 ```
 
 ##### string
