@@ -16,6 +16,7 @@
 - [rcs.nameGenerator](#rcsnamegenerator)
 - [rcs.replace](#rcsreplace)
 - [rcs.selectorLibrary](#rcsselectorlibrary)
+- [rcs.keyframesLibrary](#rcskeyframeslibrary)
 
 ### rcs.helper
 
@@ -137,9 +138,9 @@ rcs.replace.file('./my/file/script.js', (err, data) => {
 
 ##### fileCss
 
-> Reads a CSS file, stores all selectors in `rcs.selectorLibrary` and replaces them
+> Reads a CSS file, stores all selectors in `rcs.selectorLibrary` and replaces them (basically the same as [bufferCss](#buffercss))
 
-> Note: runs internally `buffer`
+Options: [see here](#buffercss)
 
 **rcs.replace.fileCss(filepath[, options], cb)**
 
@@ -177,13 +178,17 @@ const replacedBuffer = rcs.replace.buffer(new Buffer('document.getElementById("m
 
 > Stores all selectors in `rcs.selectorLibrary` and replaces them
 
+Options:
+
+- replaceKeyframes (boolean): Renames the names in `animation-name` or `animation` if a specific `@keyframes` was triggered before. Default: `false`
+
 **rcs.replace.bufferCss(Buffer[, options])**
 
 Example:
 
 ```js
 const rcs = require('rcs-core');
-const replacedBuffer = rcs.replace.buffer(new Buffer('#my-id: {}');
+const replacedBuffer = rcs.replace.buffer(new Buffer('#my-id: {}', { replaceKeyframes: true });
 ```
 
 ##### string
@@ -376,3 +381,66 @@ rcs.isInAttributeSelector('.select'); // true
 rcs.isInAttributeSelector('.selct');  // false
 rcs.isInAttributeSelector('#select'); // false
 ```
+
+### rcs.keyframesLibrary
+
+#### Methods
+- [get](#get)
+- [set](#set)
+- [setExclude](#setexclude)
+
+##### get
+
+> This will get a specific minified selector
+
+**rcs.keyframesLibrary.get(selector[, options])**
+
+Options:
+
+- origKeyframe (boolean): If true the input is the original keyframe so it will return the minified keyframe. Default: `true`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.keyframesLibrary.set('move'); // sets to 'a'
+
+rcs.keyframesLibrary.get('move'); // a
+rcs.keyframesLibrary.get('a', { origKeyframe: false }); // move
+```
+
+##### set
+
+> Sets a specific keyframe into the keyframesLibrary
+
+**rcs.keyframesLibrary.set(selector[, [renamedKeyframe, ] options])**
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.keyframesLibrary.set('move'); // sets to 'a'
+rcs.keyframesLibrary.set('animate', 'anim'); // sets to 'anim'
+
+rcs.keyframesLibrary.get('move'); // a
+rcs.keyframesLibrary.get('animate'); // anim
+```
+
+##### setExclude
+
+> To exclude some keyframes
+
+**rcs.keyframesLibrary.setExclude(keyframe)**
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.keyframesLibrary.setExclude('motion');
+
+// keyframes named `motion` will not be added to the library
+rcs.keyframesLibrary.set('motion'); // will not set the minified one
+rcs.keyframesLibrary.get('motion'); // motion

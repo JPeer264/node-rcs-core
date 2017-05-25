@@ -16,6 +16,10 @@ describe('rcs file replace', () => {
         rcs.selectorLibrary.compressedSelectors = {};
         rcs.selectorLibrary.excludes            = [];
 
+        rcs.keyframesLibrary.excludes            = [];
+        rcs.keyframesLibrary.keyframes           = {};
+        rcs.keyframesLibrary.compressedKeyframes = {};
+
         rcs.nameGenerator.resetCountForTests();
     });
 
@@ -64,6 +68,81 @@ describe('rcs file replace', () => {
 
                 expect(decoder.write(data)).to.equal('.a{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.b{display:flex}');
             });
+
+            it('should replace keyframes properly', () => {
+                const string = `
+                    @keyframes  move {
+                        from: {} to: {}
+                    }
+
+                    .selector {
+                        animation: move 4s;
+                    }
+
+                    .another-selector {
+                        animation:     move     4s    ;
+                    }
+                `;
+
+                const expectedString = `
+                    @keyframes  a {
+                        from: {} to: {}
+                    }
+
+                    .b {
+                        animation: a 4s;
+                    }
+
+                    .c {
+                        animation:     a     4s    ;
+                    }
+                `;
+                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
+
+                expect(decoder.write(data)).to.equal(expectedString);
+            });
+
+            it('should not replace keyframes properly', () => {
+                const string = `
+                    @keyframes  move {
+                        from: {} to: {}
+                    }
+
+                    .selector {
+                        animation: move 4s;
+                    }
+
+                    .another-selector {
+                        animation:     move     4s    ;
+                    }
+                `;
+
+                const expectedString = `
+                    @keyframes  move {
+                        from: {} to: {}
+                    }
+
+                    .a {
+                        animation: move 4s;
+                    }
+
+                    .b {
+                        animation:     move     4s    ;
+                    }
+                `;
+                const data = rcs.replace.bufferCss(new Buffer(string));
+
+                expect(decoder.write(data)).to.equal(expectedString);
+            });
+
+            it('should replace keyframes properly in a oneliner', () => {
+                const string = '@keyframes  move {from: {} to: {}}.selector {animation: move 4s}.another-selector {animation:     move     4s    }';
+                const expectedString = '@keyframes  a {from: {} to: {}}.b {animation: a 4s}.c {animation:     a     4s    }';
+                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
+
+                expect(decoder.write(data)).to.equal(expectedString);
+            });
+
 
             it('should fail - empty buffer', () => {
                 const data = rcs.replace.bufferCss(new Buffer(''));

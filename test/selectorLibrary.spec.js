@@ -15,6 +15,14 @@ describe('rcs selector library', () => {
     });
 
     describe('set new values', () => {
+         it('should set nothing', done => {
+            rcs.selectorLibrary.set();
+
+            expect(rcs.selectorLibrary.selectors).to.be.empty;
+
+            done();
+        });
+
         it('should set a new value and get this value', done => {
             rcs.selectorLibrary.set('.test');
 
