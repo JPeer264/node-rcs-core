@@ -14,7 +14,7 @@ describe('rcs keyframes library', () => {
     });
 
     describe('get', () => {
-        it('should get the values', () => {
+        it.only('should get the values', () => {
             rcs.keyframesLibrary.keyframes = {
                 move: 'a',
                 animate: 'b',
@@ -24,6 +24,7 @@ describe('rcs keyframes library', () => {
             expect(rcs.keyframesLibrary.get('move')).to.equal('a');
             expect(rcs.keyframesLibrary.get('animate')).to.equal('b');
             expect(rcs.keyframesLibrary.get('more')).to.equal('c');
+            expect(rcs.keyframesLibrary.get('not-setted-value')).to.equal('not-setted-value');
         });
 
         it('should get the minified values', () => {
