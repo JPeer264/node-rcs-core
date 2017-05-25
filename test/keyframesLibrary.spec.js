@@ -14,7 +14,7 @@ describe('rcs keyframes library', () => {
     });
 
     describe('get', () => {
-        it.only('should get the values', () => {
+        it('should get the values', () => {
             rcs.keyframesLibrary.keyframes = {
                 move: 'a',
                 animate: 'b',
