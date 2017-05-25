@@ -116,7 +116,8 @@ describe('rcs file replace', () => {
                         animation-name: moVe-It_1337, motion;
                         animation:  moVe-It_1337 4s infinite,
                                     moVe-It_1337 10s,
-                                    motion 2s;
+                                    motion 2s,
+                                    not-setted-keyframe 2s;
                     }
 
                     .another-selector {
@@ -137,7 +138,8 @@ describe('rcs file replace', () => {
                         animation-name: a, b;
                         animation:  a 4s infinite,
                                     a 10s,
-                                    b 2s;
+                                    b 2s,
+                                    not-setted-keyframe 2s;
                     }
 
                     .d {
@@ -183,8 +185,8 @@ describe('rcs file replace', () => {
             });
 
             it('should replace keyframes properly in a oneliner', () => {
-                const string = '@keyframes  move {from {} to {}}.selector {animation: move 4s}.another-selector {animation:     move     4s    }';
-                const expectedString = '@keyframes  a {from {} to {}}.b {animation: a 4s}.c {animation:     a     4s    }';
+                const string = '@keyframes  move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation:     move     4s    }';
+                const expectedString = '@keyframes  a {from {} to {}}.b {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.c {animation:     a     4s    }';
                 const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
 
                 expect(decoder.write(data)).to.equal(expectedString);
