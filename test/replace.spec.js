@@ -72,7 +72,7 @@ describe('rcs file replace', () => {
             it('should replace keyframes properly', () => {
                 const string = `
                     @keyframes  move {
-                        from: {} to: {}
+                        from {} to {}
                     }
 
                     .selector {
@@ -86,7 +86,7 @@ describe('rcs file replace', () => {
 
                 const expectedString = `
                     @keyframes  a {
-                        from: {} to: {}
+                        from {} to {}
                     }
 
                     .b {
@@ -102,10 +102,57 @@ describe('rcs file replace', () => {
                 expect(decoder.write(data)).to.equal(expectedString);
             });
 
+            it('should replace keyframes properly in nested animations', () => {
+                const string = `
+                    @keyframes  moVe-It_1337 {
+                        from {} to {}
+                    }
+
+                    @keyframes  motion {
+                        from {} to {}
+                    }
+
+                    .selector {
+                        animation-name: moVe-It_1337, motion;
+                        animation:  moVe-It_1337 4s infinite,
+                                    moVe-It_1337 10s,
+                                    motion 2s;
+                    }
+
+                    .another-selector {
+                        animation:     moVe-It_1337     4s  , motion 10s  ;
+                    }
+                `;
+
+                const expectedString = `
+                    @keyframes  a {
+                        from {} to {}
+                    }
+
+                    @keyframes  b {
+                        from {} to {}
+                    }
+
+                    .c {
+                        animation-name: a, b;
+                        animation:  a 4s infinite,
+                                    a 10s,
+                                    b 2s;
+                    }
+
+                    .d {
+                        animation:     a     4s  , b 10s  ;
+                    }
+                `;
+                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
+
+                expect(decoder.write(data)).to.equal(expectedString);
+            });
+
             it('should not replace keyframes properly', () => {
                 const string = `
                     @keyframes  move {
-                        from: {} to: {}
+                        from {} to {}
                     }
 
                     .selector {
@@ -119,7 +166,7 @@ describe('rcs file replace', () => {
 
                 const expectedString = `
                     @keyframes  move {
-                        from: {} to: {}
+                        from {} to {}
                     }
 
                     .a {
@@ -136,8 +183,8 @@ describe('rcs file replace', () => {
             });
 
             it('should replace keyframes properly in a oneliner', () => {
-                const string = '@keyframes  move {from: {} to: {}}.selector {animation: move 4s}.another-selector {animation:     move     4s    }';
-                const expectedString = '@keyframes  a {from: {} to: {}}.b {animation: a 4s}.c {animation:     a     4s    }';
+                const string = '@keyframes  move {from {} to {}}.selector {animation: move 4s}.another-selector {animation:     move     4s    }';
+                const expectedString = '@keyframes  a {from {} to {}}.b {animation: a 4s}.c {animation:     a     4s    }';
                 const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
 
                 expect(decoder.write(data)).to.equal(expectedString);
