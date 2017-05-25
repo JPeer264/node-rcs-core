@@ -47,6 +47,24 @@ describe('rcs file replace', () => {
                 expect(decoder.write(buffer2)).to.equal(fs.readFileSync(resultsCwd + '/style2.css', 'utf8'));
             });
 
+            it('should modify the code properly | hex oneline', () => {
+                const data = rcs.replace.bufferCss(new Buffer('.somediv{background:#616060}.anotherdiv{display:flex}'));
+
+                expect(decoder.write(data)).to.equal('.a{background:#616060}.b{display:flex}');
+            });
+
+            it('should modify the code properly | number oneline', () => {
+                const data = rcs.replace.bufferCss(new Buffer('.somediv{translation:.30}.anotherdiv{display:flex}'));
+
+                expect(decoder.write(data)).to.equal('.a{translation:.30}.b{display:flex}');
+            });
+
+            it('should modify the code properly | filter oneline', () => {
+                const data = rcs.replace.bufferCss(new Buffer('.somediv{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.anotherdiv{display:flex}'));
+
+                expect(decoder.write(data)).to.equal('.a{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.b{display:flex}');
+            });
+
             it('should fail - empty buffer', () => {
                 const data = rcs.replace.bufferCss(new Buffer(''));
 
