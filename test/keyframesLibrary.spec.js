@@ -33,9 +33,9 @@ describe('rcs keyframes library', () => {
                 more: 'c',
             };
 
-            expect(rcs.keyframesLibrary.get('move', { origKeyframes: false })).to.equal('a');
-            expect(rcs.keyframesLibrary.get('animate', { origKeyframes: false })).to.equal('b');
-            expect(rcs.keyframesLibrary.get('more', { origKeyframes: false })).to.equal('c');
+            expect(rcs.keyframesLibrary.get('move', { origKeyframe: false })).to.equal('a');
+            expect(rcs.keyframesLibrary.get('animate', { origKeyframe: false })).to.equal('b');
+            expect(rcs.keyframesLibrary.get('more', { origKeyframe: false })).to.equal('c');
         });
 
 
@@ -54,6 +54,12 @@ describe('rcs keyframes library', () => {
     });
 
     describe('set', () => {
+        it('should do nothing', () => {
+            rcs.keyframesLibrary.set();
+
+            expect(rcs.keyframesLibrary.keyframes).to.be.empty;
+        });
+
         it('should set the correct values', () => {
             rcs.keyframesLibrary.set('move');
             rcs.keyframesLibrary.set('animate');
@@ -148,48 +154,6 @@ describe('rcs keyframes library', () => {
             rcs.keyframesLibrary.setExclude();
 
             expect(rcs.keyframesLibrary.excludes.length).to.equal(0);
-        });
-    });
-
-    describe('getAll', () => {
-        beforeEach(() => {
-            rcs.keyframesLibrary.keyframes = {
-                move: 'a',
-                animate: 'b',
-                more: 'c',
-            };
-
-            rcs.keyframesLibrary.compressedKeyframes = {
-                a: 'move',
-                b: 'animate',
-                c: 'more',
-            };
-        });
-
-        it('should return set keyframes', () => {
-            const expectedObject = {
-                move: 'a',
-                animate: 'b',
-                more: 'c',
-            }
-
-            expect(rcs.keyframesLibrary.getAll()).to.deep.equal(expectedObject);
-        });
-
-        it('should return set keyframes', () => {
-            const expectedObject = {
-                a: 'move',
-                b: 'animate',
-                c: 'more',
-            }
-
-            expect(rcs.keyframesLibrary.getAll({ origKeyframes: false })).to.deep.equal(expectedObject);
-        });
-
-        it('should return an regex with origKeyframes', () => {
-            const expectedObject = /animate|move|more/g;
-
-            expect(rcs.keyframesLibrary.getAll({ origKeyframes: true, regex: true })).to.deep.equal(expectedObject);
         });
     });
 });
