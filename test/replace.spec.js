@@ -192,6 +192,21 @@ describe('rcs file replace', () => {
                 expect(decoder.write(data)).to.equal(expectedString);
             });
 
+            it('should replace media queries properly in a oneliner', () => {
+                const string = '@media(max-width:480px){.one{display:block}.two{display:table}}';
+                const expectedString = '@media(max-width:480px){.a{display:block}.b{display:table}}';
+                const data = rcs.replace.bufferCss(new Buffer(string));
+
+                expect(decoder.write(data)).to.equal(expectedString);
+            });
+
+            it('should replace sizes at the end w/o semicolon properly in a oneliner', () => {
+                const string = '.one{padding:0 .357143rem}.two{color:#0f705d}';
+                const expectedString = '.a{padding:0 .357143rem}.b{color:#0f705d}';
+                const data = rcs.replace.bufferCss(new Buffer(string));
+
+                expect(decoder.write(data)).to.equal(expectedString);
+            });
 
             it('should fail - empty buffer', () => {
                 const data = rcs.replace.bufferCss(new Buffer(''));
