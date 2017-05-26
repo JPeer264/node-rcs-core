@@ -76,7 +76,7 @@ describe('rcs file replace', () => {
                     }
 
                     .selector {
-                        animation: move 4s;
+                        animation:move 4s;
                     }
 
                     .another-selector {
@@ -90,7 +90,7 @@ describe('rcs file replace', () => {
                     }
 
                     .b {
-                        animation: a 4s;
+                        animation:a 4s;
                     }
 
                     .c {
