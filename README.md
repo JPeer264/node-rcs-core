@@ -385,9 +385,9 @@ rcs.isInAttributeSelector('#select'); // false
 ### rcs.keyframesLibrary
 
 #### Methods
-- [get](#get)
-- [set](#set)
-- [setExclude](#setexclude)
+- [get](#get-1)
+- [set](#set-1)
+- [setExclude](#setexclude-1)
 
 ##### get
 
