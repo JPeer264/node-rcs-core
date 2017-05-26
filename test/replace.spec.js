@@ -108,6 +108,10 @@ describe('rcs file replace', () => {
                         from {} to {}
                     }
 
+                    @-webkit-keyframes  motion {
+                        from {} to {}
+                    }
+
                     @keyframes  motion {
                         from {} to {}
                     }
@@ -127,6 +131,10 @@ describe('rcs file replace', () => {
 
                 const expectedString = `
                     @keyframes  a {
+                        from {} to {}
+                    }
+
+                    @-webkit-keyframes  b {
                         from {} to {}
                     }
 
