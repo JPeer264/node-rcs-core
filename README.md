@@ -9,6 +9,7 @@
 - Node Plugin: [rename-css-selectors](https://www.npmjs.com/package/rename-css-selectors)
 - Grunt Plugin: [grunt-rcs](https://www.npmjs.com/package/grunt-rcs)
 - Gulp Plugin: [gulp-rcs](https://www.npmjs.com/package/gulp-rcs)
+- PostCSS Plugin: [postcss-rcs](https://www.npmjs.com/package/postcss-rcs)
 
 ## Methods
 
