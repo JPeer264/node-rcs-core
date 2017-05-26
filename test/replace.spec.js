@@ -203,7 +203,7 @@ describe('rcs file replace', () => {
             it('should replace sizes at the end w/o semicolon properly in a oneliner', () => {
                 const string = '.one{padding:0 .357143rem}.two{color:#0f705d}';
                 const expectedString = '.a{padding:0 .357143rem}.b{color:#0f705d}';
-                const data = rcs.replace.bufferCss(new Buffer(string));
+                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
 
                 expect(decoder.write(data)).to.equal(expectedString);
             });
