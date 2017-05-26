@@ -178,11 +178,11 @@ const replacedBuffer = rcs.replace.buffer(new Buffer('document.getElementById("m
 
 > Stores all selectors in `rcs.selectorLibrary` and replaces them
 
-Options:
-
-- replaceKeyframes (boolean): Renames the names in `animation-name` or `animation` if a specific `@keyframes` was triggered before. Default: `false`
-
 **rcs.replace.bufferCss(Buffer[, options])**
+
+Options:
+- ignoreAttributeSelector (boolean): If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
+- replaceKeyframes (boolean): Renames the names in `animation-name` or `animation` if a specific `@keyframes` was triggered before. Default: `false`
 
 Example:
 
