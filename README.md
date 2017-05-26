@@ -411,9 +411,24 @@ rcs.isInAttributeSelector('#select'); // false
 ### rcs.keyframesLibrary
 
 #### Methods
+- [fillLibrary](#filllibrary-1)
 - [get](#get-1)
 - [set](#set-1)
 - [setExclude](#setexclude-1)
+
+##### fillLibrary
+
+> This will take your CSS file (as a string) and fills the library with all necessary information
+
+** rcs.selectorLibrary.fillLibrary(data)**
+
+Example:
+
+```js
+const myCssFileWithKeyframes = '@keyframes move { from {} to {} }';
+
+rcs.selectorLibrary.fillLibrary(myCssFileWithKeyframes);
+```
 
 ##### get
 
