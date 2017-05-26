@@ -103,6 +103,7 @@ describe('a test', () => {
 
 #### Methods
 
+- [regex](#regex)
 - [file](#file)
 - [fileSync](#file)
 - [fileCss](#filecss)
@@ -110,6 +111,11 @@ describe('a test', () => {
 - [buffer](#buffer)
 - [bufferCss](#buffercss)
 - [string](#string)
+
+
+##### regex
+
+> An object with all regular expressions used in rcs-core
 
 ##### file
 
@@ -206,6 +212,7 @@ const replacedStringSingleQuote = rcs.replace.string("'my-id'"); // returns 'a'
 ### rcs.selectorLibrary
 
 #### Methods
+- [fillLibrary](#filllibrary)
 - [get](#get)
 - [getAll](#getall)
 - [set](#set)
@@ -214,6 +221,22 @@ const replacedStringSingleQuote = rcs.replace.string("'my-id'"); // returns 'a'
 - [setValues](#setvalues)
 - [setAttributeSelector](#setattributeselector)
 - [isInAttributeSelector](#isinattributeselector)
+
+##### fillLibrary
+
+> This will take your CSS file (as a string) and fills the library with all necessary information
+
+** rcs.selectorLibrary.fillLibrary(data[, options])**
+
+Options: [see here](#set)
+
+Example:
+
+```js
+const myCssFile = '.class { padding: 0; }; #id { margin: 0; }';
+
+rcs.selectorLibrary.fillLibrary(myCssFile);
+```
 
 ##### get
 
@@ -269,6 +292,9 @@ const allValues = rcs.selectorLibrary.getAll();
 > Sets a specific selector into the selectorLibrary
 
 **rcs.selectorLibrary.set(selector[, [renamedSelector, ] options])**
+
+Options:
+- ignoreAttributeSelector (boolean): If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
 
 Example:
 
