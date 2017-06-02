@@ -136,8 +136,8 @@ describe('replace', () => {
             it('should return the modified js file', done => {
                 rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'))
 
-                rcs.replace.file(fixturesCwd + '/js/main.js', (err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/js/main.js', 'utf8'));
+                rcs.replace.file(fixturesCwd + '/js/main.txt', (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/js/main.txt', 'utf8'));
 
                     done();
                 });
@@ -366,22 +366,22 @@ describe('replace', () => {
             });
 
             it('should replace everything', () => {
-                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/complex.js'));
-                const expectedOutput = fs.readFileSync(resultsCwd + '/js/complex.js', 'utf8');
+                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/complex.txt'));
+                const expectedOutput = fs.readFileSync(resultsCwd + '/js/complex.txt', 'utf8');
 
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
             });
 
             it('should not replace react components', () => {
-                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.js'));
-                const expectedOutput = fs.readFileSync(fixturesCwd + '/js/react.js', 'utf8');
+                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.txt'));
+                const expectedOutput = fs.readFileSync(fixturesCwd + '/js/react.txt', 'utf8');
 
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
             });
 
             it('should replace react components', () => {
-                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.js'), { jsx: true });
-                const expectedOutput = fs.readFileSync(resultsCwd + '/js/react.js', 'utf8');
+                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.txt'), { jsx: true });
+                const expectedOutput = fs.readFileSync(resultsCwd + '/js/react.txt', 'utf8');
 
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
             });
@@ -405,9 +405,9 @@ describe('replace', () => {
             it('should return the modified js buffer', () => {
                 rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
 
-                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/js/main.js'));
+                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/js/main.txt'));
 
-                expect(buffer2.toString()).to.equal(fs.readFileSync(resultsCwd + '/js/main.js', 'utf8'));
+                expect(buffer2.toString()).to.equal(fs.readFileSync(resultsCwd + '/js/main.txt', 'utf8'));
             });
         });
     });
