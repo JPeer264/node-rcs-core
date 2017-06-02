@@ -3,7 +3,7 @@
 const rcs    = require('../lib/rcs');
 const expect = require('chai').expect;
 
-describe('rcs selector library', () => {
+describe('selectorLibrary', () => {
     beforeEach(() => {
         // reset counter and selectors for tests
         rcs.selectorLibrary.excludes            = [];
@@ -14,114 +14,11 @@ describe('rcs selector library', () => {
         rcs.nameGenerator.resetCountForTests();
     });
 
-    describe('set new values', () => {
-         it('should set nothing', done => {
-            rcs.selectorLibrary.set();
+    describe('fillLibrary', () => {
 
-            expect(rcs.selectorLibrary.selectors).to.be.empty;
-
-            done();
-        });
-
-        it('should set a new value and get this value', done => {
-            rcs.selectorLibrary.set('.test');
-
-            expect(rcs.selectorLibrary.get('.test')).to.equal('a');
-            expect(rcs.selectorLibrary.get('test')).to.equal('a');
-
-            done();
-        });
-
-        it('should set a new custom value', done => {
-            rcs.selectorLibrary.set('.test', 'random-name');
-
-            expect(rcs.selectorLibrary.get('.test')).to.equal('random-name');
-            expect(rcs.selectorLibrary.get('test')).to.equal('random-name');
-
-            done();
-        });
-
-        it('should set a new custom value', done => {
-            rcs.selectorLibrary.set('.test', 'random-name');
-            rcs.selectorLibrary.set('.test2', 'random-name');
-            rcs.selectorLibrary.set('.test3', 'random-name');
-
-            expect(rcs.selectorLibrary.get('.test')).to.equal('random-name');
-            expect(rcs.selectorLibrary.get('.test2')).to.equal('a');
-            expect(rcs.selectorLibrary.get('.test3')).to.equal('b');
-
-            done();
-        });
-
-        it('should set a new custom value with selector type', done => {
-            rcs.selectorLibrary.set('.test', '.random-name');
-
-            expect(rcs.selectorLibrary.get('.test')).to.equal('random-name');
-            expect(rcs.selectorLibrary.get('test')).to.equal('random-name');
-
-            done();
-        });
-
-        it('should set an object value', done => {
-            const setValueObject = rcs.selectorLibrary.setValue('.test');
-
-            expect(setValueObject.type).to.equal('class');
-            expect(setValueObject.selector).to.equal('.test');
-            expect(setValueObject.compressedSelector).to.equal('a');
-
-            done();
-        });
-
-        it('should set multiple values', done => {
-            rcs.selectorLibrary.setValues({
-                '.test': 'a',
-                '.class': '.b',
-                '.selector': 'c'
-            });
-
-            expect(rcs.selectorLibrary.get('test')).to.equal('a');
-            expect(rcs.selectorLibrary.get('.class')).to.equal('b');
-            expect(rcs.selectorLibrary.get('.selector')).to.equal('c');
-
-            done();
-        });
-
-        it('should set values out of an array', done => {
-            rcs.selectorLibrary.set([
-                '.test',
-                '#id',
-                '.jp-selector'
-            ]);
-
-            // should be set
-            expect(rcs.selectorLibrary.get('.test')).to.equal('a');
-            expect(rcs.selectorLibrary.get('test')).to.equal('a');
-            expect(rcs.selectorLibrary.get('#id')).to.equal('b');
-            expect(rcs.selectorLibrary.get('id')).to.equal('b');
-            expect(rcs.selectorLibrary.get('.jp-selector')).to.equal('c');
-            expect(rcs.selectorLibrary.get('jp-selector')).to.equal('c');
-
-            // should not be set
-            expect(rcs.selectorLibrary.get('.not-set')).to.equal('.not-set');
-            expect(rcs.selectorLibrary.get('not-set')).to.equal('not-set');
-
-            done();
-        });
-
-        it('should set attribute selectors correctly', () => {
-            rcs.selectorLibrary.setAttributeSelector('[class*="test"]');
-            rcs.selectorLibrary.setAttributeSelector([
-                '[id^="header"]',
-            ]);
-
-            expect(rcs.selectorLibrary.attributeSelectors['.*test']).to.be.an('object');
-            expect(rcs.selectorLibrary.attributeSelectors['.*test'].originalString).to.equal('[class*="test"]');
-            expect(rcs.selectorLibrary.attributeSelectors['#^header']).to.be.an('object');
-            expect(rcs.selectorLibrary.attributeSelectors['#^header'].originalString).to.equal('[id^="header"]');
-        });
     });
 
-    describe('get values', () => {
+    describe('get', () => {
         beforeEach(() => {
             rcs.selectorLibrary.set([
                 '.test',
@@ -130,25 +27,157 @@ describe('rcs selector library', () => {
             ]);
         });
 
-        it('should not get a unset value', done => {
-            expect(rcs.selectorLibrary.get('.test1')).to.equal('.test1');
-            expect(rcs.selectorLibrary.get('test1')).to.equal('test1');
+        it('should not get any', () => {
+            const selector = rcs.selectorLibrary.get('.nothing-to-get');
 
-            done();
+            expect(selector).to.equal('.nothing-to-get');
         });
 
-        it('should get all setted classes', done => {
+        it('should get every single selectors', () => {
+            const dotTestSelector = rcs.selectorLibrary.get('.test');
+            const testSelector = rcs.selectorLibrary.get('test');
+
+            expect(dotTestSelector).to.equal('a');
+            expect(testSelector).to.equal('a');
+        });
+
+        it('should not get excluded selector', () => {
+            rcs.selectorLibrary.excludes = ['test'];
+
+            const dotTestSelector = rcs.selectorLibrary.get('.test');
+            const testSelector = rcs.selectorLibrary.get('test');
+
+            expect(dotTestSelector).to.equal('.test');
+            expect(testSelector).to.equal('test');
+        });
+    });
+
+    describe('getAll', () => {
+        beforeEach(() => {
+            rcs.selectorLibrary.set([
+                '.test',
+                '#id',
+                '.jp-selector'
+            ]);
+        });
+
+        it('should return a regex of compressed with classes', () => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: false,
+                regex: true,
+                isSelectors: true
+            });
+
+            expect(regex).to.match(/\.a|#b|\.c/g);
+        });
+
+        it('should return an array with selectors', () => {
+            const array = rcs.selectorLibrary.getAll({
+                origValues: true,
+                isSelectors: true
+            });
+
+            expect(array).to.have.any.keys('.test', '#id', '.jp-selector');
+            expect(array).to.not.have.any.keys('.a', '#b', '.c');
+            expect(array['.test']).to.equal('a');
+            expect(array['#id']).to.equal('b');
+        });
+
+        it('should return an array with compressed selectors', () => {
+            const array = rcs.selectorLibrary.getAll({
+                origValues: false,
+                isSelectors: true
+            });
+
+            expect(array).to.have.any.keys('.a', '#b', '.c');
+            expect(array).to.not.have.any.keys('.test', '#id', '.jp-selector');
+            expect(array['.a']).to.equal('test');
+            expect(array['#b']).to.equal('id');
+        });
+
+        it('should return a regex of non compressed with classes', () => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: true,
+                regex: true,
+                isSelectors: true
+            });
+
+            expect(regex).to.match(/\.test|#id|\.jp-selector/g);
+        });
+
+        it('should return a regex of non compressed selecotrs', () => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: false,
+                regex: true
+            });
+
+            expect(regex).to.match(/a|b|c/g);
+        });
+
+        it('should return a regex of compressed selectors', () => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: true,
+                regex: true
+            });
+
+            expect(regex).to.match(/test|id|jp-selector/g);
+        });
+
+        it('should get all extended', () => {
+            const cssObject = rcs.selectorLibrary.getAll({
+                extended: true
+            });
+
+            expect(cssObject['test']).to.be.an('object');
+            expect(cssObject['test'].type).to.equal('class');
+            expect(cssObject['test'].compressedSelector).to.equal('a');
+
+            expect(cssObject['id']).to.be.an('object');
+            expect(cssObject['id'].type).to.equal('id');
+            expect(cssObject['id'].compressedSelector).to.equal('b');
+        });
+
+        it('should get all extended with selectors', () => {
+            const cssObject = rcs.selectorLibrary.getAll({
+                isSelectors: true,
+                extended: true
+            });
+
+            expect(cssObject['.test']).to.be.an('object');
+            expect(cssObject['.test'].type).to.equal('class');
+            expect(cssObject['.test'].compressedSelector).to.equal('a');
+
+            expect(cssObject['#id']).to.be.an('object');
+            expect(cssObject['#id'].type).to.equal('id');
+            expect(cssObject['#id'].compressedSelector).to.equal('b');
+        });
+
+        it('should get all normal with selectors', () => {
+            const cssObject = rcs.selectorLibrary.getAll({
+                origValues: false,
+                isSelectors: true,
+                extended: true
+            });
+
+            expect(cssObject['.a']).to.be.an('object');
+            expect(cssObject['.a'].type).to.equal('class');
+            expect(cssObject['.a'].modifiedSelector).to.equal('test');
+
+            expect(cssObject['#b']).to.be.an('object');
+            expect(cssObject['#b'].type).to.equal('id');
+            expect(cssObject['#b'].modifiedSelector).to.equal('id');
+        });
+
+        it('should get all setted classes', () => {
             const array = rcs.selectorLibrary.getAll();
 
             expect(array).to.be.an('object');
             expect(array.test).to.equal('a');
             expect(array.id).to.equal('b');
             expect(array['jp-selector']).to.equal('c');
-
-            done();
         });
 
-        it('should get all setted compressed classes', done => {
+        it('should get all setted compressed classes', () => {
             const array = rcs.selectorLibrary.getAll({
                 origValues: false,
             });
@@ -157,11 +186,9 @@ describe('rcs selector library', () => {
             expect(array.a).to.equal('test');
             expect(array.b).to.equal('id');
             expect(array.c).to.equal('jp-selector');
-
-            done();
         });
 
-        it('should get the right values with the option plainCompressed', done => {
+        it('should get the right values with the option plainCompressed', () => {
             rcs.selectorLibrary.set([
                 '.testme'
             ], {
@@ -180,142 +207,63 @@ describe('rcs selector library', () => {
             expect(plainArray.testme).to.equal('d');
             expect(array.test).to.equal('a');
             expect(array.testme).to.equal('prefix-d');
+        });
+    });
 
-            done();
+    describe('set', () => {
+        it('should set nothing', () => {
+            rcs.selectorLibrary.set();
+
+            expect(rcs.selectorLibrary.selectors).to.be.empty;
         });
 
-        it('should return a regex of compressed with classes', done => {
-            const regex = rcs.selectorLibrary.getAll({
-                origValues: false,
-                regex: true,
-                isSelectors: true
-            });
+        it('should set a new value and get this value', () => {
+            rcs.selectorLibrary.set('.test');
 
-            expect(regex).to.match(/\.a|#b|\.c/g);
-
-            done();
+            expect(rcs.selectorLibrary.selectors['test'].compressedSelector).to.equal('a');
         });
 
-        it('should return an array with selectors', done => {
-            const array = rcs.selectorLibrary.getAll({
-                origValues: true,
-                isSelectors: true
-            });
+        it('should set a new custom value', () => {
+            rcs.selectorLibrary.set('.test', 'random-name');
 
-            expect(array).to.have.any.keys('.test', '#id', '.jp-selector');
-            expect(array).to.not.have.any.keys('.a', '#b', '.c');
-            expect(array['.test']).to.equal('a');
-            expect(array['#id']).to.equal('b');
-
-            done();
+            expect(rcs.selectorLibrary.selectors['test'].compressedSelector).to.equal('random-name');
         });
 
-        it('should return an array with compressed selectors', done => {
-            const array = rcs.selectorLibrary.getAll({
-                origValues: false,
-                isSelectors: true
-            });
+        it('should set a new custom value', () => {
+            rcs.selectorLibrary.set('.test', 'random-name');
+            rcs.selectorLibrary.set('.test2', 'random-name');
+            rcs.selectorLibrary.set('.test3', 'random-name');
 
-            expect(array).to.have.any.keys('.a', '#b', '.c');
-            expect(array).to.not.have.any.keys('.test', '#id', '.jp-selector');
-            expect(array['.a']).to.equal('test');
-            expect(array['#b']).to.equal('id');
-
-            done();
+            expect(rcs.selectorLibrary.selectors['test'].compressedSelector).to.equal('random-name');
+            expect(rcs.selectorLibrary.selectors['test2'].compressedSelector).to.equal('a');
+            expect(rcs.selectorLibrary.selectors['test3'].compressedSelector).to.equal('b');
         });
 
-        it('should return a regex of non compressed with classes', done => {
-            const regex = rcs.selectorLibrary.getAll({
-                origValues: true,
-                regex: true,
-                isSelectors: true
-            });
+        it('should set a new custom value with selector type', () => {
+            rcs.selectorLibrary.set('.test', '.random-name');
 
-            expect(regex).to.match(/\.test|#id|\.jp-selector/g);
-
-            done();
+            expect(rcs.selectorLibrary.selectors['test'].compressedSelector).to.equal('random-name');
         });
 
-        it('should return a regex of non compressed selecotrs', done => {
-            const regex = rcs.selectorLibrary.getAll({
-                origValues: false,
-                regex: true
-            });
+        it('should set values out of an array', () => {
+            rcs.selectorLibrary.set([
+                '.test',
+                '#id',
+                '.jp-selector'
+            ]);
 
-            expect(regex).to.match(/a|b|c/g);
+            // should be set
+            expect(rcs.selectorLibrary.selectors['test'].compressedSelector).to.equal('a');
+            expect(rcs.selectorLibrary.selectors['id'].compressedSelector).to.equal('b');
+            expect(rcs.selectorLibrary.selectors['jp-selector'].compressedSelector).to.equal('c');
 
-            done();
-        });
-
-        it('should return a regex of compressed selectors', done => {
-            const regex = rcs.selectorLibrary.getAll({
-                origValues: true,
-                regex: true
-            });
-
-            expect(regex).to.match(/test|id|jp-selector/g);
-
-            done();
-        });
-
-        it('should get all extended', done => {
-            const cssObject = rcs.selectorLibrary.getAll({
-                extended: true
-            });
-
-            expect(cssObject['test']).to.be.an('object');
-            expect(cssObject['test'].type).to.equal('class');
-            expect(cssObject['test'].compressedSelector).to.equal('a');
-
-            expect(cssObject['id']).to.be.an('object');
-            expect(cssObject['id'].type).to.equal('id');
-            expect(cssObject['id'].compressedSelector).to.equal('b');
-
-            done();
-        });
-
-        it('should get all extended with selectors', done => {
-            const cssObject = rcs.selectorLibrary.getAll({
-                isSelectors: true,
-                extended: true
-            });
-
-            expect(cssObject['.test']).to.be.an('object');
-            expect(cssObject['.test'].type).to.equal('class');
-            expect(cssObject['.test'].compressedSelector).to.equal('a');
-
-            expect(cssObject['#id']).to.be.an('object');
-            expect(cssObject['#id'].type).to.equal('id');
-            expect(cssObject['#id'].compressedSelector).to.equal('b');
-
-            done();
-        });
-
-        it('should get all normal with selectors', done => {
-            const cssObject = rcs.selectorLibrary.getAll({
-                origValues: false,
-                isSelectors: true,
-                extended: true
-            });
-
-            expect(cssObject['.a']).to.be.an('object');
-            expect(cssObject['.a'].type).to.equal('class');
-            expect(cssObject['.a'].modifiedSelector).to.equal('test');
-
-            expect(cssObject['#b']).to.be.an('object');
-            expect(cssObject['#b'].type).to.equal('id');
-            expect(cssObject['#b'].modifiedSelector).to.equal('id');
-
-            done();
+            // should not be set
+            expect(rcs.selectorLibrary.selectors['not-set']).to.not.exist;
         });
     });
 
     describe('setExclude', () => {
-        beforeEach(() => {
-            rcs.selectorLibrary.excludes = []
-        });
-
-        it('should avoid adding more of the same exludes | should enable array', done => {
+        it('should avoid adding more of the same exludes | should enable array', () => {
             const excludes = [
                 'one-value',
                 'one-value',
@@ -325,11 +273,9 @@ describe('rcs selector library', () => {
             rcs.selectorLibrary.setExclude(excludes);
 
             expect(rcs.selectorLibrary.excludes.length).to.equal(2);
-
-            done();
         });
 
-        it('should enable array', done => {
+        it('should enable array', () => {
             const excludes = [
                 'one-value',
                 'another-value'
@@ -338,17 +284,55 @@ describe('rcs selector library', () => {
             rcs.selectorLibrary.setExclude(excludes);
 
             expect(rcs.selectorLibrary.excludes.length).to.equal(2);
-
-            done();
         });
 
-        it('should enable excludes', done => {
+        it('should enable excludes', () => {
             rcs.selectorLibrary.setExclude('one-value');
             rcs.selectorLibrary.setExclude('second-value');
 
             expect(rcs.selectorLibrary.excludes.length).to.equal(2);
-
-            done();
         });
+    });
+
+    describe('setValue', () => {
+        it('should set an object value', () => {
+            const setValueObject = rcs.selectorLibrary.setValue('.test');
+
+            expect(setValueObject.type).to.equal('class');
+            expect(setValueObject.selector).to.equal('.test');
+            expect(setValueObject.compressedSelector).to.equal('a');
+        });
+    });
+
+    describe('setValues', () => {
+        it('should set multiple values', () => {
+            rcs.selectorLibrary.setValues({
+                '.test': 'a',
+                '.class': '.b',
+                '.selector': 'c'
+            });
+
+            expect(rcs.selectorLibrary.selectors['test'].compressedSelector).to.equal('a');
+            expect(rcs.selectorLibrary.selectors['class'].compressedSelector).to.equal('b');
+            expect(rcs.selectorLibrary.selectors['selector'].compressedSelector).to.equal('c');
+        });
+    });
+
+    describe('setAttributeSelector', () => {
+        it('should set attribute selectors correctly', () => {
+            rcs.selectorLibrary.setAttributeSelector('[class*="test"]');
+            rcs.selectorLibrary.setAttributeSelector([
+                '[id^="header"]',
+            ]);
+
+            expect(rcs.selectorLibrary.attributeSelectors['.*test']).to.be.an('object');
+            expect(rcs.selectorLibrary.attributeSelectors['.*test'].originalString).to.equal('[class*="test"]');
+            expect(rcs.selectorLibrary.attributeSelectors['#^header']).to.be.an('object');
+            expect(rcs.selectorLibrary.attributeSelectors['#^header'].originalString).to.equal('[id^="header"]');
+        });
+    });
+
+    describe('isInAttributeSelector', () => {
+
     });
 });

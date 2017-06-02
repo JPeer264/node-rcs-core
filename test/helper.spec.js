@@ -38,7 +38,9 @@ describe('helper.js', () => {
                 done();
             });
         });
+    });
 
+    describe('saveSync', () => {
         it('should save SYNC', () => {
             const filePath = path.join(testCwd, '/config.txt');
 
