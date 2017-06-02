@@ -111,6 +111,7 @@ describe('a test', () => {
 - [fileCssSync](#filecss)
 - [buffer](#buffer)
 - [bufferCss](#buffercss)
+- [bufferJs](#bufferjs)
 - [string](#string)
 
 
@@ -196,6 +197,22 @@ Example:
 ```js
 const rcs = require('rcs-core');
 const replacedBuffer = rcs.replace.buffer(new Buffer('#my-id: {}', { replaceKeyframes: true });
+```
+
+##### bufferJs
+
+> Replaces all selectors in strings of a JavaScript file
+
+**rcs.replace.bufferJs(Buffer[, options])**
+
+Options:
+- jsx (boolean): If `true` it also parses jsx html strings. Default `false`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+const replacedBuffer = rcs.replace.bufferJs(new Buffer('#my-id: {}', { jsx: true });
 ```
 
 ##### string
