@@ -32,9 +32,9 @@ describe('rcs file replace', () => {
             });
 
             it('should return the modified css buffer', () => {
-                const data = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style.css'));
+                const data = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style.css'));
 
-                expect(decoder.write(data)).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
+                expect(decoder.write(data)).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
             });
 
             it('should return the modified and minified css buffer', () => {
@@ -44,11 +44,11 @@ describe('rcs file replace', () => {
             });
 
             it('should modify the second one with the values from the first', () => {
-                const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style.css'));
-                const buffer2 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style2.css'));
+                const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style.css'));
+                const buffer2 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style2.css'));
 
-                expect(decoder.write(buffer1)).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
-                expect(decoder.write(buffer2)).to.equal(fs.readFileSync(resultsCwd + '/style2.css', 'utf8'));
+                expect(decoder.write(buffer1)).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
+                expect(decoder.write(buffer2)).to.equal(fs.readFileSync(resultsCwd + '/css/style2.css', 'utf8'));
             });
 
             it('should modify the code properly | hex oneline', () => {
@@ -224,8 +224,8 @@ describe('rcs file replace', () => {
         });
 
         describe('bufferJs', () => {
-            it.only('should buffer some js', () => {
-                rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/style.css', 'utf8'));
+            it('should buffer some js', () => {
+                rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
 
                 rcs.replace.bufferJs(new Buffer(`
                     var test = ' something ';
@@ -252,69 +252,69 @@ describe('rcs file replace', () => {
 
         describe('file', () => {
             it('should return the modified css file', done => {
-                rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
+                rcs.replace.fileCss(fixturesCwd + '/css/style.css', (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
 
                     done();
                 });
             });
 
             it('should prefix all selectors', done => {
-                rcs.replace.fileCss(fixturesCwd + '/style.css', {
+                rcs.replace.fileCss(fixturesCwd + '/css/style.css', {
                     prefix: 'prefixed-'
                 }, (err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style-prefix.css', 'utf8'));
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css/style-prefix.css', 'utf8'));
 
                     done();
                 });
             });
 
             it('should prefix all selectors with no random name', done => {
-                rcs.replace.fileCss(fixturesCwd + '/style.css', {
+                rcs.replace.fileCss(fixturesCwd + '/css/style.css', {
                     prefix: 'prefixed-',
                     preventRandomName: true
                 }, (err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style-prefix-preventrandomname.css', 'utf8'));
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css/style-prefix-preventrandomname.css', 'utf8'));
 
                     done();
                 });
             });
 
             it('should replace the selector attributes correctly', done => {
-                rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', (err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css-attributes.css', 'utf8'));
+                rcs.replace.fileCss(fixturesCwd + '/css/css-attributes.css', (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css/css-attributes.css', 'utf8'));
 
                     done();
                 });
             });
 
             it('should replace the selector attributes with pre and suffixes correctly', done => {
-                rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', {
+                rcs.replace.fileCss(fixturesCwd + '/css/css-attributes.css', {
                     prefix: 'prefix-',
                     suffix: '-suffix'
                 },(err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css-attributes-pre-suffix.css', 'utf8'));
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css/css-attributes-pre-suffix.css', 'utf8'));
 
                     done();
                 });
             });
 
             it('should replace the selector attributes without caring about attribute selectors', done => {
-                rcs.replace.fileCss(fixturesCwd + '/css-attributes.css', {
+                rcs.replace.fileCss(fixturesCwd + '/css/css-attributes.css', {
                     prefix: 'prefix-',
                     suffix: '-suffix',
                     ignoreAttributeSelector: true
                 },(err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css-attributes-ignore.css', 'utf8'));
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css/css-attributes-ignore.css', 'utf8'));
 
                     done();
                 });
             });
 
             it('should modify the second one with the values from the first', done => {
-                rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
-                    rcs.replace.fileCss(fixturesCwd + '/style2.css', (err, data) => {
-                        expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style2.css', 'utf8'));
+                rcs.replace.fileCss(fixturesCwd + '/css/style.css', (err, data) => {
+                    rcs.replace.fileCss(fixturesCwd + '/css/style2.css', (err, data) => {
+                        expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/css/style2.css', 'utf8'));
 
                         done();
                     });
@@ -333,11 +333,11 @@ describe('rcs file replace', () => {
 
         describe('fileSync', () => {
             it('should replace the selector attributes correctly', () => {
-                const cssData = rcs.replace.fileCssSync(fixturesCwd + '/style.css');
-                const htmlData = rcs.replace.fileSync(fixturesCwd + '/index.html');
+                const cssData = rcs.replace.fileCssSync(fixturesCwd + '/css/style.css');
+                const htmlData = rcs.replace.fileSync(fixturesCwd + '/html/index.html');
 
-                expect(cssData.data).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
-                expect(htmlData.data).to.equal(fs.readFileSync(resultsCwd + '/index.html', 'utf8'));
+                expect(cssData.data).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
+                expect(htmlData.data).to.equal(fs.readFileSync(resultsCwd + '/html/index.html', 'utf8'));
             });
         });
     });
@@ -356,21 +356,21 @@ describe('rcs file replace', () => {
                 expect(decoder.write(data)).to.equal('');
             });
 
-            it.only('should return the modified html buffer', () => {
-                const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style.css'));
-                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/index.html'));
+            it('should return the modified html buffer', () => {
+                const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style.css'));
+                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/html/index.html'));
 
-                expect(decoder.write(buffer1)).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
-                expect(decoder.write(buffer2)).to.equal(fs.readFileSync(resultsCwd + '/index.html', 'utf8'));
+                expect(decoder.write(buffer1)).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
+                expect(decoder.write(buffer2)).to.equal(fs.readFileSync(resultsCwd + '/html/index.html', 'utf8'));
             });
 
             it('should return the modified js buffer', () => {
                 // `js` file imported as `txt` to avoid having mocha-phantomjs
-                const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style.css'));
-                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/main.txt'));
+                const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style.css'));
+                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/js/main.txt'));
 
-                expect(decoder.write(buffer1)).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
-                expect(decoder.write(buffer2)).to.equal(fs.readFileSync(resultsCwd + '/main.txt', 'utf8'));
+                expect(decoder.write(buffer1)).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
+                expect(decoder.write(buffer2)).to.equal(fs.readFileSync(resultsCwd + '/js/main.txt', 'utf8'));
             });
         });
 
@@ -385,9 +385,9 @@ describe('rcs file replace', () => {
             });
 
             it('should return the modified html file', done => {
-                rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
-                    rcs.replace.file(fixturesCwd + '/index.html', (err, data) => {
-                        expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/index.html', 'utf8'));
+                rcs.replace.fileCss(fixturesCwd + '/css/style.css', (err, data) => {
+                    rcs.replace.file(fixturesCwd + '/html/index.html', (err, data) => {
+                        expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/html/index.html', 'utf8'));
 
                         done();
                     });
@@ -396,9 +396,9 @@ describe('rcs file replace', () => {
 
             it('should return the modified js file', done => {
                 // `js` file imported as `txt` to avoid having mocha-phantomjs
-                rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
-                    rcs.replace.file(fixturesCwd + '/main.txt', (err, data) => {
-                        expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/main.txt', 'utf8'));
+                rcs.replace.fileCss(fixturesCwd + '/css/style.css', (err, data) => {
+                    rcs.replace.file(fixturesCwd + '/js/main.txt', (err, data) => {
+                        expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/js/main.txt', 'utf8'));
 
                         done();
                     });
