@@ -136,8 +136,8 @@ describe('replace', () => {
             it('should return the modified js file', done => {
                 rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'))
 
-                rcs.replace.file(fixturesCwd + '/js/main.txt', (err, data) => {
-                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/js/main.txt', 'utf8'));
+                rcs.replace.file(fixturesCwd + '/js/main.js', (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/js/main.js', 'utf8'));
 
                     done();
                 });
@@ -350,30 +350,40 @@ describe('replace', () => {
         });
 
         describe('replace.bufferJs', () => {
-            it('should buffer some js', () => {
-                // @todo specify asserts
-                rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
+            beforeEach(() => rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8')));
 
-                rcs.replace.bufferJs(new Buffer(`
+            it('should buffer some js', () => {
+                const bufferedJs = rcs.replace.bufferJs(new Buffer(`
                     var test = ' something ';
                     const myClass = "jp-block";
-                    const lala = require('styled-components');
-                    import styled from 'styled-components';
-
-                    styled.div\`
-                        color: red;
-                    \`;
-
-                    function test () {
-                        return (
-                            <div class="klasse"></div>
-                        )
-                    }
-
-                    test('lala')
-
-                    // something
                 `))
+                const expectedOutput = `
+                    var test = ' something ';
+                    const myClass = "a";
+                `;
+
+                expect(bufferedJs.toString()).to.equal(expectedOutput);
+            });
+
+            it('should replace everything', () => {
+                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/complex.js'));
+                const expectedOutput = fs.readFileSync(resultsCwd + '/js/complex.js', 'utf8');
+
+                expect(bufferedJs.toString()).to.equal(expectedOutput);
+            });
+
+            it('should not replace react components', () => {
+                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.js'));
+                const expectedOutput = fs.readFileSync(fixturesCwd + '/js/react.js', 'utf8');
+
+                expect(bufferedJs.toString()).to.equal(expectedOutput);
+            });
+
+            it('should replace react components', () => {
+                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.js'), { jsx: true });
+                const expectedOutput = fs.readFileSync(resultsCwd + '/js/react.js', 'utf8');
+
+                expect(bufferedJs.toString()).to.equal(expectedOutput);
             });
         });
 
@@ -395,9 +405,9 @@ describe('replace', () => {
             it('should return the modified js buffer', () => {
                 rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
 
-                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/js/main.txt'));
+                const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/js/main.js'));
 
-                expect(buffer2.toString()).to.equal(fs.readFileSync(resultsCwd + '/js/main.txt', 'utf8'));
+                expect(buffer2.toString()).to.equal(fs.readFileSync(resultsCwd + '/js/main.js', 'utf8'));
             });
         });
     });
