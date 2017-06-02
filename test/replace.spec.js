@@ -223,6 +223,33 @@ describe('rcs file replace', () => {
             });
         });
 
+        describe('bufferJs', () => {
+            it.only('should buffer some js', () => {
+                rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/style.css', 'utf8'));
+
+                rcs.replace.bufferJs(new Buffer(`
+                    var test = ' something ';
+                    const myClass = "jp-block";
+                    const lala = require('styled-components');
+                    import styled from 'styled-components';
+
+                    styled.div\`
+                        color: red;
+                    \`;
+
+                    function test () {
+                        return (
+                            <div class="klasse"></div>
+                        )
+                    }
+
+                    test('lala')
+
+                    // something
+                `))
+            });
+        });
+
         describe('file', () => {
             it('should return the modified css file', done => {
                 rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
@@ -329,7 +356,7 @@ describe('rcs file replace', () => {
                 expect(decoder.write(data)).to.equal('');
             });
 
-            it('should return the modified html buffer', () => {
+            it.only('should return the modified html buffer', () => {
                 const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/style.css'));
                 const buffer2 = rcs.replace.buffer(fs.readFileSync(fixturesCwd + '/index.html'));
 
