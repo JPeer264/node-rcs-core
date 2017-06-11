@@ -65,16 +65,4 @@ describe('helper.js', () => {
             expect(fs.readFileSync(filePath, 'utf8')).to.equal(oldFile);
         });
     });
-
-    describe('objectToJson', () => {
-        it('should generatea readable json string from a json object', done => {
-            const object = { a: 1, b:2, c:3 };
-            const jsonString = rcs.helper.objectToJson(object);
-
-            expect(object).to.be.a('object');
-            expect(jsonString).to.be.a('string');
-
-            done();
-        });
-    });
 });

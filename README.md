@@ -24,7 +24,6 @@
 #### Methods
 - [save](#save)
 - [saveSync](#save)
-- [objectToJson](#objecttojson)
 
 ##### save
 
@@ -48,19 +47,6 @@ rcs.helper.save('/my/path/file.txt', 'My data', err => {
 
     console.log('The file has been successfully created!');
 });
-```
-
-##### objectToJson
-
-> This will beautify a json object and returns a string
-
-**rcs.helper.objectToJson(object[, indentation])**
-
-Example:
-
-```js
-const rcs = require('rcs-core');
-const beautifiedString = rcs.helper.objectToJson({ key: 'value' }, '\t');
 ```
 
 ### rcs.nameGenerator
