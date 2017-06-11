@@ -246,11 +246,18 @@ describe('replace', () => {
                 expect(replacedJs).to.equal(expectedOutput);
             });
 
-            it('should replace everything', () => {
+            it('should replace everything from buffered file', () => {
                 const bufferedJs = rcs.replace.js(fs.readFileSync(fixturesCwd + '/js/complex.txt'));
                 const expectedOutput = fs.readFileSync(resultsCwd + '/js/complex.txt', 'utf8');
 
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
+            });
+
+            it('should replace everything from utf8 file', () => {
+                const replacedJs = rcs.replace.js(fs.readFileSync(fixturesCwd + '/js/complex.txt', 'utf8'));
+                const expectedOutput = fs.readFileSync(resultsCwd + '/js/complex.txt', 'utf8');
+
+                expect(replacedJs.toString()).to.equal(expectedOutput);
             });
 
             it('should replace react components', () => {
