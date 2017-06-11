@@ -1,6 +1,6 @@
 {
   "name": "rcs-core",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "The core of rename-css-selectors",
   "main": "lib/rcs.js",
   "scripts": {
