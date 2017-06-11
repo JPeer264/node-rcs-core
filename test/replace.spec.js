@@ -24,43 +24,43 @@ describe('replace', () => {
     });
 
     describe('replace.buffer*', () => {
-        describe('replace.bufferCss', () => {
+        describe('replace.css', () => {
             it('should return the modified css buffer', () => {
-                const data = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style.css'));
+                const code = rcs.replace.css(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
 
-                expect(data.toString()).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
+                expect(code).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
             });
 
             it('should return the modified and minified css buffer', () => {
-                const data = rcs.replace.bufferCss(new Buffer('.class{background-color:red}.class-two{color:rgb(0,0,0)}.class-three{color:rgb(1,1,1)}'));
+                const code = rcs.replace.css('.class{background-color:red}.class-two{color:rgb(0,0,0)}.class-three{color:rgb(1,1,1)}');
 
-                expect(data.toString()).to.equal('.a{background-color:red}.b{color:rgb(0,0,0)}.c{color:rgb(1,1,1)}');
+                expect(code).to.equal('.a{background-color:red}.b{color:rgb(0,0,0)}.c{color:rgb(1,1,1)}');
             });
 
             it('should modify the second one with the values from the first', () => {
-                const buffer1 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style.css'));
-                const buffer2 = rcs.replace.bufferCss(fs.readFileSync(fixturesCwd + '/css/style2.css'));
+                const code = rcs.replace.css(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
+                const code2 = rcs.replace.css(fs.readFileSync(fixturesCwd + '/css/style2.css', 'utf8'));
 
-                expect(buffer1.toString()).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
-                expect(buffer2.toString()).to.equal(fs.readFileSync(resultsCwd + '/css/style2.css', 'utf8'));
+                expect(code).to.equal(fs.readFileSync(resultsCwd + '/css/style.css', 'utf8'));
+                expect(code2).to.equal(fs.readFileSync(resultsCwd + '/css/style2.css', 'utf8'));
             });
 
             it('should modify the code properly | hex oneline', () => {
-                const data = rcs.replace.bufferCss(new Buffer('.somediv{background:#616060}.anotherdiv{display:flex}'));
+                const code = rcs.replace.css('.somediv{background:#616060}.anotherdiv{display:flex}');
 
-                expect(data.toString()).to.equal('.a{background:#616060}.b{display:flex}');
+                expect(code).to.equal('.a{background:#616060}.b{display:flex}');
             });
 
             it('should modify the code properly | number oneline', () => {
-                const data = rcs.replace.bufferCss(new Buffer('.somediv{translation:.30}.anotherdiv{display:flex}'));
+                const code = rcs.replace.css('.somediv{translation:.30}.anotherdiv{display:flex}');
 
-                expect(data.toString()).to.equal('.a{translation:.30}.b{display:flex}');
+                expect(code).to.equal('.a{translation:.30}.b{display:flex}');
             });
 
             it('should modify the code properly | filter oneline', () => {
-                const data = rcs.replace.bufferCss(new Buffer('.somediv{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.anotherdiv{display:flex}'));
+                const code = rcs.replace.css('.somediv{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.anotherdiv{display:flex}');
 
-                expect(data.toString()).to.equal('.a{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.b{display:flex}');
+                expect(code).to.equal('.a{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.b{display:flex}');
             });
 
             it('should replace keyframes properly', () => {
@@ -91,9 +91,9 @@ describe('replace', () => {
                         animation:     a     4s    ;
                     }
                 `;
-                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
+                const data = rcs.replace.css(string, { replaceKeyframes: true });
 
-                expect(data.toString()).to.equal(expectedString);
+                expect(data).to.equal(expectedString);
             });
 
             it('should replace keyframes properly in nested animations', () => {
@@ -148,9 +148,9 @@ describe('replace', () => {
                         animation:     a     4s  , b 10s  ;
                     }
                 `;
-                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
+                const data = rcs.replace.css(string, { replaceKeyframes: true });
 
-                expect(data.toString()).to.equal(expectedString);
+                expect(data).to.equal(expectedString);
             });
 
             it('should not replace keyframes properly', () => {
@@ -181,47 +181,47 @@ describe('replace', () => {
                         animation:     move     4s    ;
                     }
                 `;
-                const data = rcs.replace.bufferCss(new Buffer(string));
+                const data = rcs.replace.css(string);
 
-                expect(data.toString()).to.equal(expectedString);
+                expect(data).to.equal(expectedString);
             });
 
             it('should replace keyframes properly in a oneliner', () => {
                 const string = '@keyframes  move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation:     move     4s    }';
                 const expectedString = '@keyframes  a {from {} to {}}.b {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.c {animation:     a     4s    }';
-                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
+                const data = rcs.replace.css(string, { replaceKeyframes: true });
 
-                expect(data.toString()).to.equal(expectedString);
+                expect(data).to.equal(expectedString);
             });
 
             it('should replace media queries properly in a oneliner', () => {
                 const string = '@media(max-width:480px){.one{display:block}.two{display:table}}';
                 const expectedString = '@media(max-width:480px){.a{display:block}.b{display:table}}';
-                const data = rcs.replace.bufferCss(new Buffer(string));
+                const data = rcs.replace.css(string);
 
-                expect(data.toString()).to.equal(expectedString);
+                expect(data).to.equal(expectedString);
             });
 
             it('should replace sizes at the end w/o semicolon properly in a oneliner', () => {
                 const string = '.one{padding:0 .357143rem}.two{color:#0f705d}';
                 const expectedString = '.a{padding:0 .357143rem}.b{color:#0f705d}';
-                const data = rcs.replace.bufferCss(new Buffer(string), { replaceKeyframes: true });
+                const data = rcs.replace.css(string, { replaceKeyframes: true });
 
-                expect(data.toString()).to.equal(expectedString);
+                expect(data).to.equal(expectedString);
             });
 
             it('should fail - empty buffer', () => {
-                const data = rcs.replace.bufferCss(new Buffer(''));
+                const data = rcs.replace.css('');
 
-                expect(data.toString()).to.equal('');
+                expect(data).to.equal('');
             });
         });
 
-        describe('replace.bufferJs', () => {
+        describe('replace.js', () => {
             beforeEach(() => rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8')));
 
             it('should buffer some js', () => {
-                const bufferedJs = rcs.replace.bufferJs(new Buffer(`
+                const bufferedJs = rcs.replace.js(new Buffer(`
                     var test = ' something ';
                     const myClass = "jp-block";
                 `))
@@ -233,15 +233,28 @@ describe('replace', () => {
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
             });
 
+            it('should convert js by code', () => {
+                const replacedJs = rcs.replace.js(`
+                    var test = ' something ';
+                    const myClass = "jp-block";
+                `)
+                const expectedOutput = `
+                    var test = ' something ';
+                    const myClass = "a";
+                `;
+
+                expect(replacedJs).to.equal(expectedOutput);
+            });
+
             it('should replace everything', () => {
-                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/complex.txt'));
+                const bufferedJs = rcs.replace.js(fs.readFileSync(fixturesCwd + '/js/complex.txt'));
                 const expectedOutput = fs.readFileSync(resultsCwd + '/js/complex.txt', 'utf8');
 
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
             });
 
             it('should replace react components', () => {
-                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.txt'), { jsx: true });
+                const bufferedJs = rcs.replace.js(fs.readFileSync(fixturesCwd + '/js/react.txt'), { jsx: true });
                 const expectedOutput = fs.readFileSync(resultsCwd + '/js/react.txt', 'utf8');
 
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
