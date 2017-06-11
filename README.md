@@ -105,10 +105,6 @@ describe('a test', () => {
 #### Methods
 
 - [regex](#regex)
-- [file](#file)
-- [fileSync](#file)
-- [fileCss](#filecss)
-- [fileCssSync](#filecss)
 - [buffer](#buffer)
 - [bufferCss](#buffercss)
 - [bufferJs](#bufferjs)
@@ -118,56 +114,6 @@ describe('a test', () => {
 ##### regex
 
 > An object with all regular expressions used in rcs-core
-
-##### file
-
-> Reads a file and replaces all selectors which are stored in `rcs.selectorLibrary`
-
-> Note: runs internally `buffer`
-
-**rcs.replace.file(filepath[, options], cb)**
-
-Sync: `fileSync`
-
-Example:
-
-```js
-const rcs = require('rcs-core');
-
-rcs.replace.file('./my/file/script.js', (err, data) => {
-    if (err) return console.log(err);
-
-    // the minified datastring
-    console.log(data.data);
-    // the filepath
-    console.log(data.filepath);
-});
-```
-
-##### fileCss
-
-> Reads a CSS file, stores all selectors in `rcs.selectorLibrary` and replaces them (basically the same as [bufferCss](#buffercss))
-
-Options: [see here](#buffercss)
-
-**rcs.replace.fileCss(filepath[, options], cb)**
-
-Sync: `fileCssSync`
-
-Example:
-
-```js
-const rcs = require('rcs-core');
-
-rcs.replace.fileCss('./my/file/style.css', (err, data) => {
-    if (err) return console.log(err);
-
-    // the minified datastring
-    console.log(data.data);
-    // the filepath
-    console.log(data.filepath);
-});
-```
 
 ##### buffer
 
