@@ -372,13 +372,6 @@ describe('replace', () => {
                 expect(bufferedJs.toString()).to.equal(expectedOutput);
             });
 
-            it('should not replace react components', () => {
-                const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.txt'));
-                const expectedOutput = fs.readFileSync(fixturesCwd + '/js/react.txt', 'utf8');
-
-                expect(bufferedJs.toString()).to.equal(expectedOutput);
-            });
-
             it('should replace react components', () => {
                 const bufferedJs = rcs.replace.bufferJs(fs.readFileSync(fixturesCwd + '/js/react.txt'), { jsx: true });
                 const expectedOutput = fs.readFileSync(resultsCwd + '/js/react.txt', 'utf8');

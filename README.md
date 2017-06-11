@@ -201,18 +201,15 @@ const replacedBuffer = rcs.replace.buffer(new Buffer('#my-id: {}', { replaceKeyf
 
 ##### bufferJs
 
-> Replaces all selectors in strings of a JavaScript file
+> Replaces all selectors in strings of a JavaScript/JSX file
 
 **rcs.replace.bufferJs(Buffer[, options])**
-
-Options:
-- jsx (boolean): If `true` it also parses jsx html strings. Default `false`
 
 Example:
 
 ```js
 const rcs = require('rcs-core');
-const replacedBuffer = rcs.replace.bufferJs(new Buffer('#my-id: {}', { jsx: true });
+const replacedBuffer = rcs.replace.bufferJs(new Buffer('#my-id: {}');
 ```
 
 ##### string
