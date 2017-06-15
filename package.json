@@ -2,13 +2,15 @@
   "name": "rcs-core",
   "version": "1.0.0-alpha.1",
   "description": "The core of rename-css-selectors",
-  "main": "lib/rcs.js",
+  "main": "dest/rcs.js",
   "scripts": {
     "pretest": "npm run lint",
     "test": "mocha --recursive",
+    "build": "babel lib -d dest",
     "lint": "eslint lib",
     "fix": "eslint lib --fix",
     "prepush": "npm test",
+    "prepublish": "npm run build",
     "coverage": "istanbul cover _mocha -- --recursive",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
   },
@@ -30,6 +32,8 @@
   "dependencies": {
     "array-includes": "^3.0.2",
     "ast-traverse": "^0.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2",
     "decimal-to-any": "1.0.0",
     "espree": "^3.4.3",
     "fs-extra": "^2.0.0",
