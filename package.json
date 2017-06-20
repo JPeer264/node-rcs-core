@@ -5,10 +5,11 @@
   "main": "dest/rcs.js",
   "scripts": {
     "pretest": "npm run lint",
+    "ava": "ava",
     "test": "mocha --recursive",
     "build": "babel lib -d dest",
-    "lint": "eslint lib",
-    "fix": "eslint lib --fix",
+    "lint": "eslint lib __tests__",
+    "fix": "eslint lib __tests__ --fix",
     "prepush": "npm test",
     "prepublish": "npm run build",
     "coverage": "istanbul cover _mocha -- --recursive",
@@ -29,6 +30,16 @@
     "type": "git",
     "url": "https://www.github.com/jpeer264/rcs-core"
   },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+
+    "files": [
+      "__tests__"
+    ],
+    "babel": "inherit"
+  },
   "dependencies": {
     "array-includes": "^3.0.2",
     "ast-traverse": "^0.1.1",
@@ -43,6 +54,9 @@
     "recast": "^0.12.5"
   },
   "devDependencies": {
+    "ava": "^0.19.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "eslint": "^3.19.0",
