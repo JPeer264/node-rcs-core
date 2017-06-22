@@ -3,6 +3,6 @@ node_modules
 npm-debug.log
 
 **/testCache/**
-coverage
+.nyc_output
 .vscode
 dest

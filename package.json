@@ -4,15 +4,14 @@
   "description": "The core of rename-css-selectors",
   "main": "dest/rcs.js",
   "scripts": {
-    "ava": "ava",
-    "test": "mocha --recursive",
+    "pretest": "npm run lint",
+    "test": "nyc ava",
     "build": "babel lib -d dest",
     "lint": "eslint lib __tests__",
     "fix": "eslint lib __tests__ --fix",
     "prepush": "npm test",
     "prepublish": "npm run build",
-    "coverage": "istanbul cover _mocha -- --recursive",
-    "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
     "css",
@@ -58,8 +57,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "husky": "^0.13.3",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0"
+    "nyc": "^11.0.2"
   },
   "author": "Jan Peer Stöcklmair",
   "license": "MIT"

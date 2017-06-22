@@ -224,8 +224,8 @@ test('getall | should get the right values with the option plainCompressed', (t)
   rcs.selectorLibrary.set([
     '.testme',
   ], {
-      prefix: 'prefix-',
-    });
+    prefix: 'prefix-',
+  });
 
   const plainArray = rcs.selectorLibrary.getAll({
     plainCompressed: true,
