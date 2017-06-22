@@ -7,8 +7,8 @@
     "pretest": "npm run lint",
     "test": "nyc ava",
     "build": "babel lib -d dest",
-    "lint": "eslint lib __tests__",
-    "fix": "eslint lib __tests__ --fix",
+    "lint": "eslint lib test",
+    "fix": "eslint lib test --fix",
     "prepush": "npm test",
     "prepublish": "npm run build",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
@@ -29,8 +29,8 @@
     "url": "https://www.github.com/jpeer264/rcs-core"
   },
   "ava": {
-    "files": [
-      "__tests__"
+    "require": [
+      "babel-register"
     ],
     "babel": "inherit"
   },

@@ -4,7 +4,7 @@ import path from 'path';
 
 import rcs from '../lib/rcs';
 
-const testCwd = '__tests__/files/testCache';
+const testCwd = 'test/files/testCache';
 
 test.afterEach(() => {
   fs.removeSync(testCwd);

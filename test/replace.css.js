@@ -4,8 +4,8 @@ import fs from 'fs';
 
 import rcs from '../lib/rcs';
 
-const fixturesCwd = '__tests__/files/fixtures';
-const resultsCwd = '__tests__/files/results';
+const fixturesCwd = 'test/files/fixtures';
+const resultsCwd = 'test/files/results';
 
 function replaceCssMacro(t, input, expected, options = {}) {
   t.is(rcs.replace.css(input, options), expected);
