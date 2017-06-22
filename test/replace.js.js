@@ -11,7 +11,10 @@ function replaceJsMacro(t, input, expected, fillLibrary = fs.readFileSync(path.j
   rcs.selectorLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.js(input), expected);
+  t.is(rcs.replace.js(new Buffer(input)), expected);
 }
+
+replaceJsMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() : providedTitle);
 
 test.beforeEach(() => {
   // reset counter and selectors for tests
@@ -27,32 +30,19 @@ test.beforeEach(() => {
   rcs.nameGenerator.resetCountForTests();
 });
 
-test('should buffer some js',
-  replaceJsMacro,
-  new Buffer('var test = \' something \';\nconst myClass = "jp-block";'),
-  'var test = \' something \';\nconst myClass = "a";',
-);
-
-test('should convert js by code',
-  replaceJsMacro,
+test(replaceJsMacro,
   'var test = \' something \';\nconst myClass = "jp-block";',
   'var test = \' something \';\nconst myClass = "a";',
 );
 
-test('should replace everything from buffered file',
-  replaceJsMacro,
-  fs.readFileSync(path.join(fixturesCwd, '/js/complex.txt')),
-  fs.readFileSync(path.join(resultsCwd, '/js/complex.txt'), 'utf8'),
-);
-
-test('should replace everything from utf8 file',
+test('replace everything from file',
   replaceJsMacro,
   fs.readFileSync(path.join(fixturesCwd, '/js/complex.txt'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/js/complex.txt'), 'utf8'),
 );
 
-test('should replace react components',
+test('replace react components',
   replaceJsMacro,
-  fs.readFileSync(path.join(fixturesCwd, '/js/react.txt')),
+  fs.readFileSync(path.join(fixturesCwd, '/js/react.txt'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/js/react.txt'), 'utf8'),
 );

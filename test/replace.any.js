@@ -11,23 +11,10 @@ function replaceAnyMacro(t, input, expected, fillLibrary = '') {
   rcs.selectorLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.any(input), expected);
+  t.is(rcs.replace.any(new Buffer(input)), expected);
 }
 
-replaceAnyMacro.title = (providedTitle, input) => input;
-
-function replaceMultipleAnyMacro(t, inputs, expects, fillLibrary = '') {
-  t.plan(inputs.length);
-
-  const isExpectsArray = Object.prototype.toString.call(expects) === '[object Array]';
-
-  rcs.selectorLibrary.fillLibrary(fillLibrary);
-
-  inputs.forEach((input, i) => {
-    const toExpect = isExpectsArray ? expects[i] : expects;
-
-    t.is(rcs.replace.any(input), toExpect);
-  });
-}
+replaceAnyMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() : providedTitle);
 
 test.beforeEach(() => {
   // reset counter and selectors for tests
@@ -45,7 +32,7 @@ test.beforeEach(() => {
 
 test('should stay empty',
   replaceAnyMacro,
-  new Buffer(''),
+  '',
   '',
 );
 
@@ -60,22 +47,22 @@ test(replaceAnyMacro,
   'const a = \'jp-selector\';\n\tdocument.getElementById(\'nothing-to-see\');',
 );
 
+test('replace multiline strings',
+  replaceAnyMacro,
+  'const a = \'jp-selector\';\n\tdocument.getElementById(\'nothing-to-see\');',
+  'const a = \'jp-selector\';\n\tdocument.getElementById(\'nothing-to-see\');',
+);
+
 test('should return the modified html file',
-  replaceMultipleAnyMacro,
-  [
-    fs.readFileSync(path.join(fixturesCwd, '/html/index.html')),
-    fs.readFileSync(path.join(fixturesCwd, '/html/index.html'), 'utf8'),
-  ],
+  replaceAnyMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/html/index.html'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8'),
   fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
 );
 
 test('should return the modified js buffer',
-  replaceMultipleAnyMacro,
-  [
-    fs.readFileSync(path.join(fixturesCwd, '/js/main.txt')),
-    fs.readFileSync(path.join(fixturesCwd, '/js/main.txt'), 'utf8'),
-  ],
+  replaceAnyMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/js/main.txt'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/js/main.txt'), 'utf8'),
   fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
 );
