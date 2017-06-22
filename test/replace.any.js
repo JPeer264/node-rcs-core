@@ -27,7 +27,8 @@ test.beforeEach(() => {
   rcs.keyframesLibrary.keyframes = {};
   rcs.keyframesLibrary.compressedKeyframes = {};
 
-  rcs.nameGenerator.resetCountForTests();
+  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.nameGenerator.reset();
 });
 
 test('should stay empty',

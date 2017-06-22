@@ -9,7 +9,8 @@ test.beforeEach((t) => {
   rcs.selectorLibrary.attributeSelectors = {};
   rcs.selectorLibrary.compressedSelectors = {};
 
-  rcs.nameGenerator.resetCountForTests();
+  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.nameGenerator.reset();
 
   t.context.setSelectors = () => {
     rcs.selectorLibrary.set([

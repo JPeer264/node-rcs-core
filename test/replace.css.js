@@ -32,7 +32,8 @@ test.beforeEach(() => {
   rcs.keyframesLibrary.keyframes = {};
   rcs.keyframesLibrary.compressedKeyframes = {};
 
-  rcs.nameGenerator.resetCountForTests();
+  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.nameGenerator.reset();
 });
 
 test('should return the modified css buffer',
