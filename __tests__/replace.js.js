@@ -4,8 +4,8 @@ import fs from 'fs';
 
 import rcs from '../lib/rcs';
 
-const fixturesCwd = 'test/files/fixtures';
-const resultsCwd = 'test/files/results';
+const fixturesCwd = '__tests__/files/fixtures';
+const resultsCwd = '__tests__/files/results';
 
 function replaceJsMacro(t, input, expected, fillLibrary = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8')) {
   rcs.selectorLibrary.fillLibrary(fillLibrary);
