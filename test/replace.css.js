@@ -9,13 +9,15 @@ const resultsCwd = 'test/files/results';
 
 function replaceCssMacro(t, input, expected, options = {}) {
   t.is(rcs.replace.css(input, options), expected);
+  t.is(rcs.replace.css(new Buffer(input), options), expected);
 }
 
 function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
-  t.plan(inputs.length);
+  t.plan(inputs.length * 2);
 
   inputs.forEach((input, i) => {
     t.is(rcs.replace.css(input, options), expects[i]);
+    t.is(rcs.replace.css(new Buffer(input), options), expects[i]);
   });
 }
 
@@ -53,8 +55,14 @@ test('should modify the second one with the values from the first',
 
 test('should modify the second one with the values from the first',
   replaceMultipleCssMacro,
-  [fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'), fs.readFileSync(path.join(fixturesCwd, '/css/style2.css'), 'utf8')],
-  [fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8'), fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8')],
+  [
+    fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
+    fs.readFileSync(path.join(fixturesCwd, '/css/style2.css'), 'utf8'),
+  ],
+  [
+    fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8'),
+    fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8'),
+  ],
 );
 
 test('should modify the code properly | hex oneline',
