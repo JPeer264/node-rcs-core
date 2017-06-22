@@ -4,7 +4,6 @@
   "description": "The core of rename-css-selectors",
   "main": "dest/rcs.js",
   "scripts": {
-    "pretest": "npm run lint",
     "ava": "ava",
     "test": "mocha --recursive",
     "build": "babel lib -d dest",
@@ -31,10 +30,6 @@
     "url": "https://www.github.com/jpeer264/rcs-core"
   },
   "ava": {
-    "require": [
-      "babel-register"
-    ],
-
     "files": [
       "__tests__"
     ],
