@@ -35,7 +35,7 @@ test.cb('save | should not overwrite the same file', (t) => {
   });
 });
 
-test('saveSyc | should save', (t) => {
+test('saveSync | should save', (t) => {
   const filePath = path.join(testCwd, '/config.txt');
 
   rcs.helper.saveSync(filePath, 'test content');
