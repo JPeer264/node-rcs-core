@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import rcs from '../lib/rcs';
+import rcs from '../lib';
 
 test.beforeEach(() => {
   // reset counter and keyframes for tests

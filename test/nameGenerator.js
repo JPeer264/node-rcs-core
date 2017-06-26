@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import rcs from '../lib/rcs';
+import rcs from '../lib';
 
 test('generate new random name', (t) => {
   t.is(rcs.nameGenerator.generate(), 't');

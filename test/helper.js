@@ -2,7 +2,7 @@ import test from 'ava';
 import fs from 'fs-extra';
 import path from 'path';
 
-import rcs from '../lib/rcs';
+import rcs from '../lib';
 
 const testCwd = 'test/files/testCache';
 

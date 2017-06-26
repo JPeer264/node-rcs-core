@@ -2,7 +2,7 @@ import test from 'ava';
 import path from 'path';
 import fs from 'fs';
 
-import rcs from '../lib/rcs';
+import rcs from '../lib';
 
 const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
