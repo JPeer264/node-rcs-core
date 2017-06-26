@@ -2,7 +2,7 @@
   "name": "rcs-core",
   "version": "1.0.0-alpha.2",
   "description": "The core of rename-css-selectors",
-  "main": "dest/rcs.js",
+  "main": "dest",
   "scripts": {
     "pretest": "npm run lint",
     "test": "nyc ava",
