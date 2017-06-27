@@ -1,7 +1,6 @@
 {
   "presets": ["env"],
   "plugins": [
-    "add-module-exports",
-    "lodash"
+    "add-module-exports"
   ]
 }
