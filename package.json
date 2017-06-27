@@ -51,7 +51,6 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.5.2",
     "babel-register": "^6.24.1",
-    "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
