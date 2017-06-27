@@ -54,7 +54,13 @@ Example:
 
 ```js
 const rcs = require('rcs-core');
-const replacedBuffer = rcs.replace.any('#my-id: {}', { replaceKeyframes: true });
+
+// first set the id to replace
+rcs.selectorLibrary.set('#my-id');
+
+const replacedBuffer = rcs.replace.css('#my-id: {}');
+// output:
+// '#a: {}'
 ```
 
 ### js
