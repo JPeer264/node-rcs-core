@@ -8,16 +8,20 @@ const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 function replaceCssMacro(t, input, expected, options = {}) {
-  t.is(rcs.replace.css(input, options), expected);
-  t.is(rcs.replace.css(new Buffer(input), options), expected);
+  rcs.fillLibraries(input, options);
+
+  t.is(rcs.replace.css(input), expected);
+  t.is(rcs.replace.css(new Buffer(input)), expected);
 }
 
 function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
   t.plan(inputs.length * 2);
 
   inputs.forEach((input, i) => {
-    t.is(rcs.replace.css(input, options), expects[i]);
-    t.is(rcs.replace.css(new Buffer(input), options), expects[i]);
+    rcs.fillLibraries(input, options);
+
+    t.is(rcs.replace.css(input), expects[i]);
+    t.is(rcs.replace.css(new Buffer(input)), expects[i]);
   });
 }
 
@@ -34,6 +38,13 @@ test.beforeEach(() => {
 
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
+});
+
+test('should not replace anything', (t) => {
+  const input = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8');
+
+  t.is(rcs.replace.css(input), input);
+  t.is(rcs.replace.css(new Buffer(input)), input);
 });
 
 test('should return the modified css buffer',
@@ -72,6 +83,7 @@ test('should modify the code properly | hex oneline',
   '.a{background:#616060}.b{display:flex}',
 );
 
+
 test('should modify the code properly | number oneline',
   replaceCssMacro,
   '.somediv{translation:.30}.anotherdiv{display:flex}',
@@ -82,6 +94,31 @@ test('should modify the code properly | filter oneline',
   replaceCssMacro,
   '.somediv{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.anotherdiv{display:flex}',
   '.a{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.b{display:flex}',
+);
+
+test('attribute selectors not renamed',
+  replaceCssMacro,
+  '.somediv{}.anotherdiv[class^="some"]{}',
+  '.a{}.b[class^="some"]{}',
+  { ignoreAttributeSelector: true },
+);
+
+test('attribute selectors ^',
+  replaceCssMacro,
+  '.somediv{}.anotherdiv[class^="some"]{}',
+  '.somediv{}.a[class^="some"]{}',
+);
+
+test('attribute selectors *',
+  replaceCssMacro,
+  '.somediv{}.anotherdiv[class*="omed"]{}',
+  '.somediv{}.a[class*="omed"]{}',
+);
+
+test('attribute selectors $',
+  replaceCssMacro,
+  '.somediv{}.anotherdiv[class$="iv"]{}',
+  '.somediv{}.anotherdiv[class$="iv"]{}',
 );
 
 test('should replace keyframes properly',
@@ -205,6 +242,35 @@ test('should replace keyframes properly in a oneliner',
   '@keyframes  move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation:     move     4s    }',
   '@keyframes  a {from {} to {}}.b {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.c {animation:     a     4s    }',
   { replaceKeyframes: true },
+);
+
+test('should replace keyframes with suffixes',
+  replaceCssMacro,
+  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation: move 4s }',
+  '@keyframes a {from {} to {}}.b-suf {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.c-suf {animation: a 4s }',
+  {
+    replaceKeyframes: true,
+    suffix: '-suf',
+  },
+);
+
+test('should replace keyframes with prefixes',
+  replaceCssMacro,
+  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation: move 4s }',
+  '@keyframes a {from {} to {}}.pre-b {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.pre-c {animation: a 4s }',
+  {
+    replaceKeyframes: true,
+    prefix: 'pre-',
+  },
+);
+
+test('should not replace keyframes with prefixes',
+  replaceCssMacro,
+  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation: move 4s }',
+  '@keyframes move {from {} to {}}.pre-a {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.pre-b {animation: move 4s }',
+  {
+    prefix: 'pre-',
+  },
 );
 
 test('should replace media queries properly in a oneliner',
