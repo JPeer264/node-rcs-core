@@ -15,7 +15,7 @@ Sync: `saveSync`
 Parameters:
 - destinationPath `<String>`
 - data `<String>`
-- options `<Object>`:
+- options `<Object>` (optional):
     - overwrite `<Boolean>`: If it should overwrite an existing file. Default `false`.
 - cb `<Function>`: The callback which is called if it was successfull (just on async)
 

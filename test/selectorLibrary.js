@@ -41,8 +41,8 @@ test('get | should get every single selectors', (t) => {
 test('get | should get every single selectors with type char', (t) => {
   t.context.setSelectors();
 
-  const dotTestSelector = rcs.selectorLibrary.get('.test', { isSelectors: true });
-  const testSelector = rcs.selectorLibrary.get('test', { isSelectors: true });
+  const dotTestSelector = rcs.selectorLibrary.get('.test', { addSelectorType: true });
+  const testSelector = rcs.selectorLibrary.get('test', { addSelectorType: true });
 
   t.is(dotTestSelector, '.a');
   t.is(testSelector, '.a');
@@ -55,7 +55,7 @@ test('get | with pre- suffix', (t) => {
   rcs.selectorLibrary.setSuffix('-suf');
 
   const selector = rcs.selectorLibrary.get('.test');
-  const selectorWithType = rcs.selectorLibrary.get('.test', { isSelectors: true });
+  const selectorWithType = rcs.selectorLibrary.get('.test', { addSelectorType: true });
 
   t.is(selector, 'pre-a-suf');
   t.is(selectorWithType, '.pre-a-suf');
@@ -73,10 +73,10 @@ test('get | should not get excluded selector', (t) => {
   t.is(testSelector, 'test');
 });
 
-test('get | isCompressed false', (t) => {
+test('get | extend true', (t) => {
   t.context.setSelectors();
 
-  const dotTestSelector = rcs.selectorLibrary.get('.test', { isCompressed: false });
+  const dotTestSelector = rcs.selectorLibrary.get('.test', { extend: true });
 
   t.is(typeof dotTestSelector, 'object');
   t.is(dotTestSelector.compressedSelector, 'a');
@@ -91,9 +91,9 @@ test.skip('getall | should return a regex of compressed with classes', (t) => {
   t.context.setSelectors();
 
   const regex = rcs.selectorLibrary.getAll({
-    origValues: false,
+    getRenamedValues: true,
     regex: true,
-    isSelectors: true,
+    addSelectorType: true,
   });
 
   t.is(regex, /\.a|#b|\.c/g);
@@ -103,8 +103,7 @@ test('getall | should return an array with selectors', (t) => {
   t.context.setSelectors();
 
   const array = rcs.selectorLibrary.getAll({
-    origValues: true,
-    isSelectors: true,
+    addSelectorType: true,
   });
 
   t.truthy(array['.test']);
@@ -123,9 +122,10 @@ test('getall | should return an array with compressed selectors', (t) => {
   t.context.setSelectors();
 
   const array = rcs.selectorLibrary.getAll({
-    origValues: false,
-    isSelectors: true,
+    getRenamedValues: true,
+    addSelectorType: true,
   });
+
 
   t.falsy(array['.test']);
   t.falsy(array['#id']);
@@ -143,9 +143,8 @@ test.skip('getall | should return a regex of non compressed with classes', (t) =
   t.context.setSelectors();
 
   const regex = rcs.selectorLibrary.getAll({
-    origValues: true,
     regex: true,
-    isSelectors: true,
+    addSelectorType: true,
   });
 
   t.is(regex, /\.test|#id|\.jp-selector/g);
@@ -155,7 +154,7 @@ test.skip('getall | should return a regex of non compressed selecotrs', (t) => {
   t.context.setSelectors();
 
   const regex = rcs.selectorLibrary.getAll({
-    origValues: false,
+    getRenamedValues: true,
     regex: true,
   });
 
@@ -166,18 +165,17 @@ test.skip('getall | should return a regex of compressed selectors', (t) => {
   t.context.setSelectors();
 
   const regex = rcs.selectorLibrary.getAll({
-    origValues: true,
     regex: true,
   });
 
   t.is(regex, /test|id|jp-selector/g);
 });
 
-test('getall | should get all extended', (t) => {
+test('getall | should get all extend', (t) => {
   t.context.setSelectors();
 
   const cssObject = rcs.selectorLibrary.getAll({
-    extended: true,
+    extend: true,
   });
 
   t.is(typeof cssObject.test, 'object');
@@ -189,12 +187,12 @@ test('getall | should get all extended', (t) => {
   t.is(cssObject.id.compressedSelector, 'b');
 });
 
-test('getall | should get all extended with selectors', (t) => {
+test('getall | should get all extend with selectors', (t) => {
   t.context.setSelectors();
 
   const cssObject = rcs.selectorLibrary.getAll({
-    isSelectors: true,
-    extended: true,
+    addSelectorType: true,
+    extend: true,
   });
 
   t.is(typeof cssObject['.test'], 'object');
@@ -210,9 +208,9 @@ test('getall | should get all normal with selectors', (t) => {
   t.context.setSelectors();
 
   const cssObject = rcs.selectorLibrary.getAll({
-    origValues: false,
-    isSelectors: true,
-    extended: true,
+    getRenamedValues: true,
+    addSelectorType: true,
+    extend: true,
   });
 
   t.is(typeof cssObject['.a'], 'object');
@@ -239,7 +237,7 @@ test('getall | should get all setted compressed classes', (t) => {
   t.context.setSelectors();
 
   const array = rcs.selectorLibrary.getAll({
-    origValues: false,
+    getRenamedValues: true,
   });
 
   t.is(typeof array, 'object');

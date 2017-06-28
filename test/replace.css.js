@@ -92,7 +92,7 @@ test('attribute selectors not renamed',
   replaceCssMacro,
   '.somediv{}.anotherdiv[class^="some"]{}',
   '.a{}.b[class^="some"]{}',
-  { ignoreAttributeSelector: true },
+  { ignoreAttributeSelectors: true },
 );
 
 test('attribute selectors ^',

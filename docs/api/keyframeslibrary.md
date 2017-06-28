@@ -29,9 +29,11 @@ rcs.keyframesLibrary.fillLibrary(myCssFileWithKeyframes);
 
 **rcs.keyframesLibrary.get(selector[, options])**
 
-Options:
+Parameters:
+- selector `<String>`
+- options `<Object>` (optional):
+  - origKeyframe `<Boolean>`: If true the input is the original keyframe so it will return the minified keyframe. Default: `true`
 
-- origKeyframe `<Boolean>`: If true the input is the original keyframe so it will return the minified keyframe. Default: `true`
 
 Example:
 

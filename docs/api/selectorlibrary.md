@@ -19,8 +19,9 @@
 
 Parameters:
 - code `<String>`
-- options `<Object>`:
-  - [see here](#set)
+- options `<Object>` (optional): same as `selectorLibrary.set()`
+  - ignoreAttributeSelectors `<Boolean>`: If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
+  - preventRandomName `<Boolean>`. Does not rename the given selector. Good for just pre- or suffix the selectors. Default: `false`
 
 Example:
 
@@ -39,9 +40,9 @@ rcs.selectorLibrary.fillLibrary(myCssFile);
 Parameters:
 - selector `<String>`
 - options `<Object>`:
-  - origValues `<Boolean>`: If true the input is the original value. Default: `true`
-  - isSelectors `<Boolean>`: If true it will also add the ID or CLASS prefix (# or .). Default: `false`
-  - isCompressed `<Boolean>`: To see the minified string and not the object itself. Default: `true`
+  - isOrigValue `<Boolean>`: If true the input is the original value. Default: `true`
+  - addSelectorType `<Boolean>`: If true it will also add the ID or CLASS prefix (# or .). Default: `false`
+  - extend `<Boolean>`: If true it will append more information given as object. Default: `false`
 
 Example:
 
@@ -51,7 +52,7 @@ const rcs = require('rcs-core');
 rcs.selectorLibrary.set('#my-id'); // sets to 'a'
 
 rcs.selectorLibrary.get('#my-id'); // a
-rcs.selectorLibrary.get('#my-id', { isSelectors: true }); // #a
+rcs.selectorLibrary.get('#my-id', { addSelectorType: true }); // #a
 ```
 
 ### getAll
@@ -62,11 +63,11 @@ rcs.selectorLibrary.get('#my-id', { isSelectors: true }); // #a
 
 Parameters:
 - options `<Object>`:
-  - origValues `<Boolean>`: If true the input is the original value. Default: `true`
+  - getRenamedValues `<Boolean>`: If true it will return the renamed values. Default: `false`
   - regex `<Boolean>`: This will return a regex of all setted selectors in the selectorLibrary. Default: `false`
   - regexCss `<Boolean>`: This will return a regex of all setted selectors in the selectorLibrary, optimized for CSS files. Default: `false`
-  - isSelectors `<Boolean>`: If true it will also add the ID or CLASS prefix (# or .). Default: `false`
-  - extended `<Boolean>`: If true it will all selectors with stored metadata. Has **no effect** in combination with the option REGEX. Default: `false`
+  - addSelectorType `<Boolean>`: If true it will also add the ID or CLASS prefix (# or .). Default: `false`
+  - extend `<Boolean>`: If true it will append more information given as object. Has **no effect** in combination with the option REGEX. Default: `false`
 
 Example:
 
@@ -89,9 +90,9 @@ Parameters:
 - selector `<String>`
 - renamedSelector `<String>` (optional)
 - options `<Object>`:
-  - ignoreAttributeSelector `<Boolean>`: If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
+  - ignoreAttributeSelectors `<Boolean>`: If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
 
-  *plus options of `selectorLibrary.set()`*
+  *plus options of `selectorLibrary.setValue()`*
 
   - preventRandomName `<Boolean>`. Does not rename the given selector. Good for just pre- or suffix the selectors. Default: `false`
 
@@ -145,7 +146,7 @@ Example:
 ```js
 const rcs = require('rcs-core');
 
-const myClassMeta = rcs.selectorLibrary.setValue('.my-class');
+const myClassMeta = rcs.selectorLibrary.generateMeta('.my-class');
 
 // myClassMeta returns:
 //

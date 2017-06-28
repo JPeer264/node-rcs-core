@@ -46,6 +46,7 @@ const replacedCode = rcs.replace.any('document.getElementById("my-id")');
 
 Parameters:
 - code `<String>`
+
 Example:
 
 ```js

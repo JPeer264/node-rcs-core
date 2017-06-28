@@ -24,7 +24,7 @@ test('fillLibraries should fill all libraries', (t) => {
     '.test{}#id[class^="te"]{}@keyframes move { from {} to {} }',
     {
       replaceKeyframes: true,
-      ignoreAttributeSelector: true,
+      ignoreAttributeSelectors: true,
     },
   );
 
