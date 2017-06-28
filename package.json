@@ -1,7 +1,7 @@
 {
   "name": "rcs-core",
   "version": "1.0.0-alpha.5",
-  "description": "Rename css selectors across all files ",
+  "description": "Rename css selectors across all files",
   "main": "dest",
   "scripts": {
     "pretest": "npm run lint",
