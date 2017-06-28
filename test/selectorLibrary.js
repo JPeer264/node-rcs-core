@@ -8,6 +8,7 @@ test.beforeEach((t) => {
   rcs.nameGenerator.reset();
   rcs.selectorLibrary.reset();
 
+  // eslint-disable-next-line no-param-reassign
   t.context.setSelectors = () => {
     rcs.selectorLibrary.set([
       '.test',
