@@ -5,9 +5,9 @@
 - [get](#get)
 - [getAll](#getall)
 - [set](#set)
+- [setMultiple](#setmultiple)
 - [setExclude](#setexclude)
-- [setValue](#setvalue)
-- [setValues](#setvalues)
+- [generateMeta](#generatemeta)
 - [setAttributeSelector](#setattributeselector)
 - [isInAttributeSelector](#isinattributeselector)
 
@@ -92,7 +92,7 @@ Parameters:
 - options `<Object>`:
   - ignoreAttributeSelectors `<Boolean>`: If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
 
-  *plus options of `selectorLibrary.setValue()`*
+  *plus options of `selectorLibrary.generateMeta()`*
 
   - preventRandomName `<Boolean>`. Does not rename the given selector. Good for just pre- or suffix the selectors. Default: `false`
 
@@ -104,6 +104,29 @@ const rcs = require('rcs-core');
 rcs.selectorLibrary.set('#my-id'); // sets to 'a'
 
 rcs.selectorLibrary.get('#my-id'); // a
+```
+
+
+### setMultiple
+
+> Calls `selectorLibrary.set` internally
+
+**rcs.selectorLibrary.setMultiple(selectors[, options])**
+
+Parameters:
+- selectors `<Object>`. The *key* of the object must be the selector. The *value* could be an own name or if `undefined` it will be automatically generated
+- options `<Object>`: same as `selectorLibrary.set()`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.selectorLibrary.setMultiple({
+    '.a-selector': 'abc',
+    '.another-selector': undefined,
+    '.slider': 'u'
+});
 ```
 
 ### setExclude
@@ -129,11 +152,11 @@ rcs.selectorLibrary.get('.no-js'); // .no-js
 rcs.selectorLibrary.get('no-js'); // no-js
 ```
 
-### setValue
+### generateMeta
 
 > Returns the metainformation of the selector and generates a new name for the selector
 
-**rcs.selectorLibrary.setValue(selector[, [renamedSelector, ] options])**
+**rcs.selectorLibrary.generateMeta(selector[, [renamedSelector, ] options])**
 
 Parameters:
 - selector `<String>`
@@ -157,27 +180,6 @@ const myClassMeta = rcs.selectorLibrary.generateMeta('.my-class');
 //      modifiedSelector: 'my-class',
 //      compressedSelector: 'a'
 // }
-```
-
-### setValues
-
-> Calls `selectorLibrary.set` internally
-
-**rcs.selectorLibrary.setValues(selectors)**
-
-Parameters:
-- selectors `<Object>`. The *key* of the object must be the selector. The *value* could be an own name or if `undefined` it will be automatically generated
-
-Example:
-
-```js
-const rcs = require('rcs-core');
-
-rcs.selectorLibrary.setValues({
-    '.a-selector': 'abc',
-    '.another-selector': undefined,
-    '.slider': 'u'
-});
 ```
 
 ### setAttributeSelector

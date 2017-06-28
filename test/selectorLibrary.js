@@ -299,6 +299,27 @@ test('set | should set values out of an array', (t) => {
   t.falsy(rcs.selectorLibrary.selectors['not-set']);
 });
 
+/* *********** *
+ * SETMULTIPLE *
+ * *********** */
+test('setMultiple | should set multiple values', (t) => {
+  rcs.selectorLibrary.setMultiple({
+    '.test': 'a',
+    '.class': '.b',
+    '.selector': 'c',
+  });
+
+  t.is(rcs.selectorLibrary.selectors.test.compressedSelector, 'a');
+  t.is(rcs.selectorLibrary.selectors.class.compressedSelector, 'b');
+  t.is(rcs.selectorLibrary.selectors.selector.compressedSelector, 'c');
+});
+
+test('setMultiple | should set nothing', (t) => {
+  rcs.selectorLibrary.setMultiple();
+
+  t.is(Object.keys(rcs.selectorLibrary.selectors).length, 0);
+});
+
 /* ********* *
  * SETPREFIX *
  * ********* */
@@ -378,30 +399,15 @@ test('setExclude | should enable excludes', (t) => {
   t.is(rcs.selectorLibrary.excludes.length, 2);
 });
 
-/* ******** *
- * SETVALUE *
- * ******** */
-test('setValue | should set an object value', (t) => {
-  const setValueObject = rcs.selectorLibrary.setValue('.test');
+/* ************ *
+ * GENERATEMETA *
+ * ************ */
+test('generateMeta | should set an object value', (t) => {
+  const generateMetaObject = rcs.selectorLibrary.generateMeta('.test');
 
-  t.is(setValueObject.type, 'class');
-  t.is(setValueObject.selector, '.test');
-  t.is(setValueObject.compressedSelector, 'a');
-});
-
-/* ********* *
- * SETVALUES *
- * ********* */
-test('setValues | should set multiple values', (t) => {
-  rcs.selectorLibrary.setValues({
-    '.test': 'a',
-    '.class': '.b',
-    '.selector': 'c',
-  });
-
-  t.is(rcs.selectorLibrary.selectors.test.compressedSelector, 'a');
-  t.is(rcs.selectorLibrary.selectors.class.compressedSelector, 'b');
-  t.is(rcs.selectorLibrary.selectors.selector.compressedSelector, 'c');
+  t.is(generateMetaObject.type, 'class');
+  t.is(generateMetaObject.selector, '.test');
+  t.is(generateMetaObject.compressedSelector, 'a');
 });
 
 /* ******************** *
