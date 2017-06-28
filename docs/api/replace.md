@@ -42,14 +42,10 @@ const replacedCode = rcs.replace.any('document.getElementById("my-id")');
 
 > Stores all selectors in `rcs.selectorLibrary` and replaces them
 
-**rcs.replace.css(code[, options])**
+**rcs.replace.css(code)**
 
 Parameters:
 - code `<String>`
-- options `<Object>`:
-  - prefix `<String>`. Prefix the compressed selector
-  - suffix `<String>`. Suffix the compressed selector
-
 Example:
 
 ```js
