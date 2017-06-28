@@ -1,17 +1,25 @@
 # rcs-core
-
 [![Build Status](https://travis-ci.org/JPeer264/node-rcs-core.svg?branch=master)](https://travis-ci.org/JPeer264/node-rcs-core)
 [![Coverage Status](https://coveralls.io/repos/github/JPeer264/node-rcs-core/badge.svg)](https://coveralls.io/github/JPeer264/node-rcs-core)
 
-> This module is the base for minifying CSS selectors for all files
+> **rcs** is short for **rename css selectors**
+
+## Why?
+Having long CSS selectors, such as `main-menu__item--disabled`, can increase the filesizes. With this `rcs-core` it is easy to rename the selectors and therefore reduce the filesize. You can save around 20% of the filesize by just shorten the CSS selectors in the CSS files.
+
+## What does it do?
+It basically just rename/minify all CSS selectors in all files. First the library has to be [trained with selectors](docs/api/filllibraries.md). Based on this data, the selectors can be renamed in all files. [Here](examples) are some examples made with [Bootstrap files](http://getbootstrap.com/).
 
 ## API documentation
-
-All methods are documented [here](/docs/api/README.md)
+- [rcs.helper](docs/api/helper.md)
+- [rcs.replace](docs/api/replace.md)
+- [rcs.fillLibraries](docs/api/filllibraries.md)
+- [rcs.nameGenerator](docs/api/namegenerator.md)
+- [rcs.selectorLibrary](docs/api/selectorlibrary.md)
+- [rcs.keyframesLibrary](docs/api/keyframeslibrary.md)
 
 ## Plugins
-- Node Plugin: [rename-css-selectors](https://www.npmjs.com/package/rename-css-selectors)
-- Grunt Plugin: [grunt-rcs](https://www.npmjs.com/package/grunt-rcs)
 - Gulp Plugin: [gulp-rcs](https://www.npmjs.com/package/gulp-rcs)
+- Grunt Plugin: [grunt-rcs](https://www.npmjs.com/package/grunt-rcs)
 - PostCSS Plugin: [postcss-rcs](https://www.npmjs.com/package/postcss-rcs)
-
+- Node Plugin: [rename-css-selectors](https://www.npmjs.com/package/rename-css-selectors)
