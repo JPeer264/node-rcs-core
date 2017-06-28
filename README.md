@@ -10,6 +10,15 @@ Having long CSS selectors, such as `main-menu__item--disabled`, can increase the
 ## What does it do?
 It basically just rename/minify all CSS selectors in all files. First the library has to be [trained with selectors](docs/api/filllibraries.md). Based on this data, the selectors can be renamed in all files. [Here](examples) are some examples made with [Bootstrap files](http://getbootstrap.com/).
 
+## Usage
+```sh
+$ npm install --save rcs-core
+```
+or
+```sh
+$ yarn add rcs-core
+```
+
 ## API documentation
 - [rcs.helper](docs/api/helper.md)
 - [rcs.replace](docs/api/replace.md)
