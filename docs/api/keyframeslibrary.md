@@ -31,7 +31,7 @@ rcs.keyframesLibrary.fillLibrary(myCssFileWithKeyframes);
 
 Options:
 
-- origKeyframe (boolean): If true the input is the original keyframe so it will return the minified keyframe. Default: `true`
+- origKeyframe `<Boolean>`: If true the input is the original keyframe so it will return the minified keyframe. Default: `true`
 
 Example:
 

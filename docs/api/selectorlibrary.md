@@ -88,9 +88,12 @@ const allValues = rcs.selectorLibrary.getAll();
 Parameters:
 - selector `<String>`
 - renamedSelector `<String>` (optional)
-- options:
+- options `<Object>`:
   - ignoreAttributeSelector (boolean): If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
-  - [setValue options](#setvalue)
+
+  *plus options of `selectorLibrary.set()`*
+
+  - preventRandomName `<Boolean>`. Does not rename the given selector. Good for just pre- or suffix the selectors. Default: `false`
 
 Example:
 
@@ -134,10 +137,8 @@ rcs.selectorLibrary.get('no-js'); // no-js
 Parameters:
 - selector `<String>`
 - renamedSelector `<String>` (optional)
-- options:
+- options `<Object>`:
   - preventRandomName `<Boolean>`. Does not rename the given selector. Good for just pre- or suffix the selectors. Default: `false`
-  - prefix `<String>`. Prefix the compressed selector
-  - suffix `<String>`. Suffix the compressed selector
 
 Example:
 
