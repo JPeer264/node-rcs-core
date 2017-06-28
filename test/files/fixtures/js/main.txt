@@ -7,4 +7,4 @@ document.getElementById('jp-block__element--modifier');
 document.getElementById(" jp-block__element--modifier");
 document.getElementById('\n\n\t jp-block__element--modifier   jp-block__element--modifier');
 
-angular.module('service.reveal');
+angular.module('service.test');
