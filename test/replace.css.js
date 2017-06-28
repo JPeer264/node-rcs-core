@@ -277,3 +277,10 @@ test('should replace sizes at the end w/o semicolon properly in a oneliner',
   '.a{padding:0 .357143rem}.b{color:#0f705d}',
   { replaceKeyframes: true },
 );
+
+test('bootstrap preventRandomName. Cross check that nothing will break',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/bootstrap.css'), 'utf8'),
+  fs.readFileSync(path.join(fixturesCwd, '/css/bootstrap.css'), 'utf8'),
+  { preventRandomName: true },
+);
