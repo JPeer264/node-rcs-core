@@ -38,6 +38,29 @@ test('get | should get every single selectors', (t) => {
   t.is(testSelector, 'a');
 });
 
+test('get | should get every single selectors with type char', (t) => {
+  t.context.setSelectors();
+
+  const dotTestSelector = rcs.selectorLibrary.get('.test', { isSelectors: true });
+  const testSelector = rcs.selectorLibrary.get('test', { isSelectors: true });
+
+  t.is(dotTestSelector, '.a');
+  t.is(testSelector, '.a');
+});
+
+test('get | with pre- suffix', (t) => {
+  t.context.setSelectors();
+
+  rcs.selectorLibrary.setPrefix('pre-');
+  rcs.selectorLibrary.setSuffix('-suf');
+
+  const selector = rcs.selectorLibrary.get('.test');
+  const selectorWithType = rcs.selectorLibrary.get('.test', { isSelectors: true });
+
+  t.is(selector, 'pre-a-suf');
+  t.is(selectorWithType, '.pre-a-suf');
+});
+
 test('get | should not get excluded selector', (t) => {
   t.context.setSelectors();
 
@@ -48,6 +71,16 @@ test('get | should not get excluded selector', (t) => {
 
   t.is(dotTestSelector, '.test');
   t.is(testSelector, 'test');
+});
+
+test('get | isCompressed false', (t) => {
+  t.context.setSelectors();
+
+  const dotTestSelector = rcs.selectorLibrary.get('.test', { isCompressed: false });
+
+  t.is(typeof dotTestSelector, 'object');
+  t.is(dotTestSelector.compressedSelector, 'a');
+  t.is(dotTestSelector.selector, '.test');
 });
 
 
