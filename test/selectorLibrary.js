@@ -248,29 +248,6 @@ test('getall | should get all setted compressed classes', (t) => {
   t.is(array.c, 'jp-selector');
 });
 
-test('getall | should get the right values with the option plainCompressed', (t) => {
-  t.context.setSelectors();
-
-  rcs.selectorLibrary.set([
-    '.testme',
-  ], {
-    prefix: 'prefix-',
-  });
-
-  const plainArray = rcs.selectorLibrary.getAll({
-    plainCompressed: true,
-  });
-
-  const array = rcs.selectorLibrary.getAll();
-
-  t.is(typeof plainArray, 'object');
-  t.is(typeof array, 'object');
-  t.is(plainArray.test, 'a');
-  t.is(plainArray.testme, 'd');
-  t.is(array.test, 'a');
-  t.is(array.testme, 'prefix-d');
-});
-
 /* *** *
  * SET *
  * *** */

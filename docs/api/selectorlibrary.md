@@ -67,7 +67,6 @@ Parameters:
   - regexCss `<Boolean>`: This will return a regex of all setted selectors in the selectorLibrary, optimized for CSS files. Default: `false`
   - isSelectors `<Boolean>`: If true it will also add the ID or CLASS prefix (# or .). Default: `false`
   - extended `<Boolean>`: If true it will all selectors with stored metadata. Has **no effect** in combination with the option REGEX. Default: `false`
-  - plainCompressed `<Boolean>`: Just affects if extended is `false`. Get the non pre/suffixed renamed selector. Just useful if you pre- or suffixed your selectors. Default: `false`
 
 Example:
 
