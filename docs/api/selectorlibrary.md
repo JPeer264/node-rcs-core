@@ -89,7 +89,7 @@ Parameters:
 - selector `<String>`
 - renamedSelector `<String>` (optional)
 - options `<Object>`:
-  - ignoreAttributeSelector (boolean): If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
+  - ignoreAttributeSelector `<Boolean>`: If `true` it does ignore all setted attribute selectors such as `[class*=my]` so `.my_class` will be renamed.  Default: `false`
 
   *plus options of `selectorLibrary.set()`*
 
