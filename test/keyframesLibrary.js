@@ -3,13 +3,9 @@ import test from 'ava';
 import rcs from '../lib';
 
 test.beforeEach(() => {
-  // reset counter and keyframes for tests
-  rcs.keyframesLibrary.excludes = [];
-  rcs.keyframesLibrary.keyframes = {};
-  rcs.keyframesLibrary.compressedKeyframes = {};
-
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
+  rcs.keyframesLibrary.reset();
 });
 
 /* *** *

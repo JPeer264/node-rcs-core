@@ -26,18 +26,10 @@ function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
 }
 
 test.beforeEach(() => {
-  // reset counter and selectors for tests
-  rcs.selectorLibrary.selectors = {};
-  rcs.selectorLibrary.attributeSelectors = {};
-  rcs.selectorLibrary.compressedSelectors = {};
-  rcs.selectorLibrary.excludes = [];
-
-  rcs.keyframesLibrary.excludes = [];
-  rcs.keyframesLibrary.keyframes = {};
-  rcs.keyframesLibrary.compressedKeyframes = {};
-
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
+  rcs.selectorLibrary.reset();
+  rcs.keyframesLibrary.reset();
 });
 
 test('should not replace anything', (t) => {

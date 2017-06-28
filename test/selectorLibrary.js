@@ -4,13 +4,9 @@ import rcs from '../lib';
 
 test.beforeEach((t) => {
   // reset counter and selectors for tests
-  rcs.selectorLibrary.excludes = [];
-  rcs.selectorLibrary.selectors = {};
-  rcs.selectorLibrary.attributeSelectors = {};
-  rcs.selectorLibrary.compressedSelectors = {};
-
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
+  rcs.selectorLibrary.reset();
 
   t.context.setSelectors = () => {
     rcs.selectorLibrary.set([
@@ -293,6 +289,52 @@ test('set | should set values out of an array', (t) => {
 
   // should not be set
   t.falsy(rcs.selectorLibrary.selectors['not-set']);
+});
+
+/* ********* *
+ * SETPREFIX *
+ * ********* */
+test('setPrefix', (t) => {
+  t.is(rcs.selectorLibrary.prefix, '');
+
+  rcs.selectorLibrary.setPrefix('pre-');
+
+  t.is(rcs.selectorLibrary.prefix, 'pre-');
+
+  rcs.selectorLibrary.setPrefix(1);
+
+  t.is(rcs.selectorLibrary.prefix, 'pre-');
+
+  rcs.selectorLibrary.setPrefix({});
+
+  t.is(rcs.selectorLibrary.prefix, 'pre-');
+
+  rcs.selectorLibrary.setPrefix('prepre');
+
+  t.is(rcs.selectorLibrary.prefix, 'prepre');
+});
+
+/* ********* *
+ * SETSUFFIX *
+ * ********* */
+test('setSuffix', (t) => {
+  t.is(rcs.selectorLibrary.suffix, '');
+
+  rcs.selectorLibrary.setSuffix('-suf');
+
+  t.is(rcs.selectorLibrary.suffix, '-suf');
+
+  rcs.selectorLibrary.setSuffix(1);
+
+  t.is(rcs.selectorLibrary.suffix, '-suf');
+
+  rcs.selectorLibrary.setSuffix({});
+
+  t.is(rcs.selectorLibrary.suffix, '-suf');
+
+  rcs.selectorLibrary.setSuffix('sufsuf');
+
+  t.is(rcs.selectorLibrary.suffix, 'sufsuf');
 });
 
 /* ********** *

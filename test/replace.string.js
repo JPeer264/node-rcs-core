@@ -3,12 +3,9 @@ import test from 'ava';
 import rcs from '../lib';
 
 test.beforeEach(() => {
-  // reset counter and selectors for tests
-  rcs.selectorLibrary.selectors = {};
-  rcs.selectorLibrary.compressedSelectors = {};
-
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
+  rcs.selectorLibrary.reset();
 });
 
 test('replace text correctly', (t) => {

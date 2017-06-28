@@ -17,18 +17,9 @@ function replaceAnyMacro(t, input, expected, fillLibrary = '') {
 replaceAnyMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() : providedTitle);
 
 test.beforeEach(() => {
-  // reset counter and selectors for tests
-  rcs.selectorLibrary.selectors = {};
-  rcs.selectorLibrary.attributeSelectors = {};
-  rcs.selectorLibrary.compressedSelectors = {};
-  rcs.selectorLibrary.excludes = [];
-
-  rcs.keyframesLibrary.excludes = [];
-  rcs.keyframesLibrary.keyframes = {};
-  rcs.keyframesLibrary.compressedKeyframes = {};
-
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
+  rcs.selectorLibrary.reset();
 });
 
 test('should stay empty',
