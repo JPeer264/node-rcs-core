@@ -27,6 +27,11 @@ test(replaceJsMacro,
   'var test = \' something \';\nconst myClass = "a";',
 );
 
+test(replaceJsMacro,
+  "'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040'",
+  "'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040'",
+);
+
 test('replace everything from file',
   replaceJsMacro,
   fs.readFileSync(path.join(fixturesCwd, '/js/complex.txt'), 'utf8'),
