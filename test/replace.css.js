@@ -237,15 +237,15 @@ test('should not replace keyframes properly',
 
 test('should replace keyframes properly in a oneliner',
   replaceCssMacro,
-  '@keyframes  move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation:     move     4s    }',
-  '@keyframes  a {from {} to {}}.b {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.c {animation:     a     4s    }',
+  '@keyframes  move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation:     move     4s    }',
+  '@keyframes  a {from {} to {}}.b {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.c {animation:     a     4s    }',
   { replaceKeyframes: true },
 );
 
 test('should replace keyframes with suffixes',
   replaceCssMacro,
-  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation: move 4s }',
-  '@keyframes a {from {} to {}}.b-suf {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.c-suf {animation: a 4s }',
+  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',
+  '@keyframes a {from {} to {}}.b-suf {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.c-suf {animation: a 4s }',
   {
     replaceKeyframes: true,
     suffix: '-suf',
@@ -254,8 +254,8 @@ test('should replace keyframes with suffixes',
 
 test('should replace keyframes with prefixes',
   replaceCssMacro,
-  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation: move 4s }',
-  '@keyframes a {from {} to {}}.pre-b {animation: a 4s, a 4s infinite, do-not-trigger: 10s infinite}.pre-c {animation: a 4s }',
+  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',
+  '@keyframes a {from {} to {}}.pre-b {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.pre-c {animation: a 4s }',
   {
     replaceKeyframes: true,
     prefix: 'pre-',
@@ -264,8 +264,8 @@ test('should replace keyframes with prefixes',
 
 test('should not replace keyframes with prefixes',
   replaceCssMacro,
-  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.another-selector {animation: move 4s }',
-  '@keyframes move {from {} to {}}.pre-a {animation: move 4s, move 4s infinite, do-not-trigger: 10s infinite}.pre-b {animation: move 4s }',
+  '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',
+  '@keyframes move {from {} to {}}.pre-a {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.pre-b {animation: move 4s }',
   {
     prefix: 'pre-',
   },

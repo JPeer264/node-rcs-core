@@ -31,7 +31,7 @@ test('should stay empty',
 test(replaceAnyMacro,
   'const a = \'jp-selector\';\n\tdocument.getElementById(\'nothing-to-see\');',
   'const a = \'a\';\n\tdocument.getElementById(\'nothing-to-see\');',
-  '.jp-selector',
+  '.jp-selector {}',
 );
 
 test(replaceAnyMacro,
