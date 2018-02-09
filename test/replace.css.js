@@ -113,6 +113,12 @@ test('attribute selectors $',
   '.somediv{}.anotherdiv[class$="iv"]{}',
 );
 
+test('match after pseudo element',
+  replaceCssMacro,
+  '.div:hover .anotherdiv,.anotherdiv.somediv{}',
+  '.a:hover .b,.b.c{}',
+);
+
 test('should replace keyframes properly',
   replaceCssMacro,
   `
