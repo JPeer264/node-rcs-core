@@ -131,7 +131,7 @@ test('should replace keyframes properly',
     }
 
     .another-selector {
-        animation:     move     4s    ;
+        animation:     move     4s;
     }
   `,
   `
@@ -144,7 +144,7 @@ test('should replace keyframes properly',
     }
 
     .c {
-        animation:     a     4s    ;
+        animation:     a     4s;
     }
   `,
   { replaceKeyframes: true },
@@ -174,7 +174,7 @@ test('should replace keyframes properly in nested animations',
     }
 
     .another-selector {
-        animation:     moVe-It_1337     4s  , motion 10s  ;
+        animation:     moVe-It_1337     4s  , motion 10s;
     }
   `,
   `
@@ -199,7 +199,7 @@ test('should replace keyframes properly in nested animations',
     }
 
     .d {
-        animation:     a     4s  , b 10s  ;
+        animation:     a     4s  , b 10s;
     }
   `,
   { replaceKeyframes: true },
@@ -284,9 +284,36 @@ test('should replace sizes at the end w/o semicolon properly in a oneliner',
   { replaceKeyframes: true },
 );
 
-test('bootstrap preventRandomName. Cross check that nothing will break',
+test('should replace attributes',
   replaceCssMacro,
-  fs.readFileSync(path.join(fixturesCwd, '/css/bootstrap.css'), 'utf8'),
-  fs.readFileSync(path.join(fixturesCwd, '/css/bootstrap.css'), 'utf8'),
+  fs.readFileSync(path.join(fixturesCwd, '/css/css-attributes.css'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/css/css-attributes.css'), 'utf8'),
+);
+
+test('should ignore attribute selectors',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/css-attributes.css'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/css/css-attributes-ignore.css'), 'utf8'),
+  { ignoreAttributeSelectors: true },
+);
+
+test('should prefix and suffix attribute selectors',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/css-attributes.css'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/css/css-attributes-pre-suffix.css'), 'utf8'),
+  { prefix: 'prefix-', suffix: '-suffix' },
+);
+
+test('preventRandomName. Cross check that nothing will break',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
+  fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
   { preventRandomName: true },
+);
+
+test('preventRandomName but prefix everything',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/css/style-prefix-preventrandomname.css'), 'utf8'),
+  { preventRandomName: true, prefix: 'prefixed-' },
 );
