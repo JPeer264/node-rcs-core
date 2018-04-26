@@ -1,0 +1,24 @@
+.box-xs, .box-sm, .box-md, .box-lg {
+  margin: 10px;
+}
+.a > [class*=' box-'],
+.a > [class^='box-'] {
+  display: flex;
+  align-items: center
+}
+
+.msg-err, .msg-warn, .msg-inf, .msg-ok {
+  font-family: monospace;
+}
+.b > [class*=" msg-"],
+.b > [class^="msg-"] {
+  padding: 10px;
+}
+
+.lst-dot, .lst-dash {
+  margin-left: 10px;
+}
+.c > [class*=" lst-"],
+.c > [class^=lst-] {
+  padding: 0;
+}

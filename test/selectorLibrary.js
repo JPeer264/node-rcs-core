@@ -425,3 +425,15 @@ test('setAttributeSelector | should set attribute selectors correctly', (t) => {
   t.is(typeof rcs.selectorLibrary.attributeSelectors['#^header'], 'object');
   t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^="header"]');
 });
+
+test('setAttributeSelector | should set attribute selectors correctly without quotes', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[class*=test]');
+  rcs.selectorLibrary.setAttributeSelector([
+    '[id^=header]',
+  ]);
+
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['.*test'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['.*test'].originalString, '[class*=test]');
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['#^header'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^=header]');
+});
