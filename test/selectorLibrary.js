@@ -434,7 +434,6 @@ test('setAttributeSelector | should do nothing', (t) => {
   t.is(Object.keys(rcs.selectorLibrary.attributeSelectors).length, 0);
 });
 
-
 test('setAttributeSelector | should set attribute selectors correctly without quotes', (t) => {
   rcs.selectorLibrary.setAttributeSelector('[class*=test]');
   rcs.selectorLibrary.setAttributeSelector([
