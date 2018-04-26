@@ -10,8 +10,8 @@ const resultsCwd = 'test/files/results';
 function replaceCssMacro(t, input, expected, options = {}) {
   rcs.fillLibraries(input, options);
 
-  t.is(rcs.replace.css(input), expected);
-  t.is(rcs.replace.css(new Buffer(input)), expected);
+  t.is(rcs.replace.css(input).css, expected);
+  t.is(rcs.replace.css(new Buffer(input)).css, expected);
 }
 
 function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
@@ -20,8 +20,8 @@ function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
   inputs.forEach((input, i) => {
     rcs.fillLibraries(input, options);
 
-    t.is(rcs.replace.css(input), expects[i]);
-    t.is(rcs.replace.css(new Buffer(input)), expects[i]);
+    t.is(rcs.replace.css(input).css, expects[i]);
+    t.is(rcs.replace.css(new Buffer(input)).css, expects[i]);
   });
 }
 
@@ -35,8 +35,8 @@ test.beforeEach(() => {
 test('should not replace anything', (t) => {
   const input = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8');
 
-  t.is(rcs.replace.css(input), input);
-  t.is(rcs.replace.css(new Buffer(input)), input);
+  t.is(rcs.replace.css(input).css, input);
+  t.is(rcs.replace.css(new Buffer(input)).css, input);
 });
 
 test('should return the modified css buffer',
