@@ -426,6 +426,15 @@ test('setAttributeSelector | should set attribute selectors correctly', (t) => {
   t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^="header"]');
 });
 
+test('setAttributeSelector | should do nothing', (t) => {
+  rcs.selectorLibrary.setAttributeSelector([
+    'ewe weo',
+  ]);
+
+  t.is(Object.keys(rcs.selectorLibrary.attributeSelectors).length, 0);
+});
+
+
 test('setAttributeSelector | should set attribute selectors correctly without quotes', (t) => {
   rcs.selectorLibrary.setAttributeSelector('[class*=test]');
   rcs.selectorLibrary.setAttributeSelector([
