@@ -39,6 +39,12 @@ test('should not replace anything', (t) => {
   t.is(rcs.replace.css(new Buffer(input)), input);
 });
 
+test('should replace attribute selectors without quotes | issue #33',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/issue33.css'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/css/issue33.css'), 'utf8'),
+);
+
 test('should return the modified css buffer',
   replaceCssMacro,
   fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
