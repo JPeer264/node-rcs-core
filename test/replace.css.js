@@ -104,19 +104,19 @@ test('attribute selectors not renamed',
 test('attribute selectors ^',
   replaceCssMacro,
   '.somediv{}.anotherdiv[class^="some"]{}',
-  '.somediv{}.a[class^="some"]{}',
+  '.somet{}.a[class^="some"]{}',
 );
 
 test('attribute selectors *',
   replaceCssMacro,
   '.somediv{}.anotherdiv[class*="omed"]{}',
-  '.somediv{}.a[class*="omed"]{}',
+  '.tomedn{}.a[class*="omed"]{}',
 );
 
 test('attribute selectors $',
   replaceCssMacro,
   '.somediv{}.anotherdiv[class$="iv"]{}',
-  '.somediv{}.anotherdiv[class$="iv"]{}',
+  '.tiv{}.niv[class$="iv"]{}',
 );
 
 test('match after pseudo element',

@@ -14,7 +14,7 @@ test('fillLibraries should fill all libraries', (t) => {
   rcs.fillLibraries('.test{}#id[class^="te"]{}@keyframes move { from {} to {} }');
 
 
-  t.is(rcs.selectorLibrary.get('test'), 'test');
+  t.is(rcs.selectorLibrary.get('test'), 'tet');
   t.is(rcs.selectorLibrary.get('id'), 'a');
   t.is(rcs.keyframesLibrary.get('move'), 'move');
 });
@@ -44,7 +44,7 @@ test('fillLibraries should fill all libraries with pre or suffixes', (t) => {
   );
 
 
-  t.is(rcs.selectorLibrary.get('test'), 'pre-test-suf');
+  t.is(rcs.selectorLibrary.get('test'), 'pre-tet-suf');
   t.is(rcs.selectorLibrary.get('id'), 'pre-a-suf');
   t.is(rcs.keyframesLibrary.get('move'), 'move');
 });
