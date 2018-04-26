@@ -1,7 +1,6 @@
 .box-xs, .box-sm, .box-md, .box-lg {
   margin: 10px;
 }
-.footer > [class*=' box-'],
 .footer > [class^='box-'] {
   display: flex;
   align-items: center
@@ -10,7 +9,6 @@
 .msg-err, .msg-warn, .msg-inf, .msg-ok {
   font-family: monospace;
 }
-.btn > [class*=" msg-"],
 .btn > [class^="msg-"] {
   padding: 10px;
 }
@@ -18,7 +16,6 @@
 .lst-dot, .lst-dash {
   margin-left: 10px;
 }
-.board > [class*=" lst-"],
 .board > [class^=lst-] {
   padding: 0;
 }
