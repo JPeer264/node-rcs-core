@@ -426,6 +426,15 @@ test('setAttributeSelector | should set attribute selectors correctly', (t) => {
   t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^="header"]');
 });
 
+test('setAttributeSelector | should do nothing', (t) => {
+  rcs.selectorLibrary.setAttributeSelector([
+    'ewe weo',
+  ]);
+
+  t.is(Object.keys(rcs.selectorLibrary.attributeSelectors).length, 0);
+});
+
+
 test('setAttributeSelector | should set attribute selectors correctly without quotes', (t) => {
   rcs.selectorLibrary.setAttributeSelector('[class*=test]');
   rcs.selectorLibrary.setAttributeSelector([
@@ -436,4 +445,77 @@ test('setAttributeSelector | should set attribute selectors correctly without qu
   t.is(rcs.selectorLibrary.attributeSelectors['.*test'].originalString, '[class*=test]');
   t.is(typeof rcs.selectorLibrary.attributeSelectors['#^header'], 'object');
   t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^=header]');
+});
+
+test('setAttributeSelector | should set attribute all attribute selectors', (t) => {
+  rcs.selectorLibrary.setAttributeSelector([
+    '[id^=header]',
+    '[id=test]',
+    '[id="hello"]',
+  ]);
+
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['#^header'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^=header]');
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['#=test'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['#=test'].originalString, '[id=test]');
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['#=hello'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['#=hello'].originalString, '[id="hello"]');
+});
+
+/* ************************ *
+ * REPLACEATTRIBUTESELECTOR *
+ * ************************ */
+
+test('replaceAttributeSelector | should return the correct begin selector', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[id^=begin]');
+
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#testbegin'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#begintest'), '#begint');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#begin'), '#beginn');
+});
+
+test('replaceAttributeSelector | should return the correct equal selector', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[id=equal]');
+
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#equal'), '#equal');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#equalq'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#lequal'), false);
+});
+
+test('replaceAttributeSelector | should return the correct end selector', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[id$=end]');
+
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#end'), '#tend');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#endquark'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkend'), '#nend');
+});
+
+test('replaceAttributeSelector | should return the correct multi selector', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[id*=multi]');
+
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#multi'), '#tmultin');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#multiquark'), '#rmultii');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkmulti'), '#smultio');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkmultiafter'), '#umultia');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#nix'), false);
+});
+
+test('replaceAttributeSelector | combination', (t) => {
+  rcs.selectorLibrary.setAttributeSelector([
+    '[class=equal]',
+    '[id$=end]',
+    '[id*=multi]',
+  ]);
+
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('.equal'), '.equal');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('.equalq'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('.lequal'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#end'), '#tend');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#endquark'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkend'), '#nend');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#multi'), '#tmultin');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#multiquark'), '#rmultii');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkmulti'), '#smultio');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkmultiafter'), '#umultia');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#nix'), false);
 });
