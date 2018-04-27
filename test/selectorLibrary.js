@@ -446,6 +446,14 @@ test('setAttributeSelector | should set attribute selectors correctly without qu
   t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^=header]');
 });
 
+test('setAttributeSelector | should set attribute selectors correctly without quotes', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[class|=test]');
+
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['.|test'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['.|test'].originalString, '[class|=test]');
+});
+
+
 test('setAttributeSelector | should set attribute all attribute selectors', (t) => {
   rcs.selectorLibrary.setAttributeSelector([
     '[id^=header]',
@@ -479,6 +487,16 @@ test('replaceAttributeSelector | should return the correct equal selector', (t) 
   t.is(rcs.selectorLibrary.replaceAttributeSelector('#equal'), '#equal');
   t.is(rcs.selectorLibrary.replaceAttributeSelector('#equalq'), false);
   t.is(rcs.selectorLibrary.replaceAttributeSelector('#lequal'), false);
+});
+
+test('replaceAttributeSelector | should return the correct dash selector', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[id|=dash]');
+
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#dash'), '#dash');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#dash-k'), '#dash-t');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#dash-more-here'), '#dash-n');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#dashq'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#ldash'), false);
 });
 
 test('replaceAttributeSelector | should return the correct end selector', (t) => {
