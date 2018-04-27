@@ -426,6 +426,17 @@ test('setAttributeSelector | should set attribute selectors correctly', (t) => {
   t.is(rcs.selectorLibrary.attributeSelectors['#^header'].originalString, '[id^="header"]');
 });
 
+test('setAttributeSelector | should set attribute selectors correctly', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[class~="test"]');
+  rcs.selectorLibrary.setAttributeSelector('[id~="test"]');
+
+  t.is(Object.keys(rcs.selectorLibrary.attributeSelectors).length, 2);
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['.~test'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['.~test'].originalString, '[class~="test"]');
+  t.is(typeof rcs.selectorLibrary.attributeSelectors['#~test'], 'object');
+  t.is(rcs.selectorLibrary.attributeSelectors['#~test'].originalString, '[id~="test"]');
+});
+
 test('setAttributeSelector | should do nothing', (t) => {
   rcs.selectorLibrary.setAttributeSelector([
     'ewe weo',
@@ -514,6 +525,16 @@ test('replaceAttributeSelector | should return the correct multi selector', (t) 
   t.is(rcs.selectorLibrary.replaceAttributeSelector('#multiquark'), '#rmultii');
   t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkmulti'), '#smultio');
   t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarkmultiafter'), '#umultia');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#nix'), false);
+});
+
+test('replaceAttributeSelector | should return the correct tilde selector', (t) => {
+  rcs.selectorLibrary.setAttributeSelector('[id~=tilde]');
+
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#tilde'), '#tilde');
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#tildequark'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarktilde'), false);
+  t.is(rcs.selectorLibrary.replaceAttributeSelector('#quarktildeafter'), false);
   t.is(rcs.selectorLibrary.replaceAttributeSelector('#nix'), false);
 });
 
