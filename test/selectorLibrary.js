@@ -300,6 +300,18 @@ test('set | should set values out of an array', (t) => {
   t.falsy(rcs.selectorLibrary.selectors['not-set']);
 });
 
+test('set | should skip exludes', (t) => {
+  rcs.selectorLibrary.setExclude('test');
+  rcs.selectorLibrary.setExclude('skipped');
+  rcs.selectorLibrary.set('.test');
+  rcs.selectorLibrary.set('.notskipped', 'random');
+  rcs.selectorLibrary.set('.skipped', 'another-name');
+
+  t.is(rcs.selectorLibrary.selectors.test, undefined);
+  t.is(rcs.selectorLibrary.selectors.skipped, undefined);
+  t.is(rcs.selectorLibrary.selectors.notskipped.compressedSelector, 'random');
+});
+
 /* *********** *
  * SETMULTIPLE *
  * *********** */
@@ -404,6 +416,24 @@ test('setExclude | should enable excludes', (t) => {
  * GENERATEMETA *
  * ************ */
 test('generateMeta | should set an object value', (t) => {
+  const generateMetaObject = rcs.selectorLibrary.generateMeta('.test');
+
+  t.is(generateMetaObject.type, 'class');
+  t.is(generateMetaObject.selector, '.test');
+  t.is(generateMetaObject.compressedSelector, 'a');
+});
+
+test('generateMeta | should prevent random name', (t) => {
+  const generateMetaObject = rcs.selectorLibrary.generateMeta('.test', { preventRandomName: true });
+
+  t.is(generateMetaObject.type, 'class');
+  t.is(generateMetaObject.selector, '.test');
+  t.is(generateMetaObject.compressedSelector, 'test');
+});
+
+test('generateMeta | should return existing value', (t) => {
+  rcs.selectorLibrary.set('.test');
+
   const generateMetaObject = rcs.selectorLibrary.generateMeta('.test');
 
   t.is(generateMetaObject.type, 'class');

@@ -27,8 +27,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/jpeer264/rcs-core"
+    "url": "git+https://github.com/JPeer264/node-rcs-core.git"
   },
+  "bugs": {
+    "url": "https://github.com/JPeer264/node-rcs-core/issues"
+  },
+  "homepage": "https://github.com/JPeer264/node-rcs-core#readme",
   "ava": {
     "require": [
       "babel-register"
