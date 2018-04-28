@@ -5,13 +5,13 @@
  */
 
 if (typeof jQuery === 'undefined') {
-  throw new Error("Bootstrap\\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\\'s JavaScript.")
+  throw new Error('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.')
 }
 
 +function ($) {
   var version = $.fn.jquery.split(' ')[0].split('.')
   if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] >= 4)) {
-    throw new Error("Bootstrap\\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0")
+    throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0')
   }
 }(jQuery);
 
@@ -193,9 +193,9 @@ var Alert = function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var NAME = "aI";
+  var NAME = "dh";
   var VERSION = '4.0.0-alpha.6';
-  var DATA_KEY = "bs.aI";
+  var DATA_KEY = "bs.dh";
   var EVENT_KEY = '.' + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var JQUERY_NO_CONFLICT = $.fn[NAME];
@@ -206,15 +206,15 @@ var Alert = function ($) {
   };
 
   var Event = {
-    CLOSE: "az" + EVENT_KEY,
+    CLOSE: "dm" + EVENT_KEY,
     CLOSED: 'closed' + EVENT_KEY,
     CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY
   };
 
   var ClassName = {
-    ALERT: "aI",
-    FADE: "oX",
-    SHOW: "oC"
+    ALERT: "dh",
+    FADE: "lw",
+    SHOW: "lt"
   };
 
   /**
@@ -307,7 +307,7 @@ var Alert = function ($) {
           $element.data(DATA_KEY, data);
         }
 
-        if (config === "az") {
+        if (config === "dm") {
           data[config](this);
         }
       });
@@ -380,22 +380,22 @@ var Button = function ($) {
   var JQUERY_NO_CONFLICT = $.fn[NAME];
 
   var ClassName = {
-    ACTIVE: "oT",
-    BUTTON: "oe",
-    FOCUS: "ox"
+    ACTIVE: "fz",
+    BUTTON: "fn",
+    FOCUS: "fq"
   };
 
   var Selector = {
     DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
     DATA_TOGGLE: '[data-toggle="buttons"]',
     INPUT: 'input',
-    ACTIVE: ".oT",
-    BUTTON: ".oe"
+    ACTIVE: ".fz",
+    BUTTON: ".fn"
   };
 
   var Event = {
     CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY,
-    FOCUS_BLUR_DATA_API: "ox" + EVENT_KEY + DATA_API_KEY + ' ' + ('blur' + EVENT_KEY + DATA_API_KEY)
+    FOCUS_BLUR_DATA_API: "fq" + EVENT_KEY + DATA_API_KEY + ' ' + ('blur' + EVENT_KEY + DATA_API_KEY)
   };
 
   /**
@@ -535,9 +535,9 @@ var Carousel = function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var NAME = "fW";
+  var NAME = "mm";
   var VERSION = '4.0.0-alpha.6';
-  var DATA_KEY = "bs.fW";
+  var DATA_KEY = "bs.mm";
   var EVENT_KEY = '.' + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var JQUERY_NO_CONFLICT = $.fn[NAME];
@@ -579,22 +579,22 @@ var Carousel = function ($) {
   };
 
   var ClassName = {
-    CAROUSEL: "fW",
-    ACTIVE: "oT",
+    CAROUSEL: "mm",
+    ACTIVE: "fz",
     SLIDE: 'slide',
-    RIGHT: "fG",
-    LEFT: "fQ",
-    NEXT: "fJ",
-    PREV: "fK",
-    ITEM: "fV"
+    RIGHT: "mk",
+    LEFT: "mx",
+    NEXT: "mb",
+    PREV: "mw",
+    ITEM: "my"
   };
 
   var Selector = {
-    ACTIVE: ".oT",
-    ACTIVE_ITEM: ".oT.fV",
-    ITEM: ".fV",
-    NEXT_PREV: ".fJ, .fK",
-    INDICATORS: ".ln",
+    ACTIVE: ".fz",
+    ACTIVE_ITEM: ".fz.my",
+    ITEM: ".my",
+    NEXT_PREV: ".mb, .mw",
+    INDICATORS: ".ge",
     DATA_SLIDE: '[data-slide], [data-slide-to]',
     DATA_RIDE: '[data-ride="carousel"]'
   };
@@ -1015,9 +1015,9 @@ var Collapse = function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var NAME = "oV";
+  var NAME = "lx";
   var VERSION = '4.0.0-alpha.6';
-  var DATA_KEY = "bs.oV";
+  var DATA_KEY = "bs.lx";
   var EVENT_KEY = '.' + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var JQUERY_NO_CONFLICT = $.fn[NAME];
@@ -1034,7 +1034,7 @@ var Collapse = function ($) {
   };
 
   var Event = {
-    SHOW: "oC" + EVENT_KEY,
+    SHOW: "lt" + EVENT_KEY,
     SHOWN: 'shown' + EVENT_KEY,
     HIDE: 'hide' + EVENT_KEY,
     HIDDEN: 'hidden' + EVENT_KEY,
@@ -1042,9 +1042,9 @@ var Collapse = function ($) {
   };
 
   var ClassName = {
-    SHOW: "oC",
-    COLLAPSE: "oV",
-    COLLAPSING: "oJ",
+    SHOW: "lt",
+    COLLAPSE: "lx",
+    COLLAPSING: "lk",
     COLLAPSED: 'collapsed'
   };
 
@@ -1054,7 +1054,7 @@ var Collapse = function ($) {
   };
 
   var Selector = {
-    ACTIVES: ".uz > .oC, .uz > .oJ",
+    ACTIVES: ".hg > .lt, .hg > .lk",
     DATA_TOGGLE: '[data-toggle="collapse"]'
   };
 
@@ -1367,9 +1367,9 @@ var Dropdown = function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var NAME = "oQ";
+  var NAME = "lj";
   var VERSION = '4.0.0-alpha.6';
-  var DATA_KEY = "bs.oQ";
+  var DATA_KEY = "bs.lj";
   var EVENT_KEY = '.' + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var JQUERY_NO_CONFLICT = $.fn[NAME];
@@ -1381,7 +1381,7 @@ var Dropdown = function ($) {
   var Event = {
     HIDE: 'hide' + EVENT_KEY,
     HIDDEN: 'hidden' + EVENT_KEY,
-    SHOW: "oC" + EVENT_KEY,
+    SHOW: "lt" + EVENT_KEY,
     SHOWN: 'shown' + EVENT_KEY,
     CLICK: 'click' + EVENT_KEY,
     CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY,
@@ -1390,19 +1390,19 @@ var Dropdown = function ($) {
   };
 
   var ClassName = {
-    BACKDROP: "ur",
-    DISABLED: "oo",
-    SHOW: "oC"
+    BACKDROP: "ci",
+    DISABLED: "fa",
+    SHOW: "lt"
   };
 
   var Selector = {
-    BACKDROP: ".ur",
+    BACKDROP: ".ci",
     DATA_TOGGLE: '[data-toggle="dropdown"]',
-    FORM_CHILD: ".oQ form",
+    FORM_CHILD: ".lj form",
     ROLE_MENU: '[role="menu"]',
     ROLE_LISTBOX: '[role="listbox"]',
-    NAVBAR_NAV: ".uA",
-    VISIBLE_ITEMS: "[role=\"menu\"] li:not(.oo) a, " + "[role=\"listbox\"] li:not(.oo) a"
+    NAVBAR_NAV: ".hr",
+    VISIBLE_ITEMS: "[role=\"menu\"] li:not(.fa) a, " + "[role=\"listbox\"] li:not(.fa) a"
   };
 
   /**
@@ -1567,7 +1567,7 @@ var Dropdown = function ($) {
 
         if (event.which === ESCAPE_KEYCODE) {
           var toggle = $(parent).find(Selector.DATA_TOGGLE)[0];
-          $(toggle).trigger("ox");
+          $(toggle).trigger("fq");
         }
 
         $(this).trigger('click');
@@ -1650,9 +1650,9 @@ var Modal = function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var NAME = "fm";
+  var NAME = "vv";
   var VERSION = '4.0.0-alpha.6';
-  var DATA_KEY = "bs.fm";
+  var DATA_KEY = "bs.vv";
   var EVENT_KEY = '.' + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var JQUERY_NO_CONFLICT = $.fn[NAME];
@@ -1677,7 +1677,7 @@ var Modal = function ($) {
   var Event = {
     HIDE: 'hide' + EVENT_KEY,
     HIDDEN: 'hidden' + EVENT_KEY,
-    SHOW: "oC" + EVENT_KEY,
+    SHOW: "lt" + EVENT_KEY,
     SHOWN: 'shown' + EVENT_KEY,
     FOCUSIN: 'focusin' + EVENT_KEY,
     RESIZE: 'resize' + EVENT_KEY,
@@ -1689,18 +1689,18 @@ var Modal = function ($) {
   };
 
   var ClassName = {
-    SCROLLBAR_MEASURER: "fT",
-    BACKDROP: "fb",
-    OPEN: "fv",
-    FADE: "oX",
-    SHOW: "oC"
+    SCROLLBAR_MEASURER: "v_",
+    BACKDROP: "vy",
+    OPEN: "vd",
+    FADE: "lw",
+    SHOW: "lt"
   };
 
   var Selector = {
-    DIALOG: ".fg",
+    DIALOG: ".vm",
     DATA_TOGGLE: '[data-toggle="modal"]',
     DATA_DISMISS: '[data-dismiss="modal"]',
-    FIXED_CONTENT: ".dD, .dP, .is-fixed, .dH"
+    FIXED_CONTENT: ".ze, .zt, .is-fixed, .zn"
   };
 
   /**
@@ -2205,23 +2205,23 @@ var ScrollSpy = function ($) {
   };
 
   var ClassName = {
-    DROPDOWN_ITEM: "oZ",
-    DROPDOWN_MENU: "oG",
-    NAV_LINK: "uw",
-    NAV: "ub",
-    ACTIVE: "oT"
+    DROPDOWN_ITEM: "ce",
+    DROPDOWN_MENU: "lq",
+    NAV_LINK: "cx",
+    NAV: "cw",
+    ACTIVE: "fz"
   };
 
   var Selector = {
     DATA_SPY: '[data-spy="scroll"]',
-    ACTIVE: ".oT",
+    ACTIVE: ".fz",
     LIST_ITEM: '.list-item',
     LI: 'li',
-    LI_DROPDOWN: "li.oQ",
-    NAV_LINKS: ".uw",
-    DROPDOWN: ".oQ",
-    DROPDOWN_ITEMS: ".oZ",
-    DROPDOWN_TOGGLE: ".ok"
+    LI_DROPDOWN: "li.lj",
+    NAV_LINKS: ".cx",
+    DROPDOWN: ".lj",
+    DROPDOWN_ITEMS: ".ce",
+    DROPDOWN_TOGGLE: ".ln"
   };
 
   var OffsetMethod = {
@@ -2502,30 +2502,30 @@ var Tab = function ($) {
   var Event = {
     HIDE: 'hide' + EVENT_KEY,
     HIDDEN: 'hidden' + EVENT_KEY,
-    SHOW: "oC" + EVENT_KEY,
+    SHOW: "lt" + EVENT_KEY,
     SHOWN: 'shown' + EVENT_KEY,
     CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY
   };
 
   var ClassName = {
-    DROPDOWN_MENU: "oG",
-    ACTIVE: "oT",
-    DISABLED: "oo",
-    FADE: "oX",
-    SHOW: "oC"
+    DROPDOWN_MENU: "lq",
+    ACTIVE: "fz",
+    DISABLED: "fa",
+    FADE: "lw",
+    SHOW: "lt"
   };
 
   var Selector = {
     A: 'a',
     LI: 'li',
-    DROPDOWN: ".oQ",
-    LIST: "ul:not(.oG), ol:not(.oG), nav:not(.oG)",
-    FADE_CHILD: "> .uS .oX, > .oX",
-    ACTIVE: ".oT",
-    ACTIVE_CHILD: "> .uS > .oT, > .oT",
+    DROPDOWN: ".lj",
+    LIST: "ul:not(.lq), ol:not(.lq), nav:not(.lq)",
+    FADE_CHILD: "> .c_ .lw, > .lw",
+    ACTIVE: ".fz",
+    ACTIVE_CHILD: "> .c_ > .fz, > .fz",
     DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"]',
-    DROPDOWN_TOGGLE: ".ok",
-    DROPDOWN_ACTIVE_CHILD: "> .oG .oT"
+    DROPDOWN_TOGGLE: ".ln",
+    DROPDOWN_ACTIVE_CHILD: "> .lq .fz"
   };
 
   /**
@@ -2711,7 +2711,7 @@ var Tab = function ($) {
 
   $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
     event.preventDefault();
-    Tab._jQueryInterface.call($(this), "oC");
+    Tab._jQueryInterface.call($(this), "lt");
   });
 
   /**
@@ -2755,9 +2755,9 @@ var Tooltip = function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var NAME = "fk";
+  var NAME = "vz";
   var VERSION = '4.0.0-alpha.6';
-  var DATA_KEY = "bs.fk";
+  var DATA_KEY = "bs.vz";
   var EVENT_KEY = '.' + DATA_KEY;
   var JQUERY_NO_CONFLICT = $.fn[NAME];
   var TRANSITION_DURATION = 150;
@@ -2766,7 +2766,7 @@ var Tooltip = function ($) {
   var Default = {
     animation: true,
     template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-inner"></div></div>',
-    trigger: "hover ox",
+    trigger: "hover fq",
     title: '',
     delay: 0,
     html: false,
@@ -2799,14 +2799,14 @@ var Tooltip = function ($) {
   };
 
   var HoverState = {
-    SHOW: "oC",
+    SHOW: "lt",
     OUT: 'out'
   };
 
   var Event = {
     HIDE: 'hide' + EVENT_KEY,
     HIDDEN: 'hidden' + EVENT_KEY,
-    SHOW: "oC" + EVENT_KEY,
+    SHOW: "lt" + EVENT_KEY,
     SHOWN: 'shown' + EVENT_KEY,
     INSERTED: 'inserted' + EVENT_KEY,
     CLICK: 'click' + EVENT_KEY,
@@ -2817,13 +2817,13 @@ var Tooltip = function ($) {
   };
 
   var ClassName = {
-    FADE: "oX",
-    SHOW: "oC"
+    FADE: "lw",
+    SHOW: "lt"
   };
 
   var Selector = {
-    TOOLTIP: ".fk",
-    TOOLTIP_INNER: ".fO"
+    TOOLTIP: ".vz",
+    TOOLTIP_INNER: ".mn"
   };
 
   var TetherClass = {
@@ -2833,7 +2833,7 @@ var Tooltip = function ($) {
 
   var Trigger = {
     HOVER: 'hover',
-    FOCUS: "ox",
+    FOCUS: "fq",
     CLICK: 'click',
     MANUAL: 'manual'
   };
@@ -2916,7 +2916,7 @@ var Tooltip = function ($) {
       $.removeData(this.element, this.constructor.DATA_KEY);
 
       $(this.element).off(this.constructor.EVENT_KEY);
-      $(this.element).closest(".fm").off("hide.bs.fm");
+      $(this.element).closest(".vv").off("hide.bs.vv");
 
       if (this.tip) {
         $(this.tip).remove();
@@ -2937,7 +2937,7 @@ var Tooltip = function ($) {
       var _this22 = this;
 
       if ($(this.element).css('display') === 'none') {
-        throw new Error("Please use oC on visible elements");
+        throw new Error("Please use lt on visible elements");
       }
 
       var showEvent = $.Event(this.constructor.Event.SHOW);
@@ -3137,7 +3137,7 @@ var Tooltip = function ($) {
           });
         }
 
-        $(_this24.element).closest(".fm").on("hide.bs.fm", function () {
+        $(_this24.element).closest(".vv").on("hide.bs.vv", function () {
           return _this24.hide();
         });
       });
@@ -3364,9 +3364,9 @@ var Popover = function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var NAME = "fj";
+  var NAME = "mf";
   var VERSION = '4.0.0-alpha.6';
-  var DATA_KEY = "bs.fj";
+  var DATA_KEY = "bs.mf";
   var EVENT_KEY = '.' + DATA_KEY;
   var JQUERY_NO_CONFLICT = $.fn[NAME];
 
@@ -3382,19 +3382,19 @@ var Popover = function ($) {
   });
 
   var ClassName = {
-    FADE: "oX",
-    SHOW: "oC"
+    FADE: "lw",
+    SHOW: "lt"
   };
 
   var Selector = {
-    TITLE: ".fR",
-    CONTENT: ".fz"
+    TITLE: ".mp",
+    CONTENT: ".mv"
   };
 
   var Event = {
     HIDE: 'hide' + EVENT_KEY,
     HIDDEN: 'hidden' + EVENT_KEY,
-    SHOW: "oC" + EVENT_KEY,
+    SHOW: "lt" + EVENT_KEY,
     SHOWN: 'shown' + EVENT_KEY,
     INSERTED: 'inserted' + EVENT_KEY,
     CLICK: 'click' + EVENT_KEY,

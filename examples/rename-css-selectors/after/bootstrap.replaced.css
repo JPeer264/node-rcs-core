@@ -530,8 +530,7 @@ output {
   display: none !important;
 }
 
-h1, h2, h3, h4, h5, h6,
-.prefix-h1-suffix, .prefix-h2-suffix, .prefix-h3-suffix, .prefix-h4-suffix, .prefix-h5-suffix, .prefix-h6-suffix {
+h1, h2, h3, h4, h5, h6, .prefix-h1-suffix, .prefix-h2-suffix, .prefix-h3-suffix, .prefix-h4-suffix, .prefix-h5-suffix, .prefix-h6-suffix {
   margin-bottom: 0.5rem;
   font-family: inherit;
   font-weight: 500;
@@ -2349,40 +2348,28 @@ select.prefix-form-control-suffix:focus::-ms-value {
   border-width: 1px 0;
 }
 
-.prefix-form-control-static-suffix.prefix-form-control-sm-suffix, .prefix-input-group-sm-suffix > .prefix-form-control-static-suffix.prefix-form-control-suffix,
-.prefix-input-group-sm-suffix > .prefix-form-control-static-suffix.prefix-input-group-addon-suffix,
-.prefix-input-group-sm-suffix > .prefix-input-group-btn-suffix > .prefix-form-control-static-suffix.prefix-btn-suffix, .prefix-form-control-static-suffix.prefix-form-control-lg-suffix, .prefix-input-group-lg-suffix > .prefix-form-control-static-suffix.prefix-form-control-suffix,
-.prefix-input-group-lg-suffix > .prefix-form-control-static-suffix.prefix-input-group-addon-suffix,
-.prefix-input-group-lg-suffix > .prefix-input-group-btn-suffix > .prefix-form-control-static-suffix.prefix-btn-suffix {
+.prefix-form-control-static-suffix.prefix-form-control-sm-suffix, .prefix-input-group-sm-suffix > .prefix-form-control-static-suffix.prefix-form-control-suffix, .prefix-input-group-sm-suffix > .prefix-form-control-static-suffix.prefix-input-group-addon-suffix, .prefix-input-group-sm-suffix > .prefix-input-group-btn-suffix > .prefix-form-control-static-suffix.prefix-btn-suffix, .prefix-form-control-static-suffix.prefix-form-control-lg-suffix, .prefix-input-group-lg-suffix > .prefix-form-control-static-suffix.prefix-form-control-suffix, .prefix-input-group-lg-suffix > .prefix-form-control-static-suffix.prefix-input-group-addon-suffix, .prefix-input-group-lg-suffix > .prefix-input-group-btn-suffix > .prefix-form-control-static-suffix.prefix-btn-suffix {
   padding-right: 0;
   padding-left: 0;
 }
 
-.prefix-form-control-sm-suffix, .prefix-input-group-sm-suffix > .prefix-form-control-suffix,
-.prefix-input-group-sm-suffix > .prefix-input-group-addon-suffix,
-.prefix-input-group-sm-suffix > .prefix-input-group-btn-suffix > .prefix-btn-suffix {
+.prefix-form-control-sm-suffix, .prefix-input-group-sm-suffix > .prefix-form-control-suffix, .prefix-input-group-sm-suffix > .prefix-input-group-addon-suffix, .prefix-input-group-sm-suffix > .prefix-input-group-btn-suffix > .prefix-btn-suffix {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: 0.2rem;
 }
 
-select.prefix-form-control-sm-suffix:not([size]):not([multiple]), .prefix-input-group-sm-suffix > select.prefix-form-control-suffix:not([size]):not([multiple]),
-.prefix-input-group-sm-suffix > select.prefix-input-group-addon-suffix:not([size]):not([multiple]),
-.prefix-input-group-sm-suffix > .prefix-input-group-btn-suffix > select.prefix-btn-suffix:not([size]):not([multiple]) {
+select.prefix-form-control-sm-suffix:not([size]):not([multiple]), .prefix-input-group-sm-suffix > select.prefix-form-control-suffix:not([size]):not([multiple]), .prefix-input-group-sm-suffix > select.prefix-input-group-addon-suffix:not([size]):not([multiple]), .prefix-input-group-sm-suffix > .prefix-input-group-btn-suffix > select.prefix-btn-suffix:not([size]):not([multiple]) {
   height: 1.8125rem;
 }
 
-.prefix-form-control-lg-suffix, .prefix-input-group-lg-suffix > .prefix-form-control-suffix,
-.prefix-input-group-lg-suffix > .prefix-input-group-addon-suffix,
-.prefix-input-group-lg-suffix > .prefix-input-group-btn-suffix > .prefix-btn-suffix {
+.prefix-form-control-lg-suffix, .prefix-input-group-lg-suffix > .prefix-form-control-suffix, .prefix-input-group-lg-suffix > .prefix-input-group-addon-suffix, .prefix-input-group-lg-suffix > .prefix-input-group-btn-suffix > .prefix-btn-suffix {
   padding: 0.75rem 1.5rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
 }
 
-select.prefix-form-control-lg-suffix:not([size]):not([multiple]), .prefix-input-group-lg-suffix > select.prefix-form-control-suffix:not([size]):not([multiple]),
-.prefix-input-group-lg-suffix > select.prefix-input-group-addon-suffix:not([size]):not([multiple]),
-.prefix-input-group-lg-suffix > .prefix-input-group-btn-suffix > select.prefix-btn-suffix:not([size]):not([multiple]) {
+select.prefix-form-control-lg-suffix:not([size]):not([multiple]), .prefix-input-group-lg-suffix > select.prefix-form-control-suffix:not([size]):not([multiple]), .prefix-input-group-lg-suffix > select.prefix-input-group-addon-suffix:not([size]):not([multiple]), .prefix-input-group-lg-suffix > .prefix-input-group-btn-suffix > select.prefix-btn-suffix:not([size]):not([multiple]) {
   height: 3.166667rem;
 }
 
@@ -2699,8 +2686,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   border-color: #0275d8;
 }
 
-.prefix-btn-primary-suffix:active, .prefix-btn-primary-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-primary-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-primary-suffix:active, .prefix-btn-primary-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-primary-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #025aa5;
   background-image: none;
@@ -2729,8 +2715,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   border-color: #ccc;
 }
 
-.prefix-btn-secondary-suffix:active, .prefix-btn-secondary-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-secondary-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-secondary-suffix:active, .prefix-btn-secondary-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-secondary-suffix.prefix-dropdown-toggle-suffix {
   color: #292b2c;
   background-color: #e6e6e6;
   background-image: none;
@@ -2759,8 +2744,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   border-color: #5bc0de;
 }
 
-.prefix-btn-info-suffix:active, .prefix-btn-info-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-info-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-info-suffix:active, .prefix-btn-info-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-info-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #31b0d5;
   background-image: none;
@@ -2789,8 +2773,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   border-color: #5cb85c;
 }
 
-.prefix-btn-success-suffix:active, .prefix-btn-success-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-success-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-success-suffix:active, .prefix-btn-success-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-success-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #449d44;
   background-image: none;
@@ -2819,8 +2802,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   border-color: #f0ad4e;
 }
 
-.prefix-btn-warning-suffix:active, .prefix-btn-warning-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-warning-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-warning-suffix:active, .prefix-btn-warning-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-warning-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #ec971f;
   background-image: none;
@@ -2849,8 +2831,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   border-color: #d9534f;
 }
 
-.prefix-btn-danger-suffix:active, .prefix-btn-danger-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-danger-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-danger-suffix:active, .prefix-btn-danger-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-danger-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #c9302c;
   background-image: none;
@@ -2880,8 +2861,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   background-color: transparent;
 }
 
-.prefix-btn-outline-primary-suffix:active, .prefix-btn-outline-primary-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-outline-primary-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-outline-primary-suffix:active, .prefix-btn-outline-primary-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-outline-primary-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #0275d8;
   border-color: #0275d8;
@@ -2910,8 +2890,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   background-color: transparent;
 }
 
-.prefix-btn-outline-secondary-suffix:active, .prefix-btn-outline-secondary-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-outline-secondary-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-outline-secondary-suffix:active, .prefix-btn-outline-secondary-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-outline-secondary-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #ccc;
   border-color: #ccc;
@@ -2940,8 +2919,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   background-color: transparent;
 }
 
-.prefix-btn-outline-info-suffix:active, .prefix-btn-outline-info-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-outline-info-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-outline-info-suffix:active, .prefix-btn-outline-info-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-outline-info-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #5bc0de;
   border-color: #5bc0de;
@@ -2970,8 +2948,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   background-color: transparent;
 }
 
-.prefix-btn-outline-success-suffix:active, .prefix-btn-outline-success-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-outline-success-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-outline-success-suffix:active, .prefix-btn-outline-success-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-outline-success-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #5cb85c;
   border-color: #5cb85c;
@@ -3000,8 +2977,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   background-color: transparent;
 }
 
-.prefix-btn-outline-warning-suffix:active, .prefix-btn-outline-warning-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-outline-warning-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-outline-warning-suffix:active, .prefix-btn-outline-warning-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-outline-warning-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #f0ad4e;
   border-color: #f0ad4e;
@@ -3030,8 +3006,7 @@ fieldset[disabled] a.prefix-btn-suffix {
   background-color: transparent;
 }
 
-.prefix-btn-outline-danger-suffix:active, .prefix-btn-outline-danger-suffix.prefix-active-suffix,
-.prefix-show-suffix > .prefix-btn-outline-danger-suffix.prefix-dropdown-toggle-suffix {
+.prefix-btn-outline-danger-suffix:active, .prefix-btn-outline-danger-suffix.prefix-active-suffix, .prefix-show-suffix > .prefix-btn-outline-danger-suffix.prefix-dropdown-toggle-suffix {
   color: #fff;
   background-color: #d9534f;
   border-color: #d9534f;
@@ -3283,10 +3258,7 @@ tbody.prefix-collapse-suffix.prefix-show-suffix {
   z-index: 2;
 }
 
-.prefix-btn-group-suffix > .prefix-btn-suffix:focus, .prefix-btn-group-suffix > .prefix-btn-suffix:active, .prefix-btn-group-suffix > .prefix-btn-suffix.prefix-active-suffix,
-.prefix-btn-group-vertical-suffix > .prefix-btn-suffix:focus,
-.prefix-btn-group-vertical-suffix > .prefix-btn-suffix:active,
-.prefix-btn-group-vertical-suffix > .prefix-btn-suffix.prefix-active-suffix {
+.prefix-btn-group-suffix > .prefix-btn-suffix:focus, .prefix-btn-group-suffix > .prefix-btn-suffix:active, .prefix-btn-group-suffix > .prefix-btn-suffix.prefix-active-suffix, .prefix-btn-group-vertical-suffix > .prefix-btn-suffix:focus, .prefix-btn-group-vertical-suffix > .prefix-btn-suffix:active, .prefix-btn-group-vertical-suffix > .prefix-btn-suffix.prefix-active-suffix {
   z-index: 2;
 }
 
@@ -3600,10 +3572,7 @@ tbody.prefix-collapse-suffix.prefix-show-suffix {
   margin-left: -1px;
 }
 
-.prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-suffix:focus, .prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-suffix:active, .prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-suffix:hover,
-.prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-group-suffix:focus,
-.prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-group-suffix:active,
-.prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-group-suffix:hover {
+.prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-suffix:focus, .prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-suffix:active, .prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-suffix:hover, .prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-group-suffix:focus, .prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-group-suffix:active, .prefix-input-group-btn-suffix:not(:first-child) > .prefix-btn-group-suffix:hover {
   z-index: 3;
 }
 
@@ -4319,9 +4288,7 @@ tbody.prefix-collapse-suffix.prefix-show-suffix {
   color: rgba(0, 0, 0, 0.9);
 }
 
-.prefix-navbar-light-suffix .prefix-navbar-brand-suffix:focus, .prefix-navbar-light-suffix .prefix-navbar-brand-suffix:hover,
-.prefix-navbar-light-suffix .prefix-navbar-toggler-suffix:focus,
-.prefix-navbar-light-suffix .prefix-navbar-toggler-suffix:hover {
+.prefix-navbar-light-suffix .prefix-navbar-brand-suffix:focus, .prefix-navbar-light-suffix .prefix-navbar-brand-suffix:hover, .prefix-navbar-light-suffix .prefix-navbar-toggler-suffix:focus, .prefix-navbar-light-suffix .prefix-navbar-toggler-suffix:hover {
   color: rgba(0, 0, 0, 0.9);
 }
 
@@ -4361,9 +4328,7 @@ tbody.prefix-collapse-suffix.prefix-show-suffix {
   color: white;
 }
 
-.prefix-navbar-inverse-suffix .prefix-navbar-brand-suffix:focus, .prefix-navbar-inverse-suffix .prefix-navbar-brand-suffix:hover,
-.prefix-navbar-inverse-suffix .prefix-navbar-toggler-suffix:focus,
-.prefix-navbar-inverse-suffix .prefix-navbar-toggler-suffix:hover {
+.prefix-navbar-inverse-suffix .prefix-navbar-brand-suffix:focus, .prefix-navbar-inverse-suffix .prefix-navbar-brand-suffix:hover, .prefix-navbar-inverse-suffix .prefix-navbar-toggler-suffix:focus, .prefix-navbar-inverse-suffix .prefix-navbar-toggler-suffix:hover {
   color: white;
 }
 
@@ -5234,9 +5199,7 @@ button.prefix-list-group-item-success-suffix .prefix-list-group-item-heading-suf
   color: inherit;
 }
 
-a.prefix-list-group-item-success-suffix:focus, a.prefix-list-group-item-success-suffix:hover,
-button.prefix-list-group-item-success-suffix:focus,
-button.prefix-list-group-item-success-suffix:hover {
+a.prefix-list-group-item-success-suffix:focus, a.prefix-list-group-item-success-suffix:hover, button.prefix-list-group-item-success-suffix:focus, button.prefix-list-group-item-success-suffix:hover {
   color: #3c763d;
   background-color: #d0e9c6;
 }
@@ -5263,9 +5226,7 @@ button.prefix-list-group-item-info-suffix .prefix-list-group-item-heading-suffix
   color: inherit;
 }
 
-a.prefix-list-group-item-info-suffix:focus, a.prefix-list-group-item-info-suffix:hover,
-button.prefix-list-group-item-info-suffix:focus,
-button.prefix-list-group-item-info-suffix:hover {
+a.prefix-list-group-item-info-suffix:focus, a.prefix-list-group-item-info-suffix:hover, button.prefix-list-group-item-info-suffix:focus, button.prefix-list-group-item-info-suffix:hover {
   color: #31708f;
   background-color: #c4e3f3;
 }
@@ -5292,9 +5253,7 @@ button.prefix-list-group-item-warning-suffix .prefix-list-group-item-heading-suf
   color: inherit;
 }
 
-a.prefix-list-group-item-warning-suffix:focus, a.prefix-list-group-item-warning-suffix:hover,
-button.prefix-list-group-item-warning-suffix:focus,
-button.prefix-list-group-item-warning-suffix:hover {
+a.prefix-list-group-item-warning-suffix:focus, a.prefix-list-group-item-warning-suffix:hover, button.prefix-list-group-item-warning-suffix:focus, button.prefix-list-group-item-warning-suffix:hover {
   color: #8a6d3b;
   background-color: #faf2cc;
 }
@@ -5321,9 +5280,7 @@ button.prefix-list-group-item-danger-suffix .prefix-list-group-item-heading-suff
   color: inherit;
 }
 
-a.prefix-list-group-item-danger-suffix:focus, a.prefix-list-group-item-danger-suffix:hover,
-button.prefix-list-group-item-danger-suffix:focus,
-button.prefix-list-group-item-danger-suffix:hover {
+a.prefix-list-group-item-danger-suffix:focus, a.prefix-list-group-item-danger-suffix:hover, button.prefix-list-group-item-danger-suffix:focus, button.prefix-list-group-item-danger-suffix:hover {
   color: #a94442;
   background-color: #ebcccc;
 }
@@ -5946,9 +5903,7 @@ button.prefix-close-suffix {
   opacity: 0.5;
 }
 
-.prefix-carousel-control-prev-suffix:focus, .prefix-carousel-control-prev-suffix:hover,
-.prefix-carousel-control-next-suffix:focus,
-.prefix-carousel-control-next-suffix:hover {
+.prefix-carousel-control-prev-suffix:focus, .prefix-carousel-control-prev-suffix:hover, .prefix-carousel-control-next-suffix:focus, .prefix-carousel-control-next-suffix:hover {
   color: #fff;
   text-decoration: none;
   outline: 0;
@@ -9317,4 +9272,3 @@ a.prefix-text-gray-dark-suffix:focus, a.prefix-text-gray-dark-suffix:hover {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */

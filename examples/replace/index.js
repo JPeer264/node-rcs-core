@@ -2,8 +2,7 @@ const fs = require('fs');
 const rcs = require('rcs-core');
 
 // fill the libraries
-// do not care about attribute selectors, as it is just for '.no-gutter'
-rcs.fillLibraries(fs.readFileSync('./before/bootstrap.css', 'utf8'), { ignoreAttributeSelectors: true });
+rcs.fillLibraries(fs.readFileSync('./before/bootstrap.css', 'utf8'));
 
 // replace the data
 const cssData = rcs.replace.css(fs.readFileSync('./before/bootstrap.css', 'utf8'));
