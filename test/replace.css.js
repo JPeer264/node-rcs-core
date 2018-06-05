@@ -108,6 +108,12 @@ test('multiple attribute selectors without quotes',
     { ignoreAttributeSelectors: true },
 );
 
+test('multiple attribute selectors without quotes',
+  replaceCssMacro,
+  '.somediv{}.anotherdiv[class^=some] + [class^=another]{}',
+  '.somet{}.anothert[class^=some] + [class^=another]{}',
+);
+
 test('attribute selectors ^',
   replaceCssMacro,
   '.somediv{}.anotherdiv[class^="some"]{}',
