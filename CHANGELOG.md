@@ -1,3 +1,11 @@
+2.0.1 - June, 05 2018
+
+* b51cb60 Fix: gready attribute selector (#48) (Bert Verhelst)
+* 5e3c66c Docs: update examples (#47) (Jan Peer Stöcklmair)
+* c0f53e0 Chore: update travis notifications (#46) (Jan Peer Stöcklmair)
+* 4141040 Chore: update git in package.json (#45) (Jan Peer Stöcklmair)
+* ee11322 Test: improve coverage (#44) (Jan Peer Stöcklmair)
+
 2.0.0 - April, 28 2018
 
 * d60510c Docs: remove helper docs (#43) (Jan Peer Stöcklmair)
