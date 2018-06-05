@@ -101,6 +101,19 @@ test('attribute selectors not renamed',
   { ignoreAttributeSelectors: true },
 );
 
+test('multiple attribute selectors without quotes',
+    replaceCssMacro,
+    '.somediv{}.anotherdiv[class^=some] + [class^=some]{}',
+    '.a{}.b[class^=some] + [class^=some]{}',
+    { ignoreAttributeSelectors: true },
+);
+
+test('multiple attribute selectors without quotes',
+  replaceCssMacro,
+  '.somediv{}.anotherdiv[class^=some] + [class^=another]{}',
+  '.somet{}.anothert[class^=some] + [class^=another]{}',
+);
+
 test('attribute selectors ^',
   replaceCssMacro,
   '.somediv{}.anotherdiv[class^="some"]{}',
