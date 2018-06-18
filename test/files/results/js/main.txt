@@ -8,3 +8,11 @@ document.getElementById(" c");
 document.getElementById('\n\n\t c   c');
 
 angular.module('service.test');
+
+const restSpread = {
+    weirdFormatting: true,
+shouldRest: true,
+  };
+
+const extended = { ...restSpread };
+const { ...options } = extended;

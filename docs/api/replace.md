@@ -68,6 +68,23 @@ const replacedBuffer = rcs.replace.css('#my-id: {}');
 
 Parameters:
 - code `<String>`
+- [espreeOptions](https://github.com/eslint/espree#usage) `<Object>`
+
+Espree default options:
+```js
+{
+  ecmaVersion: 9,
+  sourceType: 'module',
+  ecmaFeatures: {
+    jsx: true,
+  },
+  range: true, // cannot be changed
+  loc: true, // cannot be changed
+  comment: true, // cannot be changed
+  attachComment: true, // cannot be changed
+  tokens: true, // cannot be changed
+}
+```
 
 Example:
 

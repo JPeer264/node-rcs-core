@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import ListView from '../components/ListView';
 import eventActions from '../redux/eventsRedux';
-import { getAllEvents } from '../selectors';
+const { getAllEvents } = require('../selectors');
 
 class Events extends Component {
   componentWillMount() {
