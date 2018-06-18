@@ -1,3 +1,7 @@
+2.1.0 - June, 18 2018
+
+* fdbb29c Feat: use espree as parser and allow options for it (#49) (Jan Peer Stöcklmair)
+
 2.0.1 - June, 05 2018
 
 * b51cb60 Fix: gready attribute selector (#48) (Bert Verhelst)
