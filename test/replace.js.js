@@ -27,10 +27,25 @@ test(replaceJsMacro,
   'var test = \' something \';\nconst myClass = "a";',
 );
 
+
 test(replaceJsMacro,
   "'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040'",
   "'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040'",
 );
+
+test('should fail to parse jsx', (t) => {
+  t.plan(1);
+
+  const input = fs.readFileSync(path.join(fixturesCwd, '/js/react.txt'), 'utf8');
+
+  try {
+    rcs.replace.js(input, { ecmaFeatures: { jsx: false } });
+
+    t.fail();
+  } catch (e) {
+    t.pass();
+  }
+});
 
 test('replace everything from file',
   replaceJsMacro,
