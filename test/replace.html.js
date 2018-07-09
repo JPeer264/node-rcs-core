@@ -60,3 +60,10 @@ test('should replace class selectors within script tags',
   minify(fs.readFileSync(path.join(resultsCwd, '/html/script.html'), 'utf8'), { collapseWhitespace: true }),
 );
 
+test('should replace class selectors within style tags',
+  replaceHtmlMacro,
+  ['.jp-block', '.jp-block__element'],
+  minify(fs.readFileSync(path.join(fixturesCwd, '/html/style.html'), 'utf8'), { collapseWhitespace: true }),
+  minify(fs.readFileSync(path.join(resultsCwd, '/html/style.html'), 'utf8'), { collapseWhitespace: true }),
+);
+
