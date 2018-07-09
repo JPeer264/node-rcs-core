@@ -45,9 +45,12 @@
     "decimal-to-any": "1.0.0",
     "espree": "^3.5.4",
     "fs-extra": "^2.0.0",
+    "html-minifier": "^3.5.18",
     "json-extra": "^0.5.0",
     "lodash.merge": "^4.6.1",
     "object.entries": "^1.0.4",
+    "parse5": "^5.0.0",
+    "parse5-traverse": "^1.0.1",
     "postcss": "^6.0.17",
     "recast": "^0.15.0"
   },
