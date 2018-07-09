@@ -5,6 +5,7 @@ All replace methods take `Buffer` or `String`.
 ## Methods
 
 - [regex](#regex)
+- [html](#html)
 - [any](#any)
 - [css](#css)
 - [js](#js)
@@ -15,6 +16,32 @@ All replace methods take `Buffer` or `String`.
 > An object with all regular expressions used in rcs-core
 
 [Available regular expressions](https://github.com/JPeer264/node-rcs-core/blob/master/lib/replace/regex.js)
+
+### html
+
+> Replaces attributes with `id` or `class`. Everything within a `<script>` tag, will be processed via [replace.js](#js), and everything inside a `<style>` tag with [replace.css](#css).
+
+**rcs.replace.html(code[, options])**
+
+Parameters:
+- code `<String>`
+- options `<Object>`
+
+Options:
+- espreeOptions: same as [replace.js](#js) options
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+// first set the id to replace
+rcs.selectorLibrary.set('.my-class');
+
+const replacedHtml = rcs.replace.html('<div class="my-class"></div>');
+// output:
+// '<div class="a"></div>'
+```
 
 ### any
 
