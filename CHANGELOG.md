@@ -1,3 +1,8 @@
+2.2.0 - July, 09 2018
+
+* c7efd4e Feat: replace HTML (closes #50) (#52) (Jan Peer Stöcklmair)
+* ed3fc92 Chore: change Node testing in travis (#54) (Jan Peer Stöcklmair)
+
 2.1.0 - June, 18 2018
 
 * fdbb29c Feat: use espree as parser and allow options for it (#49) (Jan Peer Stöcklmair)
