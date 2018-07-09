@@ -3242,9 +3242,9 @@ parse-ms@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parse-ms/-/parse-ms-1.0.1.tgz#56346d4749d78f23430ca0c713850aef91aa361d"
 
-parse5-traverse@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/parse5-traverse/-/parse5-traverse-1.0.1.tgz#280e41d8d32e6b1c0d6ccd027dd8019d882a7d3e"
+parse5-traverse@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/parse5-traverse/-/parse5-traverse-1.0.2.tgz#2e8215e1141c02b887d969fb6b8a34322316c68f"
 
 parse5@^5.0.0:
   version "5.0.0"
