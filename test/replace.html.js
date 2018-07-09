@@ -46,6 +46,13 @@ test('should replace class selectors',
   '<table class="test a" id="id"></table>',
 );
 
+test('should replace class selectors based on issue #50',
+  replaceHtmlMacro,
+  ['.cl1'],
+  '<p class="cl1">text with \'single quote</p><p class="cl1">another s\'ingle quote</p>',
+  '<p class="a">text with \'single quote</p><p class="a">another s\'ingle quote</p>',
+);
+
 test('should replace class selectors in a normal html file',
   replaceHtmlMacro,
   ['.jp-block', '.jp-block__element'],
