@@ -8,7 +8,7 @@ import rcs from '../lib';
 const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
-function replaceHtmlMacro(t, selectors, input, expected) {
+function replaceHtmlMacro(t, selectors, input, expected, options) {
   const setter = {};
   const expect = expected || input;
 
@@ -16,7 +16,7 @@ function replaceHtmlMacro(t, selectors, input, expected) {
 
   rcs.selectorLibrary.setMultiple(setter);
 
-  t.is(rcs.replace.html(input), expect);
+  t.is(rcs.replace.html(input, options), expect);
 }
 
 test.beforeEach(() => {
@@ -74,3 +74,67 @@ test('should replace class selectors within style tags',
   minify(fs.readFileSync(path.join(resultsCwd, '/html/style.html'), 'utf8'), { collapseWhitespace: true }),
 );
 
+test('should replace with shouldTriggerClassAttribute',
+  replaceHtmlMacro,
+  ['.selector', '.another-selector'],
+  '<table anything="test selector" id="id"></table>',
+  '<table anything="test a" id="id"></table>',
+  { triggerClassAttributes: ['anything'] },
+);
+
+test('should replace with shouldTriggerClassAttribute and glob',
+  replaceHtmlMacro,
+  ['.selector', '.another-selector'],
+  '<table anything="test selector" id="id"></table>',
+  '<table anything="test a" id="id"></table>',
+  { triggerClassAttributes: [/^any/] },
+);
+
+test('should not replace with shouldTriggerClassAttribute and glob',
+  replaceHtmlMacro,
+  ['.selector', '.another-selector'],
+  '<table anything="test selector" id="id"></table>',
+  '<table anything="test selector" id="id"></table>',
+  { triggerClassAttributes: [/any$/] },
+);
+
+test('should replace shouldTriggerClassAttribute glob an normal mixed',
+  replaceHtmlMacro,
+  ['.selector', '.another-selector'],
+  '<table anything="test selector" another="selector" data-one="another-selector" data-two="another-selector" id="id"></table>',
+  '<table anything="test a" another="a" data-one="b" data-two="b" id="id"></table>',
+  { triggerClassAttributes: ['anything', 'another', /data-*/] },
+);
+
+
+test('should replace with shouldTriggerIdAttribute',
+  replaceHtmlMacro,
+  ['#selector', '#another-selector'],
+  '<table anything="test selector" id="id"></table>',
+  '<table anything="test a" id="id"></table>',
+  { triggerIdAttributes: ['anything'] },
+);
+
+test('should replace with shouldTriggerIdAttribute and glob',
+  replaceHtmlMacro,
+  ['#selector', '#another-selector'],
+  '<table anything="test selector" id="id"></table>',
+  '<table anything="test a" id="id"></table>',
+  { triggerIdAttributes: [/^any/] },
+);
+
+test('should not replace with shouldTriggerIdAttribute and glob',
+  replaceHtmlMacro,
+  ['#selector', '#another-selector'],
+  '<table anything="test selector" id="id"></table>',
+  '<table anything="test selector" id="id"></table>',
+  { triggerIdAttributes: [/any$/] },
+);
+
+test('should replace shouldTriggerIdAttribute glob an normal mixed',
+  replaceHtmlMacro,
+  ['#selector', '#another-selector'],
+  '<table anything="test selector" another="selector" data-one="another-selector" data-two="another-selector" id="id"></table>',
+  '<table anything="test a" another="a" data-one="b" data-two="b" id="id"></table>',
+  { triggerIdAttributes: ['anything', 'another', /data-*/] },
+);
