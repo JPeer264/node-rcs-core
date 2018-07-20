@@ -2,6 +2,8 @@
 
 > Some statistics to analyze your code
 
+**rcs.stats()**
+
 Returns object with:
 - classUsageCount `<Object>`: Key is the class and value is how often this selector got used
 - idUsageCount `<Object>`: Same as `classUsageCount`, but for ids
