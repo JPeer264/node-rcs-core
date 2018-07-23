@@ -1,3 +1,8 @@
+2.3.0 - July, 23 2018
+
+* 867da34 Feat: stats (closes #55) (#57) (Jan Peer Stöcklmair)
+* 49507c3 Feat: trigger more HTML tag attributes (closes #53) (#56) (Jan Peer Stöcklmair)
+
 2.2.0 - July, 09 2018
 
 * c7efd4e Feat: replace HTML (closes #50) (#52) (Jan Peer Stöcklmair)
