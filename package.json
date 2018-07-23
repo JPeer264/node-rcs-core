@@ -48,6 +48,7 @@
     "json-extra": "^0.5.0",
     "lodash.merge": "^4.6.1",
     "object.entries": "^1.0.4",
+    "object.values": "^1.0.4",
     "parse5": "^5.0.0",
     "parse5-traverse": "^1.0.2",
     "postcss": "^6.0.17",

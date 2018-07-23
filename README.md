@@ -20,7 +20,7 @@ $ yarn add rcs-core
 ```
 
 ## API documentation
-- [rcs.helper](docs/api/helper.md)
+- [rcs.stats](docs/api/stats.md)
 - [rcs.replace](docs/api/replace.md)
 - [rcs.fillLibraries](docs/api/filllibraries.md)
 - [rcs.nameGenerator](docs/api/namegenerator.md)
