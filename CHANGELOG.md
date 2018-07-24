@@ -1,3 +1,7 @@
+2.3.1 - July, 24 2018
+
+* 6672133 Chore: update parse5-traverse (closes #58) (#59) (Jan Peer Stöcklmair)
+
 2.3.0 - July, 23 2018
 
 * 867da34 Feat: stats (closes #55) (#57) (Jan Peer Stöcklmair)
