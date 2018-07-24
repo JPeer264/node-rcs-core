@@ -138,3 +138,10 @@ test('should replace shouldTriggerIdAttribute glob an normal mixed',
   '<table anything="test a" another="a" data-one="b" data-two="b" id="id"></table>',
   { triggerIdAttributes: ['anything', 'another', /data-*/] },
 );
+
+test('should replace inside template | issue #58',
+  replaceHtmlMacro,
+  ['.selector', '.another-selector'],
+  '<div class="selector"><template type="selector"><div class="another-selector"></div></template></div>',
+  '<div class="a"><template type="selector"><div class="b"></div></template></div>',
+);

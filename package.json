@@ -50,7 +50,7 @@
     "object.entries": "^1.0.4",
     "object.values": "^1.0.4",
     "parse5": "^5.0.0",
-    "parse5-traverse": "^1.0.2",
+    "parse5-traverse": "^1.0.3",
     "postcss": "^6.0.17",
     "recast": "^0.15.0"
   },
