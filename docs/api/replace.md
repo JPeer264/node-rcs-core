@@ -29,7 +29,8 @@ Parameters:
 
 Options:
 - espreeOptions: same as [replace.js](#js) options
-
+- triggerClassAttributes `<Array>`: Array of string or regular expressions. Renames all classes with the matching string or regex. E.g. `[/data-*/ , 'custom-attr']` matches all data attributes and 'custom-attr'
+- triggerIdAttributes `<Array>`: Same as triggerClassAttributes just for IDs
 Example:
 
 ```js
