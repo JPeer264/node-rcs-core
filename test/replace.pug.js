@@ -65,3 +65,97 @@ test('should replace class selectors in a normal pug file',
   fs.readFileSync(path.join(fixturesCwd, '/pug/index.pug'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/pug/index.pug'), 'utf8'),
 );
+
+test('should replace class selectors within script tags',
+  replacePugMacro,
+  ['.test', '.selector', '#id'],
+  fs.readFileSync(path.join(fixturesCwd, '/pug/script.pug'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/pug/script.pug'), 'utf8'),
+);
+
+test('should replace class selectors within style tags',
+  replacePugMacro,
+  ['.jp-block', '.jp-block__element'],
+  fs.readFileSync(path.join(fixturesCwd, '/pug/style.pug'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/pug/style.pug'), 'utf8'),
+);
+
+test('should replace with shouldTriggerClassAttribute',
+  replacePugMacro,
+  ['.selector', '.another-selector'],
+  'table#id(anything="test selector")',
+  'table#id(anything!="test a")',
+  { triggerClassAttributes: ['anything'] },
+);
+
+test('should replace with shouldTriggerClassAttribute and glob',
+  replacePugMacro,
+  ['.selector', '.another-selector'],
+  'table#id(anything="test selector")',
+  'table#id(anything!="test a")',
+  { triggerClassAttributes: [/^any/] },
+);
+
+test('should not replace with shouldTriggerClassAttribute and glob',
+  replacePugMacro,
+  ['.selector', '.another-selector'],
+  'table#id(anything="test selector")',
+  'table#id(anything!="test selector")',
+  { triggerClassAttributes: [/any$/] },
+);
+
+test('should replace shouldTriggerClassAttribute glob an normal mixed',
+  replacePugMacro,
+  ['.selector', '.another-selector'],
+  'table#id(anything="test selector" another="selector" data-one="another-selector" data-two="another-selector")',
+  'table#id(anything!="test a" another!="a" data-one!="b" data-two!="b")',
+  { triggerClassAttributes: ['anything', 'another', /data-*/] },
+);
+
+
+test('should replace with shouldTriggerIdAttribute',
+  replacePugMacro,
+  ['#selector', '#another-selector'],
+  'table#id(anything="test selector")',
+  'table#id(anything!="test a")',
+  { triggerIdAttributes: ['anything'] },
+);
+
+test('should replace with shouldTriggerIdAttribute and glob',
+  replacePugMacro,
+  ['#selector', '#another-selector'],
+  'table#id(anything="test selector")',
+  'table#id(anything!="test a")',
+  { triggerIdAttributes: [/^any/] },
+);
+
+test('should not replace with shouldTriggerIdAttribute and glob',
+  replacePugMacro,
+  ['#selector', '#another-selector'],
+  'table#id(anything="test selector")',
+  'table#id(anything!="test selector")',
+  { triggerIdAttributes: [/any$/] },
+);
+
+test('should replace shouldTriggerIdAttribute glob an normal mixed',
+  replacePugMacro,
+  ['#selector', '#another-selector'],
+  'table#id(anything="test selector" another="selector" data-one="another-selector" data-two="another-selector")',
+  'table#id(anything!="test a" another!="a" data-one!="b" data-two!="b")',
+  { triggerIdAttributes: ['anything', 'another', /data-*/] },
+);
+
+test('should replace inside template | issue #58 but with pug',
+  replacePugMacro,
+  ['.selector', '.another-selector'],
+  `
+.selector
+  template(type="selector")
+    .another-selector
+  `,
+  `
+.a
+  template(type!="selector")
+    .b
+  `,
+);
