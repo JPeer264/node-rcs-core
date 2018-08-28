@@ -6,6 +6,7 @@ All replace methods take `Buffer` or `String`.
 
 - [regex](#regex)
 - [html](#html)
+- [pug](#pug)
 - [any](#any)
 - [css](#css)
 - [js](#js)
@@ -31,6 +32,7 @@ Options:
 - espreeOptions: same as [replace.js](#js) options
 - triggerClassAttributes `<Array>`: Array of string or regular expressions. Renames all classes with the matching string or regex. E.g. `[/data-*/ , 'custom-attr']` matches all data attributes and 'custom-attr'
 - triggerIdAttributes `<Array>`: Same as triggerClassAttributes just for IDs
+
 Example:
 
 ```js
@@ -42,6 +44,35 @@ rcs.selectorLibrary.set('.my-class');
 const replacedHtml = rcs.replace.html('<div class="my-class"></div>');
 // output:
 // '<div class="a"></div>'
+```
+
+### pug
+
+> Same as [rcs.replace.html](#html) just with [pug](https://pugjs.org/) templates
+
+**rcs.replace.pug(code[, options])**
+
+Parameters:
+- code `<String>`
+- same options as [rcs.replace.html](#html) `<Object>`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+// first set the id to replace
+rcs.selectorLibrary.set('.my-class');
+
+const replacedHtml = rcs.replace.pug(`
+.my-class(attr='my attribute')
+  .another-class
+`);
+// output in pug:
+// `
+// .a(attr!='my attribute')
+//   .another-class
+// `
 ```
 
 ### any
