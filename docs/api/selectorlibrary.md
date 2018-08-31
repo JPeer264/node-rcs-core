@@ -7,6 +7,7 @@
 - [set](#set)
 - [setMultiple](#setmultiple)
 - [setExclude](#setexclude)
+- [isExcluded](#isexcluded)
 - [generateMeta](#generatemeta)
 - [setAttributeSelector](#setattributeselector)
 - [isInAttributeSelector](#isinattributeselector)
@@ -136,7 +137,7 @@ rcs.selectorLibrary.setMultiple({
 **rcs.selectorLibrary.setExclude(selector)**
 
 Parameters:
-- selector `<String>`
+- selector `<String | RegExp>`
 
 Example:
 
@@ -145,11 +146,35 @@ const rcs = require('rcs-core');
 
 rcs.selectorLibrary.setExclude('js');
 rcs.selectorLibrary.setExclude('no-js');
+rcs.selectorLibrary.setExclude(/^any/); // or `new RegExp('^any')`
 
 // CLASSES and IDs called `js` or `no-js` will now be ignored
 rcs.selectorLibrary.set('no-js'); // will not set the minified one
 rcs.selectorLibrary.get('.no-js'); // .no-js
 rcs.selectorLibrary.get('no-js'); // no-js
+
+rcs.selectorLibrary.set('anything'); // will not set the minified one, as it matches /^any/
+rcs.selectorLibrary.get('anything'); // anything
+```
+
+### isExcluded
+
+> Checks if the string is excluded, which was set by `rcs.selectorLibrary.setExclude`
+
+**rcs.selectorLibrary.isExcluded(selector)**
+
+Parameters:
+- selector `<String>`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.selectorLibrary.setExclude('js');
+
+rcs.selectorLibrary.isExcluded('js'); // true
+rcs.selectorLibrary.isExcluded('another-selector'); // false
 ```
 
 ### generateMeta

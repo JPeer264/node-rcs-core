@@ -312,6 +312,18 @@ test('set | should skip exludes', (t) => {
   t.is(rcs.selectorLibrary.selectors.notskipped.compressedSelector, 'random');
 });
 
+test('set | should skip regex exludes', (t) => {
+  rcs.selectorLibrary.setExclude(/^te/);
+  rcs.selectorLibrary.setExclude(/^ski/);
+  rcs.selectorLibrary.set('.test');
+  rcs.selectorLibrary.set('.notskipped', 'random');
+  rcs.selectorLibrary.set('.skipped', 'another-name');
+
+  t.is(rcs.selectorLibrary.selectors.test, undefined);
+  t.is(rcs.selectorLibrary.selectors.skipped, undefined);
+  t.is(rcs.selectorLibrary.selectors.notskipped.compressedSelector, 'random');
+});
+
 /* *********** *
  * SETMULTIPLE *
  * *********** */
@@ -410,6 +422,41 @@ test('setExclude | should enable excludes', (t) => {
   rcs.selectorLibrary.setExclude('second-value');
 
   t.is(rcs.selectorLibrary.excludes.length, 2);
+});
+
+/* ********** */
+/* ISEXCLUDED */
+/* ********** */
+test('isExcluded | set into excluded', (t) => {
+  rcs.selectorLibrary.setExclude('exclude');
+
+  const excluded = rcs.selectorLibrary.isExcluded('exclude');
+
+  t.true(excluded);
+});
+
+test('isExcluded | set into excluded but does not match as regex', (t) => {
+  rcs.selectorLibrary.setExclude('noregex');
+
+  const excluded = rcs.selectorLibrary.isExcluded('noregexxxx');
+
+  t.false(excluded);
+});
+
+test('isExcluded | set into excluded and match as regex', (t) => {
+  rcs.selectorLibrary.setExclude(/noregex/);
+
+  const excluded = rcs.selectorLibrary.isExcluded('noregexxxx');
+
+  t.true(excluded);
+});
+
+test('isExcluded | set into excluded and match as regex instance', (t) => {
+  rcs.selectorLibrary.setExclude(new RegExp('noregex'));
+
+  const excluded = rcs.selectorLibrary.isExcluded('noregexxxx');
+
+  t.true(excluded);
 });
 
 /* ************ *
