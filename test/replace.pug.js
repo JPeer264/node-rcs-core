@@ -159,3 +159,48 @@ test('should replace inside template | issue #58 but with pug',
     .b
   `,
 );
+
+test('issue rename-css-selectors#30',
+  replacePugMacro,
+  ['.bar'],
+  `
+doctype strict
+html
+  head
+  script.
+    var foo = "#{bar}"
+  body
+  `,
+  `
+doctype strict
+html
+  head
+  script
+    | var foo = "!{bar}"
+  body
+  `,
+);
+
+
+test('issue rename-css-selectors#30',
+  replacePugMacro,
+  ['.selector', '.bar'],
+  `
+doctype strict
+html
+  head
+  script.
+    var bar = "selector"
+    var foo = "#{bar}"
+  body
+  `,
+  `
+doctype strict
+html
+  head
+  script.
+    var bar = "a"
+    var foo = "!{bar}"
+  body
+  `,
+);
