@@ -1,3 +1,8 @@
+2.4.1 - September, 01 2018
+
+* 09e3b1a Fix: pug variables in script (#63) (Jan Peer Stöcklmair)
+* abe34fd Feat: set regexp as excludes (closes #29) (#62) (Jan Peer Stöcklmair)
+
 2.4.0 - August, 28 2018
 
 * c255703 Feat: rcs.replace.pug (#61) (Jan Peer Stöcklmair)
