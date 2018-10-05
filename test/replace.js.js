@@ -17,9 +17,10 @@ function replaceJsMacro(t, input, expected, fillLibrary = fs.readFileSync(path.j
 replaceJsMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() : providedTitle);
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.keyframesLibrary.reset();
+  rcs.keyframesLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorLibrary.reset();
+  rcs.selectorLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
 });
 
 test(replaceJsMacro,

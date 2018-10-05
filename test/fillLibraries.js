@@ -3,11 +3,10 @@ import test from 'ava';
 import rcs from '../lib';
 
 test.beforeEach(() => {
-  // reset counter and selectors for tests
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
   rcs.keyframesLibrary.reset();
+  rcs.keyframesLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.selectorLibrary.reset();
+  rcs.selectorLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
 });
 
 test('fillLibraries should fill all libraries', (t) => {
@@ -30,8 +29,8 @@ test('fillLibraries should fill all libraries', (t) => {
 
 
   t.is(rcs.keyframesLibrary.get('move'), 'a');
-  t.is(rcs.selectorLibrary.get('test'), 'b');
-  t.is(rcs.selectorLibrary.get('id'), 'c');
+  t.is(rcs.selectorLibrary.get('test'), 'a');
+  t.is(rcs.selectorLibrary.get('id'), 'b');
 });
 
 test('fillLibraries should fill all libraries with pre or suffixes', (t) => {

@@ -3,9 +3,8 @@ import test from 'ava';
 import rcs from '../lib';
 
 test.beforeEach((t) => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
   rcs.selectorLibrary.reset();
+  rcs.selectorLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
 
   // eslint-disable-next-line no-param-reassign
   t.context.regex = () => rcs.selectorLibrary.getAll({ regex: true });

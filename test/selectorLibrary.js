@@ -4,9 +4,8 @@ import rcs from '../lib';
 
 test.beforeEach((t) => {
   // reset counter and selectors for tests
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
   rcs.selectorLibrary.reset();
+  rcs.selectorLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
 
   // eslint-disable-next-line no-param-reassign
   t.context.setSelectors = () => {

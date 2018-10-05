@@ -27,6 +27,7 @@ $ yarn add rcs-core
 - [rcs.selectorLibrary](docs/api/selectorlibrary.md)
 - [rcs.keyframesLibrary](docs/api/keyframeslibrary.md)
 - [useCustomGenerator](docs/api/useCustomGenerator.md)
+- [NameGenerator](docs/api/namegenerator-class.md)
 
 ## Plugins
 - Gulp Plugin: [gulp-rcs](https://www.npmjs.com/package/gulp-rcs)

@@ -20,10 +20,10 @@ function replaceHtmlMacro(t, selectors, input, expected, options) {
 }
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
   rcs.keyframesLibrary.reset();
+  rcs.keyframesLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.selectorLibrary.reset();
+  rcs.selectorLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
 });
 
 test('should replace nothing',

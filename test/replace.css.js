@@ -26,10 +26,10 @@ function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
 }
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
   rcs.keyframesLibrary.reset();
+  rcs.keyframesLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.selectorLibrary.reset();
+  rcs.selectorLibrary.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
 });
 
 test('should not replace anything', (t) => {
@@ -158,11 +158,11 @@ test('should replace keyframes properly',
         from {} to {}
     }
 
-    .b {
+    .a {
         animation:a 4s;
     }
 
-    .c {
+    .b {
         animation:     a     4s;
     }
   `,
@@ -209,7 +209,7 @@ test('should replace keyframes properly in nested animations',
         from {} to {}
     }
 
-    .c {
+    .a {
         animation-name: a, b;
         animation:  a 4s infinite,
                     a 10s,
@@ -217,7 +217,7 @@ test('should replace keyframes properly in nested animations',
                     not-setted-keyframe 2s;
     }
 
-    .d {
+    .b {
         animation:     a     4s  , b 10s;
     }
   `,
@@ -257,14 +257,14 @@ test('should not replace keyframes properly',
 test('should replace keyframes properly in a oneliner',
   replaceCssMacro,
   '@keyframes  move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation:     move     4s    }',
-  '@keyframes  a {from {} to {}}.b {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.c {animation:     a     4s    }',
+  '@keyframes  a {from {} to {}}.a {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.b {animation:     a     4s    }',
   { replaceKeyframes: true },
 );
 
 test('should replace keyframes with suffixes',
   replaceCssMacro,
   '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',
-  '@keyframes a {from {} to {}}.b-suf {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.c-suf {animation: a 4s }',
+  '@keyframes a {from {} to {}}.a-suf {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.b-suf {animation: a 4s }',
   {
     replaceKeyframes: true,
     suffix: '-suf',
@@ -274,7 +274,7 @@ test('should replace keyframes with suffixes',
 test('should replace keyframes with prefixes',
   replaceCssMacro,
   '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',
-  '@keyframes a {from {} to {}}.pre-b {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.pre-c {animation: a 4s }',
+  '@keyframes a {from {} to {}}.pre-a {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.pre-b {animation: a 4s }',
   {
     replaceKeyframes: true,
     prefix: 'pre-',
