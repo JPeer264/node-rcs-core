@@ -100,10 +100,17 @@ test('attribute selectors not renamed',
   { ignoreAttributeSelectors: true },
 );
 
-test('should modify the second one with the values from the first',
+test('allow escaped selectors | issue65',
   replaceCssMacro,
   fs.readFileSync(path.join(fixturesCwd, '/css/issue65.css'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/css/issue65.css'), 'utf8'),
+);
+
+test('allow different escaped selectors | issue65',
+  replaceCssMacro,
+  '.somediv\\:test-me{}.anotherdiv:after.test\\<:another-one[class^="some"]{}',
+  '.a{}.b:after.c[class^="some"]{}',
+  { ignoreAttributeSelectors: true },
 );
 
 test('multiple attribute selectors without quotes',
