@@ -1,3 +1,7 @@
+2.4.2 - December, 16 2018
+
+* 2896bec Fix: allow escaped selectors (closes #65) (#66) (Jan Peer Stöcklmair)
+
 2.4.1 - September, 01 2018
 
 * 09e3b1a Fix: pug variables in script (#63) (Jan Peer Stöcklmair)
