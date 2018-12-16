@@ -81,7 +81,6 @@ test('should modify the code properly | hex oneline',
   '.a{background:#616060}.b{display:flex}',
 );
 
-
 test('should modify the code properly | number oneline',
   replaceCssMacro,
   '.somediv{translation:.30}.anotherdiv{display:flex}',
@@ -99,6 +98,12 @@ test('attribute selectors not renamed',
   '.somediv{}.anotherdiv[class^="some"]{}',
   '.a{}.b[class^="some"]{}',
   { ignoreAttributeSelectors: true },
+);
+
+test('should modify the second one with the values from the first',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/issue65.css'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/css/issue65.css'), 'utf8'),
 );
 
 test('multiple attribute selectors without quotes',
