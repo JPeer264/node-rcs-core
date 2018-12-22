@@ -145,3 +145,10 @@ test('should replace inside template | issue #58',
   '<div class="selector"><template type="selector"><div class="another-selector"></div></template></div>',
   '<div class="a"><template type="selector"><div class="b"></div></template></div>',
 );
+
+test('should replace escaped selectors | issue #67',
+  replaceHtmlMacro,
+  ['.selector\\:some-thing:after', '.another-selector'],
+  '<table class="test selector:some-thing" id="id"></table>',
+  '<table class="test a" id="id"></table>',
+);
