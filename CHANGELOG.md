@@ -1,3 +1,7 @@
+2.4.3 - December, 23 2018
+
+* 4237eac Fix: rename escaped selectors (#68) (Jan Peer Stöcklmair)
+
 2.4.2 - December, 16 2018
 
 * 2896bec Fix: allow escaped selectors (closes #65) (#66) (Jan Peer Stöcklmair)

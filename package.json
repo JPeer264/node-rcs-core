@@ -1,6 +1,6 @@
 {
   "name": "rcs-core",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "description": "Rename css selectors across all files",
   "main": "dest",
   "scripts": {
