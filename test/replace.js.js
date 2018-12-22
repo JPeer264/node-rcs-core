@@ -27,7 +27,6 @@ test(replaceJsMacro,
   'var test = \' something \';\nconst myClass = "a";',
 );
 
-
 test(replaceJsMacro,
   "'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040'",
   "'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040'",
@@ -68,4 +67,11 @@ test('replace react components',
   replaceJsMacro,
   fs.readFileSync(path.join(fixturesCwd, '/js/react.txt'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/js/react.txt'), 'utf8'),
+);
+
+test('replace escaped prefixes | issue #67',
+  replaceJsMacro,
+  'var test = "something:withPrefix";\nconst myClass = "jp-block";',
+  'var test = "a";\nconst myClass = "b";',
+  '.something\\:withPrefix:after{} .jp-block{}',
 );

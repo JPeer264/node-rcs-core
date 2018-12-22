@@ -106,13 +106,6 @@ test('allow escaped selectors | issue65',
   fs.readFileSync(path.join(resultsCwd, '/css/issue65.css'), 'utf8'),
 );
 
-test('allow different escaped selectors | issue65',
-  replaceCssMacro,
-  '.somediv\\:test-me{}.anotherdiv:after.test\\<:another-one[class^="some"]{}',
-  '.a{}.b:after.c[class^="some"]{}',
-  { ignoreAttributeSelectors: true },
-);
-
 test('multiple attribute selectors without quotes',
     replaceCssMacro,
     '.somediv{}.anotherdiv[class^=some] + [class^=some]{}',
@@ -347,4 +340,24 @@ test('preventRandomName but prefix everything',
   fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
   fs.readFileSync(path.join(resultsCwd, '/css/style-prefix-preventrandomname.css'), 'utf8'),
   { preventRandomName: true, prefix: 'prefixed-' },
+);
+
+test('allow escaped selectors | issue #65',
+  replaceCssMacro,
+  fs.readFileSync(path.join(fixturesCwd, '/css/issue65.css'), 'utf8'),
+  fs.readFileSync(path.join(resultsCwd, '/css/issue65.css'), 'utf8'),
+);
+
+test('allow different escaped selectors | issue #65',
+  replaceCssMacro,
+  '.somediv\\:test-me{}.anotherdiv:after.test\\:another-one[class^="some"]{}',
+  '.a{}.b:after.c[class^="some"]{}',
+  { ignoreAttributeSelectors: true },
+);
+
+test('allow different escaped selectors and pseudoelements | issue #67',
+  replaceCssMacro,
+  '.somediv\\:test-me:after{}.anotherdiv:after.test\\:another-one[class^="some"]{}',
+  '.a:after{}.b:after.c[class^="some"]{}',
+  { ignoreAttributeSelectors: true },
 );
