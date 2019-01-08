@@ -1,3 +1,7 @@
+2.4.4 - January, 08 2019
+
+* 7b150a0 Fix: do not track percentage as selector (closes #69) (JPeer264)
+
 2.4.3 - December, 23 2018
 
 * 4237eac Fix: rename escaped selectors (#68) (Jan Peer Stöcklmair)
