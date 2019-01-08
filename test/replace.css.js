@@ -266,6 +266,13 @@ test('should replace keyframes properly in a oneliner',
   { replaceKeyframes: true },
 );
 
+test('should not replace keyframes percentage comas | issue #69',
+  replaceCssMacro,
+  '@keyframes  move {from {} 50.1% {} to {}}.selector {animation: move 4s}',
+  '@keyframes  a {from {} 50.1% {} to {}}.b {animation: a 4s}',
+  { replaceKeyframes: true },
+);
+
 test('should replace keyframes with suffixes',
   replaceCssMacro,
   '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',

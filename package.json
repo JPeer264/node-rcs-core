@@ -51,7 +51,7 @@
     "object.values": "^1.0.4",
     "parse5": "^5.0.0",
     "parse5-traverse": "^1.0.3",
-    "postcss": "^6.0.17",
+    "postcss": "^7.0.8",
     "pug-code-gen": "^2.0.1",
     "pug-lexer": "^4.0.0",
     "pug-parser": "^5.0.0",
