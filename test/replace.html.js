@@ -152,3 +152,49 @@ test('should replace escaped selectors | issue #67',
   '<table class="test selector:some-thing" id="id"></table>',
   '<table class="test a" id="id"></table>',
 );
+
+test('should replace javascript',
+  replaceHtmlMacro,
+  ['.selector', '.another-selector'],
+  `
+    <div class="selector another-selector">
+      <script data-something="data">
+        const a = "selector";
+      </script>
+    </div>
+  `,
+  `
+    <div class="a b">
+      <script data-something="data">
+        const a = "a";
+      </script>
+    </div>
+  `,
+);
+
+test('should ignore JSON | issue #70',
+  replaceHtmlMacro,
+  ['.selector', '.another-selector'],
+  `
+    <div class="selector another-selector">
+      <script type="application/json">
+        {
+          "duration": "0.4s",
+          "shouldNotReplace": "another-selector",
+          "delay": "0.4s"
+        }
+      </script>
+    </div>
+  `,
+  `
+    <div class="a b">
+      <script type="application/json">
+        {
+          "duration": "0.4s",
+          "shouldNotReplace": "another-selector",
+          "delay": "0.4s"
+        }
+      </script>
+    </div>
+  `,
+);
