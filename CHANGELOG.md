@@ -1,3 +1,8 @@
+2.4.5 - February, 02 2019
+
+* 6644a6d CI: cache node_modules for travis (#72) (Jan Peer Stöcklmair)
+* b4f3c9e Fix: just replace javascript in html (closes #70 (#71) (Jan Peer Stöcklmair)
+
 2.4.4 - January, 08 2019
 
 * 7b150a0 Fix: do not track percentage as selector (closes #69) (JPeer264)
