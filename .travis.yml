@@ -14,3 +14,6 @@ notifications:
     on_failure: change
 after_success:
   - npm run coveralls
+cache:
+  directories:
+  - node_modules
