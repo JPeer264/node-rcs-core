@@ -75,3 +75,22 @@ test('replace escaped prefixes | issue #67',
   'var test = "a";\nconst myClass = "b";',
   '.something\\:withPrefix:after{} .jp-block{}',
 );
+
+test('check optional try catch | issue #73',
+  replaceJsMacro,
+  `
+    try {
+      const selector = "jp-block";
+    } catch {
+      const selector = "jp-block-two";
+    }
+  `,
+  `
+    try {
+      const selector = "a";
+    } catch {
+      const selector = "b";
+    }
+  `,
+  '.jp-block{}.jp-block-two{}',
+);
