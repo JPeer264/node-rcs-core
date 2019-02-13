@@ -262,6 +262,16 @@ test('set | should set a new value and get this value', (t) => {
   t.is(rcs.selectorLibrary.selectors.test.compressedSelector, 'a');
 });
 
+test('set | should ignore invalid selectors', (t) => {
+  rcs.selectorLibrary.set('.test');
+  rcs.selectorLibrary.set('test2');
+  rcs.selectorLibrary.set('.test3');
+
+  t.is(rcs.selectorLibrary.selectors.test.compressedSelector, 'a');
+  t.is(rcs.selectorLibrary.selectors.test3.compressedSelector, 'b');
+  t.is(Object.keys(rcs.selectorLibrary.selectors).length, 2);
+});
+
 test('set | should set a new custom value', (t) => {
   rcs.selectorLibrary.set('.test', 'random-name');
 
