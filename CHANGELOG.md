@@ -1,3 +1,7 @@
+2.4.7 - February, 13 2019
+
+* ddf4055 Fix: ignore invalid selectors (closes #75) (#77) (Jan Peer Stöcklmair)
+
 2.4.6 - February, 06 2019
 
 * 6569160 Chore: update espree and enable ecmaversion 10 (closes #73) (#74) (Jan Peer Stöcklmair)
