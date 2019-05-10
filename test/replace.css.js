@@ -418,3 +418,57 @@ test('should not replace css variables properly',
   `,
   { ignoreCssVariables: true },
 );
+
+test('should replace css variables',
+  replaceCssMacro,
+  `
+    .theme {
+      --theme-primary: #111;
+      --theme-secondary: #f0f0f0;
+      --theme-tertiary: #999;
+    }
+
+    .theme--variant {
+      --theme-primary: red;
+      --theme-secondary: white;
+      --theme-tertiary: black;
+    }
+
+    .box {
+      color: var(--theme-primary);
+      background-color: var(--theme-secondary);
+      font-size: 1.2em;
+      line-height: 1.4;
+      width: 100%;
+      max-width: 400px;
+      padding: 5px;
+      border: 1px solid var(--theme-tertiary);
+      margin: 0 0 20px;
+    }
+  `,
+  `
+    .d {
+      --a: #111;
+      --b: #f0f0f0;
+      --c: #999;
+    }
+
+    .e {
+      --a: red;
+      --b: white;
+      --c: black;
+    }
+
+    .f {
+      color: var(--a);
+      background-color: var(--b);
+      font-size: 1.2em;
+      line-height: 1.4;
+      width: 100%;
+      max-width: 400px;
+      padding: 5px;
+      border: 1px solid var(--c);
+      margin: 0 0 20px;
+    }
+  `,
+);
