@@ -7,7 +7,7 @@ import rcs from '../lib';
 const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
-function replaceCssMacro(t, input, expected, options = {}) {
+function replaceCssMacro(t, input, expected = input, options = {}) {
   rcs.fillLibraries(input, options);
 
   t.is(rcs.replace.css(input), expected);
@@ -30,6 +30,7 @@ test.beforeEach(() => {
   rcs.nameGenerator.reset();
   rcs.selectorLibrary.reset();
   rcs.keyframesLibrary.reset();
+  rcs.cssVariablesLibrary.reset();
 });
 
 test('should not replace anything', (t) => {
@@ -367,4 +368,107 @@ test('allow different escaped selectors and pseudoelements | issue #67',
   '.somediv\\:test-me:after{}.anotherdiv:after.test\\:another-one[class^="some"]{}',
   '.a:after{}.b:after.c[class^="some"]{}',
   { ignoreAttributeSelectors: true },
+);
+
+test('should replace css variables properly',
+  replaceCssMacro,
+  `
+    :root {
+      --main-bg-color: coral;
+      --my-gradient: linear-gradient(var(--main-bg-color), var(--bottom-color));
+    }
+
+    #div1 {
+      background-color: var(--main-bg-color);
+    }
+  `,
+  `
+    :root {
+      --a: coral;
+      --b: linear-gradient(var(--a), var(--bottom-color));
+    }
+
+    #c {
+      background-color: var(--a);
+    }
+  `,
+);
+
+test('should not replace css variables properly',
+  replaceCssMacro,
+  `
+    :root {
+      --main-bg-color: coral;
+      --my-gradient: linear-gradient(var(--main-bg-color), var(--bottom-color));
+    }
+
+    #div1 {
+      background-color: var(--main-bg-color);
+    }
+  `,
+  `
+    :root {
+      --main-bg-color: coral;
+      --my-gradient: linear-gradient(var(--main-bg-color), var(--bottom-color));
+    }
+
+    #a {
+      background-color: var(--main-bg-color);
+    }
+  `,
+  { ignoreCssVariables: true },
+);
+
+test('should replace css variables',
+  replaceCssMacro,
+  `
+    .theme {
+      --theme-primary: #111;
+      --theme-secondary: #f0f0f0;
+      --theme-tertiary: #999;
+    }
+
+    .theme--variant {
+      --theme-primary: red;
+      --theme-secondary: white;
+      --theme-tertiary: black;
+    }
+
+    .box {
+      color: var(--theme-primary);
+      background-color: var(--theme-secondary);
+      font-size: 1.2em;
+      line-height: 1.4;
+      width: 100%;
+      max-width: 400px;
+      padding: 5px;
+      border: 1px solid var(--theme-tertiary);
+      margin: 0 0 20px;
+    }
+  `,
+  `
+    .d {
+      --a: #111;
+      --b: #f0f0f0;
+      --c: #999;
+    }
+
+    .e {
+      --a: red;
+      --b: white;
+      --c: black;
+    }
+
+    .f {
+      color: var(--a);
+      background-color: var(--b);
+      font-size: 1.2em;
+      line-height: 1.4;
+      width: 100%;
+      max-width: 400px;
+      padding: 5px;
+      border: 1px solid var(--c);
+      margin: 0 0 20px;
+    }
+  `,
 );
