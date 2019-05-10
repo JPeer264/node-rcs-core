@@ -5,12 +5,14 @@
 - [get](#get)
 - [getAll](#getall)
 - [set](#set)
-- [setMultiple](#setmultiple)
-- [setExclude](#setexclude)
-- [isExcluded](#isexcluded)
 - [generateMeta](#generatemeta)
 - [setAttributeSelector](#setattributeselector)
 - [isInAttributeSelector](#isinattributeselector)
+
+Plus methods of [BaseLibrary](./baselibrary.md):
+- [setMultiple](#setmultiple)
+- [setExclude](#setexclude)
+- [isExcluded](#isexcluded)
 
 ### fillLibrary
 
@@ -105,76 +107,6 @@ const rcs = require('rcs-core');
 rcs.selectorLibrary.set('#my-id'); // sets to 'a'
 
 rcs.selectorLibrary.get('#my-id'); // a
-```
-
-
-### setMultiple
-
-> Calls `selectorLibrary.set` internally
-
-**rcs.selectorLibrary.setMultiple(selectors[, options])**
-
-Parameters:
-- selectors `<Object>`. The *key* of the object must be the selector. The *value* could be an own name or if `undefined` it will be automatically generated
-- options `<Object>`: same as `selectorLibrary.set()`
-
-Example:
-
-```js
-const rcs = require('rcs-core');
-
-rcs.selectorLibrary.setMultiple({
-    '.a-selector': 'abc',
-    '.another-selector': undefined,
-    '.slider': 'u'
-});
-```
-
-### setExclude
-
-> To exclude some CLASSES or IDs. Good if you use tools such as Modernizr
-
-**rcs.selectorLibrary.setExclude(selector)**
-
-Parameters:
-- selector `<String | RegExp>`
-
-Example:
-
-```js
-const rcs = require('rcs-core');
-
-rcs.selectorLibrary.setExclude('js');
-rcs.selectorLibrary.setExclude('no-js');
-rcs.selectorLibrary.setExclude(/^any/); // or `new RegExp('^any')`
-
-// CLASSES and IDs called `js` or `no-js` will now be ignored
-rcs.selectorLibrary.set('no-js'); // will not set the minified one
-rcs.selectorLibrary.get('.no-js'); // .no-js
-rcs.selectorLibrary.get('no-js'); // no-js
-
-rcs.selectorLibrary.set('anything'); // will not set the minified one, as it matches /^any/
-rcs.selectorLibrary.get('anything'); // anything
-```
-
-### isExcluded
-
-> Checks if the string is excluded, which was set by `rcs.selectorLibrary.setExclude`
-
-**rcs.selectorLibrary.isExcluded(selector)**
-
-Parameters:
-- selector `<String>`
-
-Example:
-
-```js
-const rcs = require('rcs-core');
-
-rcs.selectorLibrary.setExclude('js');
-
-rcs.selectorLibrary.isExcluded('js'); // true
-rcs.selectorLibrary.isExcluded('another-selector'); // false
 ```
 
 ### generateMeta
