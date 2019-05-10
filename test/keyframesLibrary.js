@@ -8,9 +8,32 @@ test.beforeEach(() => {
   rcs.keyframesLibrary.reset();
 });
 
+test('set | should set own keyframes', (t) => {
+  rcs.keyframesLibrary.set('move', 'mo');
+  rcs.keyframesLibrary.set('animate', 'an');
+  rcs.keyframesLibrary.set('more', 'm');
+
+  t.is(rcs.keyframesLibrary.keyframes.move, 'mo');
+  t.is(rcs.keyframesLibrary.keyframes.animate, 'an');
+  t.is(rcs.keyframesLibrary.keyframes.more, 'm');
+});
+
 /* *** *
  * GET *
  * *** */
+test('get | should get the keyframes', (t) => {
+  rcs.keyframesLibrary.keyframes = {
+    move: 'a',
+    animate: 'b',
+    more: 'c',
+  };
+
+  t.is(rcs.keyframesLibrary.get('move'), 'a');
+  t.is(rcs.keyframesLibrary.get('animate'), 'b');
+  t.is(rcs.keyframesLibrary.get('more'), 'c');
+  t.is(rcs.keyframesLibrary.get('not-setted-value'), 'not-setted-value');
+});
+
 test('get | should get the minified values with deprecated syntax', (t) => {
   t.deepEqual(rcs.keyframesLibrary.compressedKeyframes, {});
 
