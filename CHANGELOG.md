@@ -1,3 +1,7 @@
+2.5.0 - May, 10 2019
+
+* b93e537 Feat: css variables support (#78) (Jan Peer Stöcklmair)
+
 2.4.7 - February, 13 2019
 
 * ddf4055 Fix: ignore invalid selectors (closes #75) (#77) (Jan Peer Stöcklmair)
