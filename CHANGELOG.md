@@ -1,3 +1,7 @@
+2.5.1 - May, 10 2019
+
+* 0cf1c96 2.5.0 (JPeer264)
+
 2.5.0 - May, 10 2019
 
 * b93e537 Feat: css variables support (#78) (Jan Peer Stöcklmair)
