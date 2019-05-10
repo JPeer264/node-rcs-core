@@ -25,12 +25,17 @@ test('get | should get the values', (t) => {
 });
 
 test('get | should get the minified values', (t) => {
-  rcs.keyframesLibrary.compressedKeyframes = {
+  t.deepEqual(rcs.keyframesLibrary.compressedKeyframes, {});
+
+  const object = {
     move: 'a',
     animate: 'b',
     more: 'c',
   };
 
+  rcs.keyframesLibrary.compressedKeyframes = object;
+
+  t.deepEqual(rcs.keyframesLibrary.compressedKeyframes, object);
   t.is(rcs.keyframesLibrary.get('move', { origKeyframe: false }), 'a');
   t.is(rcs.keyframesLibrary.get('animate', { origKeyframe: false }), 'b');
   t.is(rcs.keyframesLibrary.get('more', { origKeyframe: false }), 'c');
@@ -154,20 +159,3 @@ test('exclude | should exclude nothing', (t) => {
 
   t.is(rcs.keyframesLibrary.excludes.length, 0);
 });
-
-// 'use strict';
-
-// const rcs    = require('../lib/rcs');
-// const expect = require('chai').expect;
-
-// describe('rcs keyframes library', () => {
-
-//     describe('get', () => {
-
-//     describe('set', () => {
-
-//     });
-
-//     describe('exclude', () => {
-//     });
-// });
