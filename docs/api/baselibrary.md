@@ -48,7 +48,6 @@ rcs.baseLibrary.set('my-id'); // sets to 'a'
 rcs.baseLibrary.get('my-id'); // a
 ```
 
-
 ### setMultiple
 
 > Calls `baseLibrary.set` internally

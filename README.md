@@ -22,12 +22,12 @@ $ yarn add rcs-core
 ## API documentation
 - [rcs.stats](docs/api/stats.md)
 - [rcs.replace](docs/api/replace.md)
+- [rcs.baseLibrary](docs/api/baselibrary.md)
 - [rcs.fillLibraries](docs/api/filllibraries.md)
 - [rcs.nameGenerator](docs/api/namegenerator.md)
 - [rcs.selectorLibrary](docs/api/selectorlibrary.md)
 - [rcs.keyframesLibrary](docs/api/keyframeslibrary.md)
 - [rcs.cssVariablesLibrary](docs/api/cssvariableslibrary.md)
-- [rcs.baseLibrary](docs/api/baselibrary.md)
 
 ## Plugins
 - Gulp Plugin: [gulp-rcs](https://www.npmjs.com/package/gulp-rcs)
