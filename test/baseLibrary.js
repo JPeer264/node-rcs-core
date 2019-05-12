@@ -250,6 +250,40 @@ test('set | should not set multiple excluded values', (t) => {
   t.is(rcs.baseLibrary.values.shouldexist, 'a');
 });
 
+/* ***** *
+ * STATS *
+ * ***** */
+test('get | not count stats', (t) => {
+  rcs.baseLibrary.set('move');
+  rcs.baseLibrary.set('animate');
+
+  rcs.baseLibrary.get('move', { countStats: false });
+  rcs.baseLibrary.get('animate', { countStats: false });
+
+  t.is(rcs.baseLibrary.meta.move.appearanceCount, 0);
+  t.is(rcs.baseLibrary.meta.animate.appearanceCount, 0);
+});
+
+test('get | count stats', (t) => {
+  rcs.baseLibrary.set('move');
+  rcs.baseLibrary.set('animate');
+  rcs.baseLibrary.set('more');
+
+  rcs.baseLibrary.get('move');
+  rcs.baseLibrary.get('move');
+  rcs.baseLibrary.get('move', { countStats: false });
+  rcs.baseLibrary.get('animate');
+
+  t.is(rcs.baseLibrary.meta.move.appearanceCount, 2);
+  t.is(rcs.baseLibrary.meta.animate.appearanceCount, 1);
+  t.is(rcs.baseLibrary.meta.more.appearanceCount, 0);
+});
+
+test('get | should not fail when calling get before set', (t) => {
+  t.notThrows(() => rcs.baseLibrary.get('move'));
+  t.is(rcs.baseLibrary.meta.move.appearanceCount, 1);
+});
+
 /* *** *
  * GET *
  * *** */
