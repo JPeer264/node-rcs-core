@@ -9,6 +9,10 @@ Returns object with:
 - idUsageCount `<Object>`: Same as `classUsageCount`, but for ids
 - unsusedClasses `<String[]>`: A list of unused classes
 - unsusedIds `<String[]>`: A list of unused ids
+- unsusedKeyframes `<String[]>`: A list of unused keyframes
+- keyframesUsageCount `<Object>`: Same as `classUsageCount`, but for keyframes
+- unsusedCssVariables `<String[]>`: A list of unused css variables
+- cssVariablesUsageCount `<Object>`: Same as `classUsageCount`, but for css variables
 
 Example:
 
