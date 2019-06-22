@@ -1,3 +1,13 @@
+2.6.0 - June, 22 2019
+
+* 19c2951 Test: test if css is getting replaced in html (JPeer264)
+* a7c5ddd Feat: fill libraries with html (#82) (Jan Peer Stöcklmair)
+* 08a7341 Feat: extract value from html tags (#81) (Jan Peer Stöcklmair)
+* 596c591 Feat: replace css variables in js files (#80) (Jan Peer Stöcklmair)
+* 905fcb7 Feat: add stats for keyframes and cssVariables (#79) (Jan Peer Stöcklmair)
+* 099245c Style: change variable names (JPeer264)
+* 14e00c7 Docs: update docs properly (JPeer264)
+
 2.5.1 - May, 10 2019
 
 * 0cf1c96 2.5.0 (JPeer264)
