@@ -169,6 +169,25 @@ test('should replace javascript',
   `,
 );
 
+test('should replace css',
+  replaceHtmlMacro,
+  '.selector {} .another-selector {}',
+  `
+    <div class="selector another-selector">
+      <style>
+        .another-selector {}
+      </style>
+    </div>
+  `,
+  `
+    <div class="a b">
+      <style>
+        .b {}
+      </style>
+    </div>
+  `,
+);
+
 test('should ignore JSON | issue #70',
   replaceHtmlMacro,
   '.selector {} .another-selector {}',
