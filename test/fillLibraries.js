@@ -48,3 +48,40 @@ test('fillLibraries should fill all libraries with pre or suffixes', (t) => {
   t.is(rcs.selectorLibrary.get('id'), 'pre-a-suf');
   t.is(rcs.keyframesLibrary.get('move'), 'move');
 });
+
+test('fillLibraries should fill nothing from html', (t) => {
+  rcs.fillLibraries(
+    '<div>Hi there!</div>',
+    {
+      codeType: 'html',
+    },
+  );
+
+  t.is(Object.keys(rcs.selectorLibrary.values).length, 0);
+});
+
+test('fillLibraries should fill classes from html', (t) => {
+  rcs.fillLibraries(
+    '<div>Hi there!<style>.test{} #id{}</style></div>',
+    {
+      codeType: 'html',
+    },
+  );
+
+  t.is(rcs.selectorLibrary.get('test'), 'a');
+  t.is(rcs.selectorLibrary.get('id'), 'b');
+});
+
+
+test('fillLibraries should fill classes from html with multiple style tags', (t) => {
+  rcs.fillLibraries(
+    '<div>Hi there!<style>.test{} #id{}</style><style>.another-class {}</style></div>',
+    {
+      codeType: 'html',
+    },
+  );
+
+  t.is(rcs.selectorLibrary.get('test'), 'a');
+  t.is(rcs.selectorLibrary.get('id'), 'b');
+  t.is(rcs.selectorLibrary.get('another-class'), 'c');
+});
