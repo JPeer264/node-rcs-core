@@ -1,10 +1,8 @@
 import test from 'ava';
 
-import rcs from '../../lib';
+import extractFromHtml from '../../lib/helpers/extractFromHtml';
 
 test('should extract nothing', (t) => {
-  const { extractFromHtml } = rcs.helpers;
-
   const extracted = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!</body></html>');
   const extractedSecond = extractFromHtml('');
 
@@ -13,8 +11,6 @@ test('should extract nothing', (t) => {
 });
 
 test('should extract style tags', (t) => {
-  const { extractFromHtml } = rcs.helpers;
-
   const extractedStyle = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!<style>.test{} .css{}</style></body></html>');
 
   t.is(extractedStyle.length, 1);
@@ -22,8 +18,6 @@ test('should extract style tags', (t) => {
 });
 
 test('should extract script tags', (t) => {
-  const { extractFromHtml } = rcs.helpers;
-
   const extractedScript = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!<script type="text/javascript">var test = 123;</script></body></html>', 'script');
   const extractedStyle = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!<script type="text/javascript">var test = 123;</script></body></html>');
 
