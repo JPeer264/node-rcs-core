@@ -9,6 +9,7 @@ const resultsCwd = 'test/files/results';
 
 function replaceJsMacro(t, input, expected, fillLibrary = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8')) {
   rcs.selectorLibrary.fillLibrary(fillLibrary);
+  rcs.cssVariablesLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.js(input), expected);
   t.is(rcs.replace.js(new Buffer(input)), expected);
@@ -20,6 +21,7 @@ test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
   rcs.selectorLibrary.reset();
+  rcs.cssVariablesLibrary.reset();
 });
 
 test(replaceJsMacro,
@@ -93,4 +95,21 @@ test('check optional try catch | issue #73',
     }
   `,
   '.jp-block{}.jp-block-two{}',
+);
+
+test('replace css variables | issue rename-css-selectors#38',
+  replaceJsMacro,
+  `
+    const defaultProps = {
+      secondary: false,
+      offset: "var(--header-height)",
+    };
+  `,
+  `
+    const defaultProps = {
+      secondary: false,
+      offset: "var(--a)",
+    };
+  `,
+  ':root { --header-height: #7EA }',
 );
