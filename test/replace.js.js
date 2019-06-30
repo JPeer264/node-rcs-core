@@ -97,6 +97,24 @@ test('check optional try catch | issue #73',
   '.jp-block{}.jp-block-two{}',
 );
 
+test('check "key" in object non replacement | issue #83',
+  replaceJsMacro,
+  `
+    const key = "jp-block" in obj;
+  `,
+  `
+    const key = "jp-block" in obj;
+  `,
+  '.jp-block{}',
+);
+
+test('replace in template | issue #84',
+  replaceJsMacro,
+  'const templ = `<div class="jp-block" id="someid">`;',
+  'const templ = `<div class="a" id="b">`;',
+  '.jp-block{}#someid{}',
+);
+
 test('replace css variables | issue rename-css-selectors#38',
   replaceJsMacro,
   `
