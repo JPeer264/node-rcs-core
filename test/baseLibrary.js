@@ -194,6 +194,27 @@ test('isExcluded | set into excluded and match as regex instance', (t) => {
   t.true(excluded);
 });
 
+/* **** *
+ * SWAP *
+ * **** */
+test('swap | bad swap', (t) => {
+  rcs.baseLibrary.swap('bob', 'alice');
+
+  t.deepEqual(rcs.baseLibrary.values, {});
+});
+test('swap | functional swap', (t) => {
+  rcs.baseLibrary.set('move');
+  rcs.baseLibrary.set('more');
+
+  t.is(rcs.baseLibrary.values.move, 'a');
+  t.is(rcs.baseLibrary.values.more, 'b');
+
+  rcs.baseLibrary.swap('move', 'more');
+
+  t.is(rcs.baseLibrary.values.move, 'b');
+  t.is(rcs.baseLibrary.values.more, 'a');
+});
+
 /* *** *
  * SET *
  * *** */
@@ -221,6 +242,14 @@ test('set | should set own values', (t) => {
   t.is(rcs.baseLibrary.values.move, 'mo');
   t.is(rcs.baseLibrary.values.animate, 'an');
   t.is(rcs.baseLibrary.values.more, 'm');
+});
+
+test('set | should perform optimal compression', (t) => {
+  rcs.baseLibrary.set('move');
+  rcs.baseLibrary.set('a', 'ab');
+
+  t.is(rcs.baseLibrary.values.move, 'ab');
+  t.is(rcs.baseLibrary.values.a, 'a');
 });
 
 test('set | should not set excluded values', (t) => {
