@@ -1,3 +1,8 @@
+2.6.1 - July, 23 2019
+
+* ae5533e Fix: replace fallback css variables (JPeer264)
+* df6f7c6 Fix #84 and #83 (#86) (X-Ryl669)
+
 2.6.0 - June, 22 2019
 
 * 19c2951 Test: test if css is getting replaced in html (JPeer264)
