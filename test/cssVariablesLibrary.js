@@ -82,6 +82,19 @@ test('get | should get correct var() values with spaces', (t) => {
   t.is(rcs.cssVariablesLibrary.get('  var(   --not-setted-value) '), 'var(--not-setted-value)');
 });
 
+test('get | should get correct var() values with fallbacks', (t) => {
+  rcs.cssVariablesLibrary.cssVariables = {
+    move: 'a',
+    animate: 'b',
+    more: 'c',
+    test: 'd',
+  };
+
+  t.is(rcs.cssVariablesLibrary.get('   var(    --move, var( --test     ) )'), 'var(--a, var(--d))');
+  t.is(rcs.cssVariablesLibrary.get('var(--animate  , #ABB  )'), 'var(--b, #ABB)');
+  t.is(rcs.cssVariablesLibrary.get('var(--animate  , var(--test, #ABB)  )'), 'var(--b, var(--d, #ABB))');
+});
+
 test('get | should get the minified values', (t) => {
   t.deepEqual(rcs.cssVariablesLibrary.compressedCssVariables, {});
 

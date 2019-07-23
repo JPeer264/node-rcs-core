@@ -472,3 +472,33 @@ test('should replace css variables',
     }
   `,
 );
+
+test('replace css variables with fallbacks | issue rename-css-selectors#42',
+  replaceCssMacro,
+  `
+    :root {
+      --button-border-width: 2px;
+      --border-width: 2px;
+      --button-border-color: pink;
+    }
+
+    .my-selector {
+      border: var(--button-border-width, var(--border-width))
+              solid
+              var(--button-border-color, transparent);
+    }
+  `,
+  `
+    :root {
+      --a: 2px;
+      --b: 2px;
+      --c: pink;
+    }
+
+    .d {
+      border: var(--a, var(--b))
+              solid
+              var(--c, transparent);
+    }
+  `,
+);
