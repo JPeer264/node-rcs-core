@@ -1,3 +1,8 @@
+2.6.2 - August, 01 2019
+
+* 92925bf Fix: rename multiple matches of css variables in css (JPeer264)
+* f41a31d Docs: add some live examples (JPeer264)
+
 2.6.1 - July, 23 2019
 
 * ae5533e Fix: replace fallback css variables (JPeer264)
