@@ -502,3 +502,67 @@ test('replace css variables with fallbacks | issue rename-css-selectors#42',
     }
   `,
 );
+
+test('replace css variables in calc and multiple variables | rename-css-selectors#43',
+  replaceCssMacro,
+  `
+    :root {
+      --gap-column-child: 2px;
+      --gap-column: 2px;
+      --gap-row-child: 2px;
+      --gap-row: 2px;
+      --0px: 0px;
+    }
+
+    .my-selector {
+      margin-right: calc(var(--gap-column-child, var(--0px)) - var(--gap-column, var(--0px)));
+      margin-bottom: calc(var(--gap-row-child, var(--0px)) - var(--gap-row, var(--0px)));
+    }
+  `,
+  `
+    :root {
+      --a: 2px;
+      --b: 2px;
+      --c: 2px;
+      --d: 2px;
+      --e: 0px;
+    }
+
+    .f {
+      margin-right: calc(var(--a, var(--e)) - var(--b, var(--e)));
+      margin-bottom: calc(var(--c, var(--e)) - var(--d, var(--e)));
+    }
+  `,
+);
+
+test('replace css variables with deep nested and multiline | rename-css-selectors#43',
+  replaceCssMacro,
+  `
+    :root {
+      --top: 2px;
+      --right: 2px;
+      --left: 2px;
+    }
+
+    .my-selector {
+      margin: var(--top, var(--right))
+              var(--right, var(--top, 3px))
+              5px
+              var(--left, var(--top, var(--not-renamed, 5px)))
+    }
+  `,
+  `
+    :root {
+      --a: 2px;
+      --b: 2px;
+      --c: 2px;
+    }
+
+    .d {
+      margin: var(--a, var(--b))
+              var(--b, var(--a, 3px))
+              5px
+              var(--c, var(--a, var(--not-renamed, 5px)))
+    }
+  `,
+);
