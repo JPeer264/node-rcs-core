@@ -50,6 +50,13 @@ test('should replace class selectors based on issue #50',
   '<p class="a">text with \'single quote</p><p class="a">another s\'ingle quote</p>',
 );
 
+test('should replace for attribute too based on issue #87',
+  replaceHtmlMacro,
+  '#id1 {}',
+  '<input id="id1"><label for="id1">some label</label>',
+  '<input id="a"><label for="a">some label</label>',
+);
+
 test('should replace class selectors in a normal html file',
   replaceHtmlMacro,
   '.jp-block {} .jp-block__element {}',
