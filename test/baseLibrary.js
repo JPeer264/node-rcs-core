@@ -30,6 +30,34 @@ test('exclude | should exclude nothing', (t) => {
   t.is(rcs.baseLibrary.excludes.length, 0);
 });
 
+/* ******** *
+ * RESERVED *
+ * ******** */
+test('reserved | should reserve variables', (t) => {
+  rcs.baseLibrary.setReserved(['a', 'b']);
+
+  t.is(rcs.baseLibrary.reserved.length, 2);
+});
+
+test('reserved | should just reserve once', (t) => {
+  rcs.baseLibrary.setReserved(['a', 'a']);
+
+  t.is(rcs.baseLibrary.reserved.length, 1);
+  t.is(rcs.baseLibrary.reserved[0], 'a');
+});
+
+test('reserved | should support resetting', (t) => {
+  rcs.baseLibrary.setReserved();
+
+  t.is(rcs.baseLibrary.reserved.length, 0);
+});
+
+test('reserved | is queriable', (t) => {
+  rcs.baseLibrary.setReserved('a');
+
+  t.true(rcs.baseLibrary.isReserved('a'));
+  t.falsy(rcs.baseLibrary.isReserved('c'));
+});
 
 /* *********** *
  * SETMULTIPLE *
@@ -328,4 +356,19 @@ test('get | should not get excluded values but already set ones', (t) => {
   t.is(rcs.baseLibrary.get('move'), 'move');
   t.is(rcs.baseLibrary.get('animate'), 'b');
   t.is(rcs.baseLibrary.get('more'), 'c');
+});
+
+test('get | should warn if using renamed selector', (t) => {
+  rcs.baseLibrary.values = {
+    move: 'a',
+  };
+  rcs.baseLibrary.compressedValues = {
+    a: 'move',
+  };
+
+  const moveSelector = rcs.baseLibrary.get('move');
+  const aSelector = rcs.baseLibrary.get('a');
+
+  t.is(moveSelector, 'a');
+  t.not(aSelector, 'a');
 });
