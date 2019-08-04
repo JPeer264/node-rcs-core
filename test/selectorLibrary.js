@@ -84,6 +84,16 @@ test('get | extend true', (t) => {
   t.is(dotTestSelector.selector, '.test');
 });
 
+test('get | insure no mix if using existing selector', (t) => {
+  t.context.setSelectors();
+
+  const testSelector = rcs.selectorLibrary.get('test');
+  const aSelector = rcs.selectorLibrary.get('a');
+
+  t.is(testSelector, 'a');
+  t.not(aSelector, 'a');
+});
+
 
 /* ****** *
  * GETALL *
