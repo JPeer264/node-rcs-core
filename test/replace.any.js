@@ -8,7 +8,7 @@ const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 function replaceAnyMacro(t, input, expected, fillLibrary = '') {
-  rcs.selectorLibrary.fillLibrary(fillLibrary);
+  rcs.selectorsLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.any(input), expected);
   t.is(rcs.replace.any(new Buffer(input)), expected);
@@ -19,7 +19,7 @@ replaceAnyMacro.title = (providedTitle, input) => (!providedTitle ? input.trim()
 test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.reset();
 });
 
 test('should stay empty',

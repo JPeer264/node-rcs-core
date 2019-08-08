@@ -11,7 +11,7 @@ const resultsCwd = 'test/files/results';
 function replaceHtmlMacro(t, selectors, input, expected, options) {
   const expect = expected || input;
 
-  rcs.selectorLibrary.fillLibrary(selectors);
+  rcs.selectorsLibrary.fillLibrary(selectors);
 
   t.is(rcs.replace.html(input, options), expect);
 }
@@ -19,7 +19,7 @@ function replaceHtmlMacro(t, selectors, input, expected, options) {
 test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.reset();
   rcs.keyframesLibrary.reset();
 });
 

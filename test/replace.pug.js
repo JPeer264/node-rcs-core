@@ -13,7 +13,7 @@ function replacePugMacro(t, selectors, input, expected, options) {
 
   selectors.forEach((selector) => { setter[selector] = undefined; });
 
-  rcs.selectorLibrary.setMultiple(setter);
+  rcs.selectorsLibrary.setMultiple(setter);
 
   t.is(rcs.replace.pug(input, options).trim(), expect.trim());
 }
@@ -21,7 +21,7 @@ function replacePugMacro(t, selectors, input, expected, options) {
 test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.reset();
 });
 
 test('should replace nothing',

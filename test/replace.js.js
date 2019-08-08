@@ -8,7 +8,7 @@ const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 function replaceJsMacro(t, input, expected, fillLibrary = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8')) {
-  rcs.selectorLibrary.fillLibrary(fillLibrary);
+  rcs.selectorsLibrary.fillLibrary(fillLibrary);
   rcs.cssVariablesLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.js(input), expected);
@@ -20,7 +20,7 @@ replaceJsMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() 
 test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.reset();
   rcs.cssVariablesLibrary.reset();
 });
 
@@ -53,7 +53,7 @@ test('should replace although jsx is disabled', (t) => {
   const input = fs.readFileSync(path.join(fixturesCwd, '/js/complex.txt'), 'utf8');
   const expected = fs.readFileSync(path.join(resultsCwd, '/js/complex.txt'), 'utf8');
 
-  rcs.selectorLibrary.fillLibrary(fillLibrary);
+  rcs.selectorsLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.js(input, { ecmaFeatures: { jsx: false } }), expected);
   t.is(rcs.replace.js(new Buffer(input), { ecmaFeatures: { jsx: false } }), expected);
