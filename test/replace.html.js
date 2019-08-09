@@ -61,7 +61,7 @@ test('should replace class selectors in a normal html file',
   replaceHtmlMacro,
   '.jp-block {} .jp-block__element {}',
   minify(fs.readFileSync(path.join(fixturesCwd, '/html/index.html'), 'utf8'), { collapseWhitespace: true }),
-  minify(fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8'), { collapseWhitespace: true }),
+  minify(fs.readFileSync(path.join(resultsCwd, '/html/index.only.html'), 'utf8'), { collapseWhitespace: true }),
 );
 
 test('should replace class selectors within script tags',

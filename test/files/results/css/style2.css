@@ -1,27 +1,27 @@
-#f {
+#a {
     content: 'id';
 }
 
-.b {
+.c {
     content: 'block__element';
 }
 
-.c {
+.d {
     content: 'block__element--modifier';
 }
 
-.c {
+.d {
     content: 'block__element--modifier';
 }
 
-.d{
+.e{
     content: 'block--modifier';
 }
 
-.a {
+.b {
     content: 'block';
 }
 
-.e:before {
+.f:before {
     content: 'before';
 }

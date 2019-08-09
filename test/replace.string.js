@@ -8,7 +8,7 @@ test.beforeEach((t) => {
   rcs.selectorsLibrary.reset();
 
   // eslint-disable-next-line no-param-reassign
-  t.context.regex = () => rcs.selectorsLibrary.getAll({ regex: true });
+  t.context.regex = () => rcs.selectorsLibrary.getAllRegex();
 });
 
 test('replace text correctly', (t) => {
