@@ -26,7 +26,7 @@ test.beforeEach(() => {
 
 test(replaceJsMacro,
   'var test = \' something \';\nconst myClass = "jp-block";',
-  'var test = \' something \';\nconst myClass = "a";',
+  'var test = \' something \';\nconst myClass = "b";',
 );
 
 test(replaceJsMacro,
@@ -111,7 +111,7 @@ test('check "key" in object non replacement | issue #83',
 test('replace in template | issue #84',
   replaceJsMacro,
   'const templ = `<div class="jp-block" id="someid">`;',
-  'const templ = `<div class="a" id="b">`;',
+  'const templ = `<div class="b" id="a">`;',
   '.jp-block{}#someid{}',
 );
 
