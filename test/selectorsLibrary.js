@@ -19,21 +19,21 @@ test.beforeEach((t) => {
   };
 });
 
-/* ************************** *
- * GETATTTRIBUTESELECTORREGEX *
- * ************************** */
-test('getAtttributeSelectorRegex | ensure expected values', (t) => {
-  t.is(rcs.selectorsLibrary.getIdSelector().getAtttributeSelectorRegex(),
+/* ************************* *
+ * GETATTRIBUTESELECTORREGEX *
+ * ************************* */
+test('getAttributeSelectorRegex | ensure expected values', (t) => {
+  t.is(rcs.selectorsLibrary.getIdSelector().getAttributeSelectorRegex(),
         rcs.replace.regex.idAttributeSelectors);
   t.is(rcs.selectorsLibrary.getIdSelector().selectorFirstChar(), '#');
 
   // althrough it's never being used, let's assert it works
-  t.is(attributeLibrary.getAtttributeSelectorRegex(),
+  t.is(attributeLibrary.getAttributeSelectorRegex(),
         rcs.replace.regex.idAttributeSelectors);
   t.is(attributeLibrary.selectorFirstChar(), '#');
   t.is(attributeLibrary.replaceAttributeSelector('wrong'), false);
 
-  t.is(rcs.selectorsLibrary.getClassSelector().getAtttributeSelectorRegex(),
+  t.is(rcs.selectorsLibrary.getClassSelector().getAttributeSelectorRegex(),
         rcs.replace.regex.classAttributeSelectors);
   t.is(rcs.selectorsLibrary.getClassSelector().selectorFirstChar(), '.');
 });
