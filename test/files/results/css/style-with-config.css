@@ -22,17 +22,17 @@
     content: 'block__element--modifier';
 }
 
-#f {
+#a {
     content: 'id';
 }
 
-.g[src] {
+.f[src] {
     content: 'attribute';
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 
 @media screen and (min-width: .40em) {
-    #f {
+    #a {
         height: .20px;
         width: .20em;
     }
@@ -44,7 +44,7 @@
 @media screen and (min-width: 40em)
 
 {
-    #f
+    #a
     {
         height: .20px;
         width: .20em;

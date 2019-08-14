@@ -3,8 +3,7 @@ import test from 'ava';
 import rcs from '../lib';
 
 test.beforeEach((t) => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
 
   // eslint-disable-next-line no-param-reassign
@@ -67,7 +66,7 @@ test('replace multiple strings', (t) => {
   rcs.selectorsLibrary.set('.test-2');
   rcs.selectorsLibrary.set('#lala');
 
-  const expectedString = '".a#c.b#chained still-here"';
+  const expectedString = '".a#a.b#chained still-here"';
   const replacedString = rcs.replace.string('".test#lala.test-2#chained still-here"', t.context.regex());
 
   t.is(replacedString, expectedString);

@@ -32,6 +32,7 @@ $ yarn add rcs-core
 - [rcs.selectorsLibrary](docs/api/selectorslibrary.md)
 - [rcs.keyframesLibrary](docs/api/keyframeslibrary.md)
 - [rcs.cssVariablesLibrary](docs/api/cssvariableslibrary.md)
+- [rcs.useCustomGenerator](docs/api/usecustomgenerator.md)
 
 ## Plugins
 - Gulp Plugin: [gulp-rcs](https://www.npmjs.com/package/gulp-rcs)

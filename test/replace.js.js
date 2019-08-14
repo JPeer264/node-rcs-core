@@ -18,15 +18,15 @@ function replaceJsMacro(t, input, expected, fillLibrary = fs.readFileSync(path.j
 replaceJsMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() : providedTitle);
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
   rcs.cssVariablesLibrary.reset();
 });
 
 test(replaceJsMacro,
   'var test = \' something \';\nconst myClass = "jp-block";',
-  'var test = \' something \';\nconst myClass = "b";',
+  'var test = \' something \';\nconst myClass = "a";',
 );
 
 test(replaceJsMacro,
@@ -111,7 +111,7 @@ test('check "key" in object non replacement | issue #83',
 test('replace in template | issue #84',
   replaceJsMacro,
   'const templ = `<div class="jp-block" id="someid">`;',
-  'const templ = `<div class="b" id="a">`;',
+  'const templ = `<div class="a" id="a">`;',
   '.jp-block{}#someid{}',
 );
 

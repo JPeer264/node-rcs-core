@@ -5,8 +5,7 @@ import attributeLibrary from '../lib/attributeLibrary';
 
 test.beforeEach((t) => {
   // reset counter and selectors for tests
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
 
   // eslint-disable-next-line no-param-reassign
@@ -55,8 +54,8 @@ test('get | should get every single selectors', (t) => {
   const dotTestSelector = rcs.selectorsLibrary.get('.test');
   const testSelector = rcs.selectorsLibrary.get('test');
 
-  t.is(dotTestSelector, 'b');
-  t.is(testSelector, 'b');
+  t.is(dotTestSelector, 'a');
+  t.is(testSelector, 'a');
 });
 
 test('get | should get every single selectors with type char', (t) => {
@@ -65,8 +64,8 @@ test('get | should get every single selectors with type char', (t) => {
   const dotTestSelector = rcs.selectorsLibrary.get('.test', { addSelectorType: true });
   const testSelector = rcs.selectorsLibrary.get('test', { addSelectorType: true });
 
-  t.is(dotTestSelector, '.b');
-  t.is(testSelector, '.b');
+  t.is(dotTestSelector, '.a');
+  t.is(testSelector, '.a');
 });
 
 test('get | with pre- suffix', (t) => {
@@ -78,8 +77,8 @@ test('get | with pre- suffix', (t) => {
   const selector = rcs.selectorsLibrary.get('.test');
   const selectorWithType = rcs.selectorsLibrary.get('.test', { addSelectorType: true });
 
-  t.is(selector, 'pre-b-suf');
-  t.is(selectorWithType, '.pre-b-suf');
+  t.is(selector, 'pre-a-suf');
+  t.is(selectorWithType, '.pre-a-suf');
 });
 
 test('get | should not get excluded selector', (t) => {
@@ -100,7 +99,7 @@ test('get | extend true', (t) => {
   const dotTestSelector = rcs.selectorsLibrary.get('.test', { extend: true });
 
   t.is(typeof dotTestSelector, 'object');
-  t.is(dotTestSelector.compressedSelector, 'b');
+  t.is(dotTestSelector.compressedSelector, 'a');
   t.is(dotTestSelector.selector, 'test');
 });
 
@@ -108,10 +107,10 @@ test('get | insure no mix if using existing selector', (t) => {
   t.context.setSelectors();
 
   const testSelector = rcs.selectorsLibrary.get('test');
-  const aSelector = rcs.selectorsLibrary.get('b');
+  const aSelector = rcs.selectorsLibrary.get('a');
 
-  t.is(testSelector, 'b');
-  t.not(aSelector, 'b');
+  t.is(testSelector, 'a');
+  t.not(aSelector, 'a');
 });
 
 
@@ -126,7 +125,7 @@ test('getall | should return a regex of compressed with classes', (t) => {
     addSelectorType: true,
   });
 
-  t.is(regex.source, '(\\#a)|(\\.b|\\.c)');
+  t.is(regex.source, '(\\#a)|(\\.a|\\.b)');
 });
 
 test('getall | should return an array with selectors', (t) => {
@@ -139,10 +138,10 @@ test('getall | should return an array with selectors', (t) => {
   t.truthy(array['.test']);
   t.truthy(array['.jp-selector']);
 
+  t.falsy(array['.a']);
   t.falsy(array['.b']);
-  t.falsy(array['.c']);
 
-  t.is(array['.test'], 'b');
+  t.is(array['.test'], 'a');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll({
     addSelectorType: true,
@@ -165,10 +164,10 @@ test('getall | should return an array with compressed selectors', (t) => {
   t.falsy(array['.test']);
   t.falsy(array['.jp-selector']);
 
+  t.truthy(array['.a']);
   t.truthy(array['.b']);
-  t.truthy(array['.c']);
 
-  t.is(array['.b'], 'test');
+  t.is(array['.a'], 'test');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll({
     getRenamedValues: true,
@@ -196,7 +195,7 @@ test('getall | should return a regex of non compressed selecotrs', (t) => {
     getRenamedValues: true,
   });
 
-  t.is(regex.source, '((\\s|\\#)(a)[\\s)])|((\\s|\\.)(b|c)[\\s)])');
+  t.is(regex.source, '((\\s|\\#)(a)[\\s)])|((\\s|\\.)(a|b)[\\s)])');
 });
 
 test('getall | should return a regex of compressed selectors', (t) => {
@@ -216,7 +215,7 @@ test('getall | should get all extend', (t) => {
 
   t.is(typeof cssObject.test, 'object');
   t.is(cssObject.test.type, 'class');
-  t.is(cssObject.test.compressedSelector, 'b');
+  t.is(cssObject.test.compressedSelector, 'a');
 
   cssObject = rcs.selectorsLibrary.getIdSelector().getAll({
     extend: true,
@@ -236,7 +235,7 @@ test('getall | should get all extend with selectors', (t) => {
 
   t.is(typeof cssObject['.test'], 'object');
   t.is(cssObject['.test'].type, 'class');
-  t.is(cssObject['.test'].compressedSelector, 'b');
+  t.is(cssObject['.test'].compressedSelector, 'a');
 
   cssObject = rcs.selectorsLibrary.getIdSelector().getAll({
     addSelectorType: true,
@@ -257,9 +256,9 @@ test('getall | should get all normal with selectors', (t) => {
     extend: true,
   });
 
-  t.is(typeof cssObject['.b'], 'object');
-  t.is(cssObject['.b'].type, 'class');
-  t.is(cssObject['.b'].modifiedSelector, 'test');
+  t.is(typeof cssObject['.a'], 'object');
+  t.is(cssObject['.a'].type, 'class');
+  t.is(cssObject['.a'].modifiedSelector, 'test');
 
   cssObject = rcs.selectorsLibrary.getIdSelector().getAll({
     getRenamedValues: true,
@@ -278,8 +277,8 @@ test('getall | should get all setted classes', (t) => {
   let array = rcs.selectorsLibrary.getClassSelector().getAll();
 
   t.is(typeof array, 'object');
-  t.is(array.test, 'b');
-  t.is(array['jp-selector'], 'c');
+  t.is(array.test, 'a');
+  t.is(array['jp-selector'], 'b');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll();
   t.is(array.id, 'a');
@@ -293,8 +292,8 @@ test('getall | should get all setted compressed classes', (t) => {
   });
 
   t.is(typeof array, 'object');
-  t.is(array.b, 'test');
-  t.is(array.c, 'jp-selector');
+  t.is(array.a, 'test');
+  t.is(array.b, 'jp-selector');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll({
     getRenamedValues: true,
@@ -359,9 +358,9 @@ test('set | should set values out of an array', (t) => {
   ]);
 
   // should be set
-  t.is(rcs.selectorsLibrary.getClassSelector().values.test, 'b');
+  t.is(rcs.selectorsLibrary.getClassSelector().values.test, 'a');
   t.is(rcs.selectorsLibrary.getIdSelector().values.id, 'a');
-  t.is(rcs.selectorsLibrary.getClassSelector().values['jp-selector'], 'c');
+  t.is(rcs.selectorsLibrary.getClassSelector().values['jp-selector'], 'b');
 
   // should not be set
   t.falsy(rcs.selectorsLibrary.getClassSelector().values['not-set']);

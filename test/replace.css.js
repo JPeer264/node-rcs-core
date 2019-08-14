@@ -26,8 +26,9 @@ function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
 }
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
   rcs.keyframesLibrary.reset();
   rcs.cssVariablesLibrary.reset();
@@ -164,11 +165,11 @@ test('should replace keyframes properly',
         from {} to {}
     }
 
-    .b {
+    .a {
         animation:a 4s;
     }
 
-    .c {
+    .b {
         animation:     a     4s;
     }
   `,
@@ -215,7 +216,7 @@ test('should replace keyframes properly in nested animations',
         from {} to {}
     }
 
-    .c {
+    .a {
         animation-name: a, b;
         animation:  a 4s infinite,
                     a 10s,
@@ -223,7 +224,7 @@ test('should replace keyframes properly in nested animations',
                     not-setted-keyframe 2s;
     }
 
-    .d {
+    .b {
         animation:     a     4s  , b 10s;
     }
   `,
@@ -263,21 +264,21 @@ test('should not replace keyframes properly',
 test('should replace keyframes properly in a oneliner',
   replaceCssMacro,
   '@keyframes  move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation:     move     4s    }',
-  '@keyframes  a {from {} to {}}.b {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.c {animation:     a     4s    }',
+  '@keyframes  a {from {} to {}}.a {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.b {animation:     a     4s    }',
   { replaceKeyframes: true },
 );
 
 test('should not replace keyframes percentage comas | issue #69',
   replaceCssMacro,
   '@keyframes  move {from {} 50.1% {} to {}}.selector {animation: move 4s}',
-  '@keyframes  a {from {} 50.1% {} to {}}.b {animation: a 4s}',
+  '@keyframes  a {from {} 50.1% {} to {}}.a {animation: a 4s}',
   { replaceKeyframes: true },
 );
 
 test('should replace keyframes with suffixes',
   replaceCssMacro,
   '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',
-  '@keyframes a {from {} to {}}.b-suf {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.c-suf {animation: a 4s }',
+  '@keyframes a {from {} to {}}.a-suf {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.b-suf {animation: a 4s }',
   {
     replaceKeyframes: true,
     suffix: '-suf',
@@ -287,7 +288,7 @@ test('should replace keyframes with suffixes',
 test('should replace keyframes with prefixes',
   replaceCssMacro,
   '@keyframes move {from {} to {}}.selector {animation: move 4s, move 4s infinite, do-not-trigger 10s infinite}.another-selector {animation: move 4s }',
-  '@keyframes a {from {} to {}}.pre-b {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.pre-c {animation: a 4s }',
+  '@keyframes a {from {} to {}}.pre-a {animation: a 4s, a 4s infinite, do-not-trigger 10s infinite}.pre-b {animation: a 4s }',
   {
     replaceKeyframes: true,
     prefix: 'pre-',
@@ -388,7 +389,7 @@ test('should replace css variables properly',
       --b: linear-gradient(var(--a), var(--bottom-color));
     }
 
-    #c {
+    #a {
       background-color: var(--a);
     }
   `,
@@ -447,19 +448,19 @@ test('should replace css variables',
     }
   `,
   `
-    .d {
+    .a {
       --a: #111;
       --b: #f0f0f0;
       --c: #999;
     }
 
-    .e {
+    .b {
       --a: red;
       --b: white;
       --c: black;
     }
 
-    .f {
+    .c {
       color: var(--a);
       background-color: var(--b);
       font-size: 1.2em;
@@ -495,7 +496,7 @@ test('replace css variables with fallbacks | issue rename-css-selectors#42',
       --c: pink;
     }
 
-    .d {
+    .a {
       border: var(--a, var(--b))
               solid
               var(--c, transparent);
@@ -528,7 +529,7 @@ test('replace css variables in calc and multiple variables | rename-css-selector
       --e: 0px;
     }
 
-    .f {
+    .a {
       margin-right: calc(var(--a, var(--e)) - var(--b, var(--e)));
       margin-bottom: calc(var(--c, var(--e)) - var(--d, var(--e)));
     }
@@ -558,7 +559,7 @@ test('replace css variables with deep nested and multiline | rename-css-selector
       --c: 2px;
     }
 
-    .d {
+    .a {
       margin: var(--a, var(--b))
               var(--b, var(--a, 3px))
               5px
