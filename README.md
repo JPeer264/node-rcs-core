@@ -29,7 +29,7 @@ $ yarn add rcs-core
 - [rcs.baseLibrary](docs/api/baselibrary.md)
 - [rcs.fillLibraries](docs/api/filllibraries.md)
 - [rcs.nameGenerator](docs/api/namegenerator.md)
-- [rcs.selectorLibrary](docs/api/selectorlibrary.md)
+- [rcs.selectorsLibrary](docs/api/selectorslibrary.md)
 - [rcs.keyframesLibrary](docs/api/keyframeslibrary.md)
 - [rcs.cssVariablesLibrary](docs/api/cssvariableslibrary.md)
 
