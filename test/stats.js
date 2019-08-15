@@ -10,7 +10,7 @@ test.beforeEach(() => {
 
 test('replace js and get correct classes', (t) => {
   rcs.selectorsLibrary.fillLibrary('#id {} .selector {} .not-used {} .used {}');
-  rcs.replace.js('var a = \'selector used id\';');
+  rcs.replace.js('var a = \'.selector .used #id\';');
 
   const stats = rcs.stats();
 
@@ -20,7 +20,7 @@ test('replace js and get correct classes', (t) => {
 
 test('replace js and get correct classes and ids', (t) => {
   rcs.selectorsLibrary.fillLibrary('#id {} .selector {} .not-used {} .used {}');
-  rcs.replace.js('var a = "selector used";');
+  rcs.replace.js('var a = ".selector .used";');
 
   const stats = rcs.stats();
 
