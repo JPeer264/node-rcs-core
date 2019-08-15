@@ -28,7 +28,7 @@ function replaceMultipleCssMacro(t, inputs, expects, options = {}) {
 test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.reset();
   rcs.keyframesLibrary.reset();
   rcs.cssVariablesLibrary.reset();
 });

@@ -11,7 +11,7 @@ const resultsCwd = 'test/files/results';
 function replaceHtmlMacro(t, selectors, input, expected, options) {
   const expect = expected || input;
 
-  rcs.selectorLibrary.fillLibrary(selectors);
+  rcs.selectorsLibrary.fillLibrary(selectors);
 
   t.is(rcs.replace.html(input, options), expect);
 }
@@ -19,7 +19,7 @@ function replaceHtmlMacro(t, selectors, input, expected, options) {
 test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.reset();
   rcs.keyframesLibrary.reset();
 });
 
@@ -61,7 +61,7 @@ test('should replace class selectors in a normal html file',
   replaceHtmlMacro,
   '.jp-block {} .jp-block__element {}',
   minify(fs.readFileSync(path.join(fixturesCwd, '/html/index.html'), 'utf8'), { collapseWhitespace: true }),
-  minify(fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8'), { collapseWhitespace: true }),
+  minify(fs.readFileSync(path.join(resultsCwd, '/html/index.only.html'), 'utf8'), { collapseWhitespace: true }),
 );
 
 test('should replace class selectors within script tags',

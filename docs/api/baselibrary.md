@@ -6,6 +6,10 @@
 - [setMultiple](#setmultiple)
 - [setExclude](#setexclude)
 - [isExcluded](#isexcluded)
+- [setReserved](#setreserved)
+- [isReserved](#isreserved)
+- [setPrefix](#setprefix)
+- [setSuffix](#setsuffix)
 
 ### get
 
@@ -114,3 +118,86 @@ rcs.baseLibrary.setExclude('js');
 rcs.baseLibrary.isExcluded('js'); // true
 rcs.baseLibrary.isExcluded('another-value'); // false
 ```
+
+### setReserved
+
+> To reserve some compressed values from being used. Replace the actual reserved list.
+
+**rcs.baseLibrary.setReserved(value)**
+
+Parameters:
+- value `<String | Array of String>`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.baseLibrary.setReserved('a'); // or:
+rcs.baseLibrary.setReserved(['a', 'b']); 
+
+// the value will not be mapped to either 'a' or 'b'
+rcs.baseLibrary.set('something');
+rcs.baseLibrary.get('something'); // 'c'
+```
+
+### isReserved
+
+> Checks if the string is reserved, which was set by `rcs.baseLibrary.setReserved`
+
+**rcs.baseLibrary.isReserved(value)**
+
+Parameters:
+- value `<String>`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.baseLibrary.setReserved('a');
+
+rcs.baseLibrary.isReserved('a'); // true
+rcs.baseLibrary.isReserved('another-value'); // false
+```
+
+### setPrefix
+
+> Sets a specific prefix to add to the mapped value
+
+**rcs.baseLibrary.setPrefix(value)**
+
+Parameters:
+- value `<String>`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.baseLibrary.setPrefix('lib-'); 
+rcs.baseLibrary.set('my-id'); // sets to 'lib-a'
+
+rcs.baseLibrary.get('my-id'); // 'lib-a'
+```
+
+### setSuffix
+
+> Sets a specific suffix to add to the mapped value
+
+**rcs.baseLibrary.setSuffix(value)**
+
+Parameters:
+- value `<String>`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.baseLibrary.setSuffix('-bad'); 
+rcs.baseLibrary.set('my-id'); // sets to 'a-bad'
+
+rcs.baseLibrary.get('my-id'); // 'a-bad'
+```
+

@@ -1,28 +1,28 @@
-.a {
+.b {
     content: 'block';
 }
 
-.b {
+.c {
     content: 'block__element';
 }
 
-.c {
+.d {
     content: 'block__element--modifier';
 }
 
-.d{
+.e{
     content: 'block--modifier';
 }
 
-.e:before {
+.f:before {
     content: 'before';
 }
 
-.c {
+.d {
     content: 'block__element--modifier';
 }
 
-#f {
+#a {
     content: 'id';
 }
 
@@ -32,7 +32,7 @@
 }
 
 @media screen and (min-width: .40em) {
-    #f {
+    #a {
         height: .20px;
         width: .20em;
     }
@@ -44,7 +44,7 @@
 @media screen and (min-width: 40em)
 
 {
-    #f
+    #a
     {
         height: .20px;
         width: .20em;

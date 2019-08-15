@@ -1,18 +1,23 @@
-# rcs.selectorLibrary
+# rcs.selectorsLibrary
 
 ## Methods
 - [fillLibrary](#filllibrary)
 - [get](#get)
-- [getAll](#getall)
+- [getAllRegex](#getall)
 - [set](#set)
-- [generateMeta](#generatemeta)
 - [setAttributeSelector](#setattributeselector)
-- [isInAttributeSelector](#isinattributeselector)
+- [replaceAttributeSelector](#replaceattributeselector)
+- [getClassSelector](#getclassselector)
+- [getIdSelector](#getidselector)
 
 Plus methods of [BaseLibrary](./baselibrary.md):
 - [setMultiple](#setmultiple)
 - [setExclude](#setexclude)
 - [isExcluded](#isexcluded)
+- [setReserved](#setreserved)
+- [isReserved](#isreserved)
+- [setPrefix](#setprefix)
+- [setSuffix](#setsuffix)
 
 ### fillLibrary
 
@@ -58,19 +63,16 @@ rcs.selectorLibrary.get('#my-id'); // a
 rcs.selectorLibrary.get('#my-id', { addSelectorType: true }); // #a
 ```
 
-### getAll
+### getAllRegex
 
-> Returns all setted values as array plus metadata
+> Returns all setted values as a regular expression
 
-**rcs.selectorLibrary.getAll([options])**
+**rcs.selectorLibrary.getAllRegex([options])**
 
 Parameters:
 - options `<Object>`:
   - getRenamedValues `<Boolean>`: If true it will return the renamed values. Default: `false`
-  - regex `<Boolean>`: This will return a regex of all setted selectors in the selectorLibrary. Default: `false`
-  - regexCss `<Boolean>`: This will return a regex of all setted selectors in the selectorLibrary, optimized for CSS files. Default: `false`
   - addSelectorType `<Boolean>`: If true it will also add the ID or CLASS prefix (# or .). Default: `false`
-  - extend `<Boolean>`: If true it will append more information given as object. Has **no effect** in combination with the option REGEX. Default: `false`
 
 Example:
 
@@ -80,7 +82,7 @@ const rcs = require('rcs-core');
 rcs.selectorLibrary.set('#my-id');
 rcs.selectorLibrary.set('.a-class');
 
-const allValues = rcs.selectorLibrary.getAll();
+const allValues = rcs.selectorLibrary.getAllRegex();
 ```
 
 ### set
@@ -109,39 +111,42 @@ rcs.selectorLibrary.set('#my-id'); // sets to 'a'
 rcs.selectorLibrary.get('#my-id'); // a
 ```
 
-### generateMeta
+### getClassSelector
 
-> Returns the metainformation of the selector and generates a new name for the selector
+> Returns the selector library for CSS classes
 
-**rcs.selectorLibrary.generateMeta(selector[, [renamedSelector, ] options])**
-
-Parameters:
-- selector `<String>`
-- renamedSelector `<String>` (optional)
-- options `<Object>`:
-  - preventRandomName `<Boolean>`. Does not rename the given selector. Good for just pre- or suffix the selectors. Default: `false`
+**rcs.selectorLibrary.getClassSelector()**
 
 Example:
 
 ```js
 const rcs = require('rcs-core');
 
-const myClassMeta = rcs.selectorLibrary.generateMeta('.my-class');
+const myClassSelector = rcs.selectorLibrary.getClassSelector();
+const toDump = myClassSelector.getAll();
 
-// myClassMeta returns:
-//
-// {
-//      type: 'class',
-//      typeChar: '.',
-//      selector: '.my-class',
-//      modifiedSelector: 'my-class',
-//      compressedSelector: 'a'
-// }
 ```
+
+### getIdSelector
+
+> Returns the selector library for ID
+
+**rcs.selectorLibrary.getIdSelector()**
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+const myIdSelector = rcs.selectorLibrary.getIdSelector();
+const toDump = myIdSelector.getAll();
+
+```
+
 
 ### setAttributeSelector
 
-> Sets the attribute selector into `this.attributeSelectors`
+> Sets the attribute selector into the appropriate selector library (`classSelector.attributeSelectors` or `idSelector.attributeSelectors`)
 
 **rcs.selectorLibrary.setAttributeSelector(attributeSelector)**
 
@@ -155,7 +160,7 @@ const rcs = require('rcs-core');
 
 rcs.setAttributeSelector('[class$="selector"]');
 
-// sets the following into this.attributeSelectors
+// sets the following into classSelector.attributeSelectors
 //
 // {
 //      '.$selector': {
@@ -167,11 +172,11 @@ rcs.setAttributeSelector('[class$="selector"]');
 // }
 ```
 
-### isInAttributeSelector
+### replaceAttributeSelector
 
-> check wheter a selector is set by an CSS attribute selector or not
+> Replace (Compress) a given selector so it still fits the original rule
 
-**rcs.selectorLibrary.isInAttributeSelector(selector)**
+**rcs.selectorLibrary.replaceAttributeSelector(selector)**
 
 Parameters:
 - selector `<String>`
@@ -182,7 +187,6 @@ Example:
 // first set some attribute selectors with `rcs.selectorLibrary.setAttributeSelectors`
 rcs.setAttributeSelector('[class*="lect"]');
 
-rcs.isInAttributeSelector('.select'); // true
-rcs.isInAttributeSelector('.selct');  // false
-rcs.isInAttributeSelector('#select'); // false
+rcs.replaceAttributeSelector('.select'); // '.alect'
+rcs.replaceAttributeSelector('.selct'); // false
 ```

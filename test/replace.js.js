@@ -8,7 +8,7 @@ const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 function replaceJsMacro(t, input, expected, fillLibrary = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8')) {
-  rcs.selectorLibrary.fillLibrary(fillLibrary);
+  rcs.selectorsLibrary.fillLibrary(fillLibrary);
   rcs.cssVariablesLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.js(input), expected);
@@ -20,13 +20,13 @@ replaceJsMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() 
 test.beforeEach(() => {
   rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.reset();
   rcs.cssVariablesLibrary.reset();
 });
 
 test(replaceJsMacro,
   'var test = \' something \';\nconst myClass = "jp-block";',
-  'var test = \' something \';\nconst myClass = "a";',
+  'var test = \' something \';\nconst myClass = "b";',
 );
 
 test(replaceJsMacro,
@@ -53,7 +53,7 @@ test('should replace although jsx is disabled', (t) => {
   const input = fs.readFileSync(path.join(fixturesCwd, '/js/complex.txt'), 'utf8');
   const expected = fs.readFileSync(path.join(resultsCwd, '/js/complex.txt'), 'utf8');
 
-  rcs.selectorLibrary.fillLibrary(fillLibrary);
+  rcs.selectorsLibrary.fillLibrary(fillLibrary);
 
   t.is(rcs.replace.js(input, { ecmaFeatures: { jsx: false } }), expected);
   t.is(rcs.replace.js(new Buffer(input), { ecmaFeatures: { jsx: false } }), expected);
@@ -111,7 +111,7 @@ test('check "key" in object non replacement | issue #83',
 test('replace in template | issue #84',
   replaceJsMacro,
   'const templ = `<div class="jp-block" id="someid">`;',
-  'const templ = `<div class="a" id="b">`;',
+  'const templ = `<div class="b" id="a">`;',
   '.jp-block{}#someid{}',
 );
 
