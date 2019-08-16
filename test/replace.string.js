@@ -90,6 +90,16 @@ test('replace more complex string', (t) => {
   expectedString = 'div[class="a"]';
 
   t.is(replacedString, expectedString);
+
+  replacedString = rcs.replace.string('div[name="test"]', t.context.regex());
+  expectedString = 'div[name="test"]';
+
+  t.is(replacedString, expectedString);
+
+  replacedString = rcs.replace.string('"test="', t.context.regex());
+  expectedString = '"test="';
+
+  t.is(replacedString, expectedString);
 });
 
 test('replace multiple strings', (t) => {
