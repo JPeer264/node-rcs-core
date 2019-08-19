@@ -113,6 +113,23 @@ test('get | insure no mix if using existing selector', (t) => {
   t.not(aSelector, 'a');
 });
 
+test('get | insure no mix between id and class selector', (t) => {
+  rcs.selectorsLibrary.set('.myclass');
+  rcs.selectorsLibrary.set('#myclass');
+
+  const classSelector = rcs.selectorsLibrary.get('.myclass', { addSelectorType: true });
+  const idSelector = rcs.selectorsLibrary.get('#myclass', { addSelectorType: true });
+
+  t.is(classSelector, '.a');
+  t.is(idSelector, '#a');
+
+  rcs.selectorsLibrary.set('.other');
+
+  const otherIdSelector = rcs.selectorsLibrary.get('#other');
+  const otherSelector = rcs.selectorsLibrary.get('other', { addSelectorType: true });
+  t.not(otherIdSelector, '#b');
+  t.is(otherSelector, '.b');
+});
 
 /* ****** *
  * GETALL *
