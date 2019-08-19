@@ -4,10 +4,10 @@ import rcs from '../lib';
 
 test.beforeEach(() => {
   // reset counter and selectors for tests
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
   rcs.selectorsLibrary.reset();
   rcs.keyframesLibrary.reset();
+  rcs.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
 });
 
 test('fillLibraries should fill all libraries', (t) => {
@@ -30,8 +30,8 @@ test('fillLibraries should fill all libraries', (t) => {
 
 
   t.is(rcs.keyframesLibrary.get('move'), 'a');
-  t.is(rcs.selectorsLibrary.get('id'), 'b');
-  t.is(rcs.selectorsLibrary.get('test'), 'c');
+  t.is(rcs.selectorsLibrary.get('id'), 'a');
+  t.is(rcs.selectorsLibrary.get('test'), 'a');
 });
 
 test('fillLibraries should fill all libraries with pre or suffixes', (t) => {
@@ -70,7 +70,7 @@ test('fillLibraries should fill classes from html', (t) => {
   );
 
   t.is(rcs.selectorsLibrary.get('id'), 'a');
-  t.is(rcs.selectorsLibrary.get('test'), 'b');
+  t.is(rcs.selectorsLibrary.get('test'), 'a');
 });
 
 
@@ -82,7 +82,7 @@ test('fillLibraries should fill classes from html with multiple style tags', (t)
     },
   );
 
-  t.is(rcs.selectorsLibrary.get('test'), 'b');
+  t.is(rcs.selectorsLibrary.get('test'), 'a');
   t.is(rcs.selectorsLibrary.get('id'), 'a');
-  t.is(rcs.selectorsLibrary.get('another-class'), 'c');
+  t.is(rcs.selectorsLibrary.get('another-class'), 'b');
 });

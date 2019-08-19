@@ -17,8 +17,8 @@ function replaceHtmlMacro(t, selectors, input, expected, options) {
 }
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
   rcs.keyframesLibrary.reset();
 });

@@ -1,24 +1,24 @@
-.b {
+.a {
     content: 'block';
 }
 
-.c {
+.b {
     content: 'block__element';
 }
 
-.d {
+.c {
     content: 'block__element--modifier';
 }
 
-.e{
+.d{
     content: 'block--modifier';
 }
 
-.f:before {
+.e:before {
     content: 'before';
 }
 
-.d {
+.c {
     content: 'block__element--modifier';
 }
 
@@ -26,7 +26,7 @@
     content: 'id';
 }
 
-.g[src] {
+.f[src] {
     content: 'attribute';
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
@@ -55,20 +55,20 @@ h1 {
     color: red;
 }
 
-.h {
+.g {
     content: 'reveal';
     color: #eee;
     font-size: .5rem;
 }
 
-.i.h {
+.h.g {
     content: 'js reveal';
 }
 
-.j.h {
+.i.g {
     content: 'js reveal';
 }
 
-.k {
+.j {
     content: 'js-reveal';
 }

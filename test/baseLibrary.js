@@ -3,8 +3,7 @@ import test from 'ava';
 import rcs from '../lib';
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.baseLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.baseLibrary.reset();
 });
 

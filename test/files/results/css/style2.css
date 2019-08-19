@@ -2,26 +2,26 @@
     content: 'id';
 }
 
-.c {
+.b {
     content: 'block__element';
 }
 
-.d {
+.c {
     content: 'block__element--modifier';
 }
 
-.d {
+.c {
     content: 'block__element--modifier';
 }
 
-.e{
+.d{
     content: 'block--modifier';
 }
 
-.b {
+.a {
     content: 'block';
 }
 
-.f:before {
+.e:before {
     content: 'before';
 }

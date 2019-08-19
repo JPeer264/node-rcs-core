@@ -19,8 +19,7 @@ function replacePugMacro(t, selectors, input, expected, options) {
 }
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
 });
 

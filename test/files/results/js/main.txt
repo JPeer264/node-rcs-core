@@ -1,11 +1,11 @@
 // jQuery example
-$('.b');
+$('.a');
 
 // vanillaJS example
-document.getElementsByClassName('c');
-document.getElementById('d');
-document.getElementById(" d");
-document.getElementById('\n\n\t d   d');
+document.getElementsByClassName('b');
+document.getElementById('c');
+document.getElementById(" c");
+document.getElementById('\n\n\t c   c');
 
 angular.module('service.test');
 
