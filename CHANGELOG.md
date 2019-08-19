@@ -1,3 +1,10 @@
+3.0.0-alpha.0 - August, 19 2019
+
+* b02269a Add support for custom generator and independant name generator per library. (#92) (X-Ryl669)
+* 48d89bb Rework the selector library code so it's not mixing stuff (#91) (X-Ryl669)
+* 55ff974 Fix label for attribute (#90) (X-Ryl669)
+* 10ddbd9 Prevent mini size (#89) (X-Ryl669)
+
 2.6.2 - August, 01 2019
 
 * 92925bf Fix: rename multiple matches of css variables in css (JPeer264)
