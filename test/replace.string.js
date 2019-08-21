@@ -33,6 +33,11 @@ test('replace text correctly', (t) => {
     rcs.replace.string('\'   test \'', t.context.regex()),
     '\'   test \'',
   );
+
+  t.is(
+    rcs.replace.string('" ]test"', t.context.regex()),
+    '" ]test"',
+  );
 });
 
 test('replace multiple selectors', (t) => {
