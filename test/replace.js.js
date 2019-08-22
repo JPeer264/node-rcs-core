@@ -115,6 +115,28 @@ test('replace in template | issue #84',
   '.jp-block{}#someid{}',
 );
 
+test('replace in template | more complex',
+  replaceJsMacro,
+  'const templ = `<div class="jp-block jp-pseudo" id="someid">`;',
+  'const templ = `<div class="a b" id="a">`;',
+  '.jp-block{}.jp-pseudo{}#someid{}',
+);
+
+test('replace in template | with class for id',
+  replaceJsMacro,
+  'const templ = `<div class="jp-block jp-pseudo" id="jp-block">`;',
+  'const templ = `<div class="a b" id="jp-block">`;',
+  '.jp-block{}.jp-pseudo{}#someid{}',
+);
+
+test('replace in template | with id for class',
+  replaceJsMacro,
+  'const templ = `<div class="someid jp-pseudo" id="someid">`;',
+  'const templ = `<div class="someid b" id="a">`;',
+  '.jp-block{}.jp-pseudo{}#someid{}',
+);
+
+
 test('replace css variables | issue rename-css-selectors#38',
   replaceJsMacro,
   `
