@@ -1,3 +1,8 @@
+3.0.0-alpha.1 - August, 22 2019
+
+* b093cf4 Fix selector mismatch (#95) (X-Ryl669)
+* d91bde4 Better error reporting (#94) (X-Ryl669)
+
 3.0.0-alpha.0 - August, 19 2019
 
 * b02269a Add support for custom generator and independant name generator per library. (#92) (X-Ryl669)
