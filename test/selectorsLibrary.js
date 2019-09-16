@@ -488,6 +488,24 @@ test('setAttributeSelector | should set attribute all attribute selectors', (t) 
   t.is(rcs.selectorsLibrary.getIdSelector().attributeSelectors['=hello'].originalString, '[id="hello"]');
 });
 
+test('setAttributeSelector | attribute selector should fix previous mapping (see #96)', (t) => {
+  t.context.setSelectors();
+
+  let dotTestSelector = rcs.selectorsLibrary.get('.jp-selector');
+  t.is(dotTestSelector, 'b');
+
+  rcs.selectorsLibrary.getClassSelector().setAttributeSelector([
+    '[class^=jp-]',
+  ]);
+
+  dotTestSelector = rcs.selectorsLibrary.get('.jp-selector');
+  t.is(dotTestSelector, 'jp-t');
+
+  rcs.selectorsLibrary.set('.jp-trick');
+  dotTestSelector = rcs.selectorsLibrary.get('.jp-trick');
+  t.is(dotTestSelector, 'jp-n');
+});
+
 /* ************************ *
  * REPLACEATTRIBUTESELECTOR *
  * ************************ */
