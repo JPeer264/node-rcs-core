@@ -1,3 +1,7 @@
+3.0.0-alpha.2 - September, 16 2019
+
+* c2d35da Rework attribute selector to fix #96 (#97) (X-Ryl669)
+
 3.0.0-alpha.1 - August, 22 2019
 
 * b093cf4 Fix selector mismatch (#95) (X-Ryl669)
