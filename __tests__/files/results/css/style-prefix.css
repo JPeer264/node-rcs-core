@@ -1,0 +1,74 @@
+.prefixed-a {
+    content: 'block';
+}
+
+.prefixed-b {
+    content: 'block__element';
+}
+
+.prefixed-c {
+    content: 'block__element--modifier';
+}
+
+.prefixed-d{
+    content: 'block--modifier';
+}
+
+.prefixed-e:before {
+    content: 'before';
+}
+
+.prefixed-c {
+    content: 'block__element--modifier';
+}
+
+#prefixed-f {
+    content: 'id';
+}
+
+.prefixed-g[src] {
+    content: 'attribute';
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+@media screen and (min-width: .40em) {
+    #prefixed-f {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+/**
+ * a description
+ */
+@media screen and (min-width: 40em)
+
+{
+    #prefixed-f
+    {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+h1 {
+    color: red;
+}
+
+.prefixed-h {
+    content: 'reveal';
+    color: #eee;
+    font-size: .5rem;
+}
+
+.prefixed-i.prefixed-h {
+    content: 'js reveal';
+}
+
+.prefixed-j.prefixed-h {
+    content: 'js reveal';
+}
+
+.prefixed-k {
+    content: 'js-reveal';
+}

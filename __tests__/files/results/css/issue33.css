@@ -1,0 +1,21 @@
+.box-t, .box-n, .box-r, .box-i {
+  margin: 10px;
+}
+.a > [class^='box-'] {
+  display: flex;
+  align-items: center
+}
+
+.msg-t, .msg-n, .msg-r, .msg-i {
+  font-family: monospace;
+}
+.b > [class^="msg-"] {
+  padding: 10px;
+}
+
+.lst-t, .lst-n {
+  margin-left: 10px;
+}
+.c > [class^=lst-] {
+  padding: 0;
+}
