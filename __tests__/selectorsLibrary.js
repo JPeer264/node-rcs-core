@@ -110,7 +110,7 @@ it('get | insure no mix if using existing selector', () => {
   expect(aSelector).not.toBe('a');
 });
 
-it.skip('get | insure no mix between id and class selector', () => {
+it('get | insure no mix between id and class selector', () => {
   rcs.selectorsLibrary.set('.myclass');
   rcs.selectorsLibrary.set('#myclass');
 
@@ -124,8 +124,16 @@ it.skip('get | insure no mix between id and class selector', () => {
 
   const otherIdSelector = rcs.selectorsLibrary.get('#other');
   const otherSelector = rcs.selectorsLibrary.get('other', { addSelectorType: true });
-  expect(otherIdSelector).toBe('#a');
+  expect(otherIdSelector).toBe('#other');
   expect(otherSelector).toBe('.b');
+
+  rcs.selectorsLibrary.set('#other-one');
+
+  const otheroneIdSelector = rcs.selectorsLibrary.get('#other-one');
+  const otheroneSelector = rcs.selectorsLibrary.get('.other-one');
+
+  expect(otheroneIdSelector).toBe('b');
+  expect(otheroneSelector).toBe('.other-one');
 });
 
 /* ****** *
