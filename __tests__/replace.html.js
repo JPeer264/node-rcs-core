@@ -4,8 +4,8 @@ import { minify } from 'html-minifier';
 
 import rcs from '../lib';
 
-const fixturesCwd = 'test/files/fixtures';
-const resultsCwd = 'test/files/results';
+const fixturesCwd = '__tests__/files/fixtures';
+const resultsCwd = '__tests__/files/results';
 
 function replaceHtmlMacro(selectors, input, expected, options) {
   const toExpect = expected || input;
