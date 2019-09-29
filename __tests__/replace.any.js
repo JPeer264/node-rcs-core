@@ -13,8 +13,6 @@ function replaceAnyMacro(input, expected, fillLibrary = '') {
   expect(rcs.replace.any(new Buffer(input))).toBe(expected);
 }
 
-replaceAnyMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() : providedTitle);
-
 beforeEach(() => {
   rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();

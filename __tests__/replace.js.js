@@ -14,8 +14,6 @@ function replaceJsMacro(input, expected, fillLibrary = fs.readFileSync(path.join
   expect(rcs.replace.js(new Buffer(input))).toBe(expected);
 }
 
-replaceJsMacro.title = (providedTitle, input) => (!providedTitle ? input.trim() : providedTitle);
-
 beforeEach(() => {
   rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
