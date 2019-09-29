@@ -6,7 +6,6 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "jest --coverage",
-    "test-legacy": "nyc ava",
     "build": "babel lib -d dest",
     "lint": "eslint lib test",
     "fix": "eslint lib test --fix",
@@ -34,11 +33,6 @@
     "url": "https://github.com/JPeer264/node-rcs-core/issues"
   },
   "homepage": "https://github.com/JPeer264/node-rcs-core#readme",
-  "ava": {
-    "require": [
-      "babel-register"
-    ]
-  },
   "dependencies": {
     "array-includes": "^3.0.2",
     "ast-traverse": "^0.1.1",
@@ -65,20 +59,13 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
-    "ava": "^0.19.1",
-    "babel-cli": "^6.24.1",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.5.2",
-    "babel-register": "^6.24.1",
     "coveralls": "^2.11.15",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "html-minifier": "^3.5.18",
     "husky": "^0.13.3",
-    "jest": "^24.9.0",
-    "nyc": "^11.0.2"
+    "jest": "^24.9.0"
   },
   "author": "Jan Peer Stöcklmair",
   "license": "MIT"
