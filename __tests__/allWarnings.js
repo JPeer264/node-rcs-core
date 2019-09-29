@@ -1,15 +1,12 @@
-import test from 'ava';
-
 import rcs from '../lib';
 
-test.beforeEach(() => {
+beforeEach(() => {
   rcs.baseLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.baseLibrary.reset();
   rcs.warnings.reset();
 });
 
-
-test('create some warning without sources', (t) => {
+it('create some warning without sources', () => {
   rcs.baseLibrary.values = {
     move: 'a',
   };
@@ -19,13 +16,13 @@ test('create some warning without sources', (t) => {
 
   rcs.baseLibrary.get('a');
 
-  t.is(Object.keys(rcs.warnings.warningArray).length, 1);
-  t.truthy(rcs.warnings.warningArray.a);
+  expect(Object.keys(rcs.warnings.warningArray).length).toBe(1);
+  expect(rcs.warnings.warningArray.a).toBeTruthy();
 
   rcs.warnings.warn();
 });
 
-test('create some warning with sources', (t) => {
+it('create some warning with sources', () => {
   rcs.baseLibrary.values = {
     move: 'a',
   };
@@ -36,14 +33,14 @@ test('create some warning with sources', (t) => {
   rcs.baseLibrary.get('a');
   rcs.baseLibrary.get('a', { source: { file: 'nofile', line: 1, text: 'a' } });
 
-  t.is(Object.keys(rcs.warnings.warningArray).length, 1);
-  t.is(rcs.warnings.warningArray.a[0].file, 'nofile');
-  t.is(rcs.warnings.warningArray.a[0].line, 1);
+  expect(Object.keys(rcs.warnings.warningArray).length).toBe(1);
+  expect(rcs.warnings.warningArray.a[0].file).toBe('nofile');
+  expect(rcs.warnings.warningArray.a[0].line).toBe(1);
 
   rcs.warnings.warn();
 });
 
-test('create some warning with common sources', (t) => {
+it('create some warning with common sources', () => {
   rcs.baseLibrary.values = {
     move: 'a',
   };
@@ -55,9 +52,9 @@ test('create some warning with common sources', (t) => {
   rcs.baseLibrary.get('a', { source: { file: 'nofile', line: 1, text: 'a'.repeat(501) } });
   rcs.baseLibrary.get('a', { source: { file: 'nofile', line: 1, text: 'a'.repeat(501) } });
 
-  t.is(Object.keys(rcs.warnings.warningArray).length, 1);
-  t.is(rcs.warnings.warningArray.a[0].file, 'nofile');
-  t.is(rcs.warnings.warningArray.a[0].line, 1);
+  expect(Object.keys(rcs.warnings.warningArray).length).toBe(1);
+  expect(rcs.warnings.warningArray.a[0].file).toBe('nofile');
+  expect(rcs.warnings.warningArray.a[0].line).toBe(1);
 
   rcs.warnings.warn();
 });

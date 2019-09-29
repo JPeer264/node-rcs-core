@@ -1,27 +1,25 @@
-import test from 'ava';
-
 import extractFromHtml from '../../lib/helpers/extractFromHtml';
 
-test('should extract nothing', (t) => {
+it('should extract nothing', () => {
   const extracted = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!</body></html>');
   const extractedSecond = extractFromHtml('');
 
-  t.is(extracted.length, 0);
-  t.is(extractedSecond.length, 0);
+  expect(extracted.length).toBe(0);
+  expect(extractedSecond.length).toBe(0);
 });
 
-test('should extract style tags', (t) => {
+it('should extract style tags', () => {
   const extractedStyle = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!<style>.test{} .css{}</style></body></html>');
 
-  t.is(extractedStyle.length, 1);
-  t.is(extractedStyle[0], '.test{} .css{}');
+  expect(extractedStyle.length).toBe(1);
+  expect(extractedStyle[0]).toBe('.test{} .css{}');
 });
 
-test('should extract script tags', (t) => {
+it('should extract script tags', () => {
   const extractedScript = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!<script type="text/javascript">var test = 123;</script></body></html>', 'script');
   const extractedStyle = extractFromHtml('<!DOCTYPE html><html><head></head><body>Hi there!<script type="text/javascript">var test = 123;</script></body></html>');
 
-  t.is(extractedScript.length, 1);
-  t.is(extractedStyle.length, 0);
-  t.is(extractedScript[0], 'var test = 123;');
+  expect(extractedScript.length).toBe(1);
+  expect(extractedStyle.length).toBe(0);
+  expect(extractedScript[0]).toBe('var test = 123;');
 });
