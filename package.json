@@ -11,7 +11,7 @@
     "fix": "eslint lib test --fix",
     "prepush": "npm test",
     "prepublish": "npm run build",
-    "coveralls": "cat ./tests/coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
     "css",
