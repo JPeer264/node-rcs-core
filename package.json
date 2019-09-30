@@ -8,9 +8,20 @@
     "build": "tsc",
     "lint": "eslint lib __tests__",
     "fix": "eslint lib __tests__ --fix",
-    "prepush": "npm test",
     "prepublish": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "keywords": [
     "css",
@@ -60,8 +71,9 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "html-minifier": "^3.5.18",
-    "husky": "^0.13.3",
+    "husky": "^3.0.7",
     "jest": "^24.9.0",
+    "lint-staged": "^9.4.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
   },
