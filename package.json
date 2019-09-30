@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "jest --coverage",
-    "build": "babel lib -d dest",
+    "build": "tsc",
     "lint": "eslint lib test",
     "fix": "eslint lib test --fix",
     "prepush": "npm test",
@@ -55,18 +55,16 @@
     "recast": "^0.15.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/register": "^7.6.0",
-    "babel-plugin-add-module-exports": "^1.0.2",
+    "@types/jest": "^24.0.18",
     "coveralls": "^2.11.15",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "html-minifier": "^3.5.18",
     "husky": "^0.13.3",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
   },
   "author": "Jan Peer Stöcklmair",
   "license": "MIT"
