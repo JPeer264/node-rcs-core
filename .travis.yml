@@ -2,12 +2,14 @@ language: node_js
 sudo: true
 dist: trusty
 node_js:
-  - 6
   - 8
   - 10
+  - 12
 install:
   - yarn
-script: npm run test
+script:
+  - npm run lint
+  - npm run test
 notifications:
   email:
     on_success: change

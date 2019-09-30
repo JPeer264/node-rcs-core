@@ -10,7 +10,7 @@ function replaceAnyMacro(input, expected, fillLibrary = '') {
   rcs.selectorsLibrary.fillLibrary(fillLibrary);
 
   expect(rcs.replace.any(input)).toBe(expected);
-  expect(rcs.replace.any(new Buffer(input))).toBe(expected);
+  expect(rcs.replace.any(Buffer.from(input))).toBe(expected);
 }
 
 beforeEach(() => {
