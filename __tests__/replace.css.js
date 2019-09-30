@@ -10,7 +10,7 @@ function replaceCssMacro(input, expected = input, options = {}) {
   rcs.fillLibraries(input, options);
 
   expect(rcs.replace.css(input)).toBe(expected);
-  expect(rcs.replace.css(new Buffer(input))).toBe(expected);
+  expect(rcs.replace.css(Buffer.from(input))).toBe(expected);
 }
 
 function replaceMultipleCssMacro(inputs, expects, options = {}) {
@@ -18,7 +18,7 @@ function replaceMultipleCssMacro(inputs, expects, options = {}) {
     rcs.fillLibraries(input, options);
 
     expect(rcs.replace.css(input)).toBe(expects[i]);
-    expect(rcs.replace.css(new Buffer(input))).toBe(expects[i]);
+    expect(rcs.replace.css(Buffer.from(input))).toBe(expects[i]);
   });
 }
 
@@ -35,7 +35,7 @@ it('should not replace anything', () => {
   const input = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8');
 
   expect(rcs.replace.css(input)).toBe(input);
-  expect(rcs.replace.css(new Buffer(input))).toBe(input);
+  expect(rcs.replace.css(Buffer.from(input))).toBe(input);
 });
 
 it('should replace attribute selectors without quotes | issue #33', () => {
@@ -46,10 +46,10 @@ it('should replace attribute selectors without quotes | issue #33', () => {
 });
 
 it('should return the modified css buffer', () => {
-    replaceCssMacro(
-      fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
-      fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8'),
-    );
+  replaceCssMacro(
+    fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'),
+    fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8'),
+  );
 });
 
 it('should return the modified and minified css buffer', () => {
@@ -117,9 +117,9 @@ it('allow escaped selectors | issue65', () => {
 
 it('multiple attribute selectors without quotes', () => {
   replaceCssMacro(
-      '.somediv{}.anotherdiv[class^=some] + [class^=some]{}',
-      '.a{}.b[class^=some] + [class^=some]{}',
-      { ignoreAttributeSelectors: true },
+    '.somediv{}.anotherdiv[class^=some] + [class^=some]{}',
+    '.a{}.b[class^=some] + [class^=some]{}',
+    { ignoreAttributeSelectors: true },
   );
 });
 

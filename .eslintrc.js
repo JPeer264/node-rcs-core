@@ -1,9 +1,18 @@
 module.exports = {
-    extends: 'airbnb-base',
-    env: {
+    "env": {
+        "browser": true,
+        "es6": true,
         jest: true,
     },
-    plugins: [
-        'import',
-    ],
+    "extends": "airbnb-base",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+    }
 };

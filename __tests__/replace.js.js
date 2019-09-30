@@ -11,7 +11,7 @@ function replaceJsMacro(input, expected, fillLibrary = fs.readFileSync(path.join
   rcs.cssVariablesLibrary.fillLibrary(fillLibrary);
 
   expect(rcs.replace.js(input)).toBe(expected);
-  expect(rcs.replace.js(new Buffer(input))).toBe(expected);
+  expect(rcs.replace.js(Buffer.from(input))).toBe(expected);
 }
 
 beforeEach(() => {
@@ -51,7 +51,7 @@ it('should replace although jsx is disabled', () => {
   rcs.selectorsLibrary.fillLibrary(fillLibrary);
 
   expect(rcs.replace.js(input, { ecmaFeatures: { jsx: false } })).toBe(expected);
-  expect(rcs.replace.js(new Buffer(input), { ecmaFeatures: { jsx: false } })).toBe(expected);
+  expect(rcs.replace.js(Buffer.from(input), { ecmaFeatures: { jsx: false } })).toBe(expected);
 });
 
 it('replace everything from file', () => {

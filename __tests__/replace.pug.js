@@ -1,3 +1,5 @@
+// disabled in favor of pug indents
+/* eslint-disable indent */
 import path from 'path';
 import fs from 'fs';
 

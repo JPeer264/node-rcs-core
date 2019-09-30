@@ -4,11 +4,10 @@
   "description": "Rename css selectors across all files",
   "main": "dest",
   "scripts": {
-    "pretest": "npm run lint",
     "test": "jest --coverage",
     "build": "tsc",
-    "lint": "eslint lib test",
-    "fix": "eslint lib test --fix",
+    "lint": "eslint lib __tests__",
+    "fix": "eslint lib __tests__ --fix",
     "prepush": "npm test",
     "prepublish": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
@@ -57,9 +56,9 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "coveralls": "^2.11.15",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.3.0",
+    "eslint": "^6.5.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "html-minifier": "^3.5.18",
     "husky": "^0.13.3",
     "jest": "^24.9.0",
