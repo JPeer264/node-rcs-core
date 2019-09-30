@@ -2,7 +2,7 @@ import stats from './stats';
 import replace from './replace';
 import baseLibrary from './baseLibrary';
 import fillLibraries from './fillLibraries';
-import nameGenerator from './nameGenerator';
+import * as nameGenerator from './nameGenerator';
 import selectorsLibrary from './selectorsLibrary';
 import keyframesLibrary from './keyframesLibrary';
 import cssVariablesLibrary from './cssVariablesLibrary';
