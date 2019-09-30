@@ -1,24 +1,32 @@
 import decToAny from 'decimal-to-any';
 
-let customGenerator = null;
+const defaultGenerator = (
+  obj: { nameCounter: number; alphabet: string; selector: string; type: string },
+): string => (
+  decToAny(obj.nameCounter, obj.alphabet.length, obj)
+);
 
-const defaultGenerator = (obj) => decToAny(obj.nameCounter, obj.alphabet.length, obj);
+let customGenerator: null | typeof defaultGenerator = null;
 
 export class NameGenerator {
-  constructor(type) {
+  type: string;
+
+  nameCounter = 1;
+
+  decToAnyOptions = {
+    alphabet: 'etnrisouaflchpdvmgybwxk_jqz',
+  };
+
+  constructor(type = '') {
     this.type = type;
-    this.nameCounter = 1;
-    this.decToAnyOptions = {
-      alphabet: 'etnrisouaflchpdvmgybwxk_jqz',
-    };
   }
 
-  setAlphabet(alphabet) {
+  setAlphabet(alphabet: string): void {
     this.nameCounter = 1;
     this.decToAnyOptions.alphabet = alphabet;
   }
 
-  generate(selector) {
+  generate(selector: string): string {
     const genFunc = typeof customGenerator === 'function' ? customGenerator : defaultGenerator;
     const generatedName = genFunc({
       selector,
@@ -32,11 +40,11 @@ export class NameGenerator {
     return generatedName;
   }
 
-  reset() {
+  reset(): void {
     this.nameCounter = 1;
   }
 }
 
-export const useCustomGenerator = (generator) => {
+export const useCustomGenerator = (generator: typeof defaultGenerator): void => {
   customGenerator = generator;
 };

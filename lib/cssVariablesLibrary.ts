@@ -1,14 +1,14 @@
 import { parse } from 'postcss';
 
-import { BaseLibrary } from './baseLibrary';
+import { BaseLibrary, BaseLibraryOptions } from './baseLibrary';
 import replaceRegex from './replace/regex';
 
-class CssVariablesLibrary extends BaseLibrary {
+export class CssVariablesLibrary extends BaseLibrary {
   constructor() {
     super('variable');
   }
 
-  fillLibrary(data) {
+  fillLibrary(data: string | Buffer): void {
     const code = data.toString();
     const result = parse(code);
 
@@ -17,9 +17,9 @@ class CssVariablesLibrary extends BaseLibrary {
         this.set(root.prop);
       }
     });
-  } // /fillLibrary
+  }
 
-  get(cssVariable, ...params) {
+  get(cssVariable: string, opts: BaseLibraryOptions = {}): string {
     const isUsedVariable = new RegExp(replaceRegex.cssVariables).test(cssVariable);
     let variable = cssVariable;
     let fallback = '';
@@ -41,7 +41,7 @@ class CssVariablesLibrary extends BaseLibrary {
 
     const variableHasDash = new RegExp(/^--/).test(variable.trim());
     const cssVariableSelector = variable.trim().replace(/^--/, '');
-    const getCssVariable = super.get(cssVariableSelector, ...params);
+    const getCssVariable = super.get(cssVariableSelector, opts);
     const preparedResult = variableHasDash ? `--${getCssVariable}` : getCssVariable;
 
     if (isUsedVariable) {
@@ -55,8 +55,16 @@ class CssVariablesLibrary extends BaseLibrary {
     return preparedResult;
   }
 
-  set(cssVariable, ...params) {
+  set(...args: Parameters<BaseLibrary['set']>): void {
+    const [cssVariable, ...params] = args;
+
     if (!cssVariable) {
+      return;
+    }
+
+    if (Array.isArray(cssVariable)) {
+      cssVariable.forEach((item) => this.set(item, ...params));
+
       return;
     }
 
@@ -65,7 +73,7 @@ class CssVariablesLibrary extends BaseLibrary {
     super.set(cssVariableSelector, ...params);
   }
 
-  get cssVariables() {
+  get cssVariables(): { [s: string]: string } {
     return this.values;
   }
 
@@ -73,7 +81,7 @@ class CssVariablesLibrary extends BaseLibrary {
     this.values = cssVariables;
   }
 
-  get compressedCssVariables() {
+  get compressedCssVariables(): { [s: string]: string } {
     return this.compressedValues;
   }
 

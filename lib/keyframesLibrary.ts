@@ -1,23 +1,23 @@
-import { BaseLibrary } from './baseLibrary';
+import { BaseLibrary, BaseLibraryOptions } from './baseLibrary';
 import regex from './replace/regex';
 
-class KeyframesLibrary extends BaseLibrary {
+export class KeyframesLibrary extends BaseLibrary {
   constructor() {
     super('keyframe');
   }
 
   // eslint-disable-next-line class-methods-use-this
-  fillLibrary(data) {
+  fillLibrary(data: string | Buffer): void {
     const code = data.toString();
     // set the keyframes here
     const keyframes = code.match(regex.keyframes);
 
-    if (Object.prototype.toString.call(keyframes) === '[object Array]') {
+    if (Array.isArray(keyframes)) {
       this.set(keyframes.map((key) => key.split(/\s+/)[1]));
     }
   } // /fillLibrary
 
-  get(selector, opts = {}) {
+  get(selector: string, opts: BaseLibraryOptions = {}): string {
     const defaultOptions = {
       origKeyframe: true,
       ...opts,
@@ -31,7 +31,7 @@ class KeyframesLibrary extends BaseLibrary {
     return super.get(selector, options);
   }
 
-  get keyframes() {
+  get keyframes(): { [s: string]: string } {
     return this.values;
   }
 
@@ -39,7 +39,7 @@ class KeyframesLibrary extends BaseLibrary {
     this.values = keyframes;
   }
 
-  get compressedKeyframes() {
+  get compressedKeyframes(): { [s: string]: string } {
     return this.compressedValues;
   }
 

@@ -2,8 +2,9 @@ import keyframesLibrary from './keyframesLibrary';
 import selectorsLibrary from './selectorsLibrary';
 import cssVariablesLibrary from './cssVariablesLibrary';
 import extractFromHtml from './helpers/extractFromHtml';
+import { BaseLibraryOptions } from './baseLibrary';
 
-export default (code, opts = {}) => {
+export default (code: string | Buffer, opts: BaseLibraryOptions = {}): void => {
   const defaultOptions = {
     codeType: 'css', // 'css' | 'html'
     ignoreAttributeSelectors: false,

@@ -1,17 +1,52 @@
-import includes from 'array-includes';
-import entries from 'object.entries';
 import merge from 'lodash.merge';
 
 import { NameGenerator } from './nameGenerator';
-import warnings from './allWarnings';
+import warnings, { Source } from './allWarnings';
+
+export interface BaseLibraryOptions {
+  ignoreAttributeSelectors?: boolean;
+  source?: Source;
+  preventRandomName?: boolean;
+}
 
 export class BaseLibrary {
-  constructor(name) {
+  nameGenerator: NameGenerator;
+
+  values: { [s: string]: string } = {};
+
+  compressedValues: { [s: string]: string } = {};
+
+  reserved: string[] = [];
+
+  excludes: string[] = [];
+
+  excludesRegex: (RegExp | string)[] = [];
+
+  prefix = '';
+
+  suffix = '';
+
+  meta: {
+    [s: string]: {
+      appearanceCount: number;
+    };
+  } = {};
+
+  static hasReservedValue(value: string, source?: Source): string {
+    warnings.append(value, source);
+
+    return `${value}_conflict`;
+  }
+
+  constructor(name?: string) {
     this.nameGenerator = new NameGenerator(name);
     this.reset();
   }
 
-  reset() {
+  // Transform the input value for the one that's stored in the map.
+  prefetchValue = (value: string): string => value;
+
+  reset(): void {
     this.values = {};
     this.compressedValues = {};
     this.reserved = [];
@@ -21,46 +56,39 @@ export class BaseLibrary {
     this.suffix = '';
     this.meta = {};
     this.nameGenerator.reset();
-  } // /reset
+  }
 
   // extend methods
   // Shortcut method to change the alphabet of our name generator
-  setAlphabet(alphabet) {
+  setAlphabet(alphabet: string): void {
     this.nameGenerator.setAlphabet(alphabet);
-  } // /setAlphabet
+  }
 
-
-  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
-  fillLibrary() {
-  } // /fillLibrary
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line class-methods-use-this, no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  fillLibrary(data: string | Buffer, options?: BaseLibraryOptions): void { }
 
   // Prepare a value to storing in the mapping. It can be stripped of pseudo-classes,
   // or modified to fit a shorter equivalent value. By default, returns the input unmodified.
   // The replacementObject must contain 2 keys: value and renamedValue.
-  // eslint-disable-next-line class-methods-use-this, no-unused-vars
-  prepareValue(replacementObject, opts) {
-    return true;
-  } // /prepareValue
-
-  // Transform the input value for the one that's stored in the map.
   // eslint-disable-next-line class-methods-use-this
-  prefetchValue(value) {
-    return value;
+  prepareValue(
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    replacementObject: { value: string; renamedValue: string | undefined },
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    opts: BaseLibraryOptions,
+  ): boolean {
+    return true;
   }
 
   // Transform the fetched value before returning.
-  // eslint-disable-next-line class-methods-use-this, no-unused-vars
-  postfetchValue(value, opts) {
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line class-methods-use-this, no-unused-vars, @typescript-eslint/no-unused-vars
+  postfetchValue(value: string, opts?: BaseLibraryOptions): string {
     return value;
   }
 
-
-  static hasReservedValue(value, source) {
-    warnings.append(value, source);
-    return `${value}_conflict`;
-  } // /hasReservedValue
-
-  get(value, opts = {}) {
+  get(value: string, opts: BaseLibraryOptions = {}): string {
     const optionsDefault = {
       isOriginalValue: true,
       countStats: true,
@@ -105,24 +133,28 @@ export class BaseLibrary {
     }
 
     return this.postfetchValue(result, options);
-  } // /get
+  }
 
-  set(value, renamedValue, opts = {}) {
+  set(
+    value: string | string[],
+    renamedValue?: string | BaseLibraryOptions,
+    opts: BaseLibraryOptions = {},
+  ): void {
     if (!value) {
       return;
     }
 
     let options = opts;
-    let thisRenamedValue = renamedValue;
+    let thisRenamedValue: string | undefined;
 
     if (typeof thisRenamedValue === 'object') {
       options = thisRenamedValue;
       thisRenamedValue = undefined;
+    } else {
+      thisRenamedValue = renamedValue as string;
     }
 
-
-    // call recursive if it is an array
-    if (Object.prototype.toString.call(value) === '[object Array]') {
+    if (Array.isArray(value)) {
       value.forEach((item) => this.set(item, thisRenamedValue, options));
 
       return;
@@ -151,9 +183,9 @@ export class BaseLibrary {
     }
 
     this.smartAllocate(repObj.value, repObj.renamedValue);
-  } // /set
+  }
 
-  smartAllocate(value, renamedValue) {
+  smartAllocate(value: string, renamedValue: string | undefined): void {
     // Try to allocate a random compressed name, and if not possible swap with an existing
     // name to avoid conflict and keep compressed name shorter than the initial value
     let randomName = renamedValue || this.nameGenerator.generate(value);
@@ -177,9 +209,9 @@ export class BaseLibrary {
     if (this.compressedValues[value] || randomName.length > value.length) {
       this.swap(value, this.compressedValues[value]);
     }
-  } // /smartAllocate
+  }
 
-  swap(val1, val2) {
+  swap(val1: string, val2: string): void {
     // swap the compressed value for val1 with the compressed value for val2
     if (!this.values[val1] || !this.values[val2]) {
       return;
@@ -192,33 +224,33 @@ export class BaseLibrary {
       this.compressedValues[this.values[val2]],
       this.compressedValues[this.values[val1]],
     ] = [val2, val1];
-  } // /swap
+  }
 
-  setMultiple(values, options = {}) {
+  setMultiple(values: { [s: string]: string }, options: BaseLibraryOptions = {}): void {
     if (Object.prototype.toString.call(values) !== '[object Object]') {
       return;
     }
 
-    entries(values).forEach((entry) => this.set(entry[0], entry[1], options));
-  } // /setMultiple
+    Object.entries(values).forEach((entry) => this.set(entry[0], entry[1], options));
+  }
 
-  setPrefix(prefix) {
+  setPrefix(prefix: string): void {
     if (typeof prefix !== 'string') {
       return;
     }
 
     this.prefix = prefix;
-  } // /setPrefix
+  }
 
-  setSuffix(suffix) {
+  setSuffix(suffix: string): void {
     if (typeof suffix !== 'string') {
       return;
     }
 
     this.suffix = suffix;
-  } // /setSuffix
+  }
 
-  setExclude(toExclude) {
+  setExclude(toExclude: string | RegExp | (string | RegExp)[]): void {
     if (!toExclude) return;
 
     if (Array.isArray(toExclude)) {
@@ -227,7 +259,8 @@ export class BaseLibrary {
       return;
     }
 
-    if (includes(this.excludes, toExclude) || includes(this.excludesRegex, toExclude)) {
+    // todo jpeer: check if failes
+    if (this.excludes.includes(toExclude as any) || this.excludesRegex.includes(toExclude)) {
       return;
     }
 
@@ -236,9 +269,9 @@ export class BaseLibrary {
     } else {
       (this.excludes).push(toExclude);
     }
-  } // /setExclude
+  }
 
-  setReserved(toReserve) {
+  setReserved(toReserve: string): void {
     if (!toReserve) return;
 
     this.reserved = [];
@@ -247,18 +280,18 @@ export class BaseLibrary {
     } else {
       this.reserved = [...new Set(toReserve)];
     }
-  } // /setReserved
-
-  isReserved(string) {
-    return includes(this.reserved, string);
   }
 
-  isExcluded(string) {
+  isReserved(string: string): boolean {
+    return this.reserved.includes(string);
+  }
+
+  isExcluded(string: string): boolean {
     if (string === '__proto__') {
       // Since this.values['__proto__'] always exists, we mustn't accept this as a renaming
       return true;
     }
-    if (includes(this.excludes, string)) {
+    if (this.excludes.includes(string)) {
       return true;
     }
 

@@ -1,28 +1,36 @@
-import entries from 'object.entries';
-
 import selectorsLibrary from './selectorsLibrary';
 import cssVariablesLibrary from './cssVariablesLibrary';
 import keyframesLibrary from './keyframesLibrary';
 
+interface Stat {
+  appearanceCount: number;
+}
 
-const stats = () => {
+interface UsageCount {
+  [s: string]: number;
+}
+
+// todo jpeer: update types as soon as returns are refactored
+const stats = (): any => {
   const classSelector = selectorsLibrary.getClassSelector();
   const idSelector = selectorsLibrary.getIdSelector();
-  const cssVariables = entries(cssVariablesLibrary.meta);
-  const keyframes = entries(keyframesLibrary.meta);
+  const cssVariables = Object.entries(cssVariablesLibrary.meta);
+  const keyframes = Object.entries(keyframesLibrary.meta);
 
-  const getUnused = (obj) => obj.filter((entry) => entry[1].appearanceCount === 0)
-    .map(([name]) => name);
+  const getUnused = (obj: [string, Stat][]): string[] => (
+    obj.filter((entry) => entry[1].appearanceCount === 0)
+      .map(([name]) => name)
+  );
 
   const unusedCssVariables = getUnused(cssVariables);
   const unusedKeyframes = getUnused(keyframes);
-  const unusedClasses = getUnused(entries(classSelector.meta));
-  const unusedIds = getUnused(entries(idSelector.meta));
+  const unusedClasses = getUnused(Object.entries(classSelector.meta));
+  const unusedIds = getUnused(Object.entries(idSelector.meta));
 
-  const classUsageCount = {};
-  const idUsageCount = {};
-  const cssVariablesUsageCount = {};
-  const keyframesUsageCount = {};
+  const classUsageCount: UsageCount = {};
+  const idUsageCount: UsageCount = {};
+  const cssVariablesUsageCount: UsageCount = {};
+  const keyframesUsageCount: UsageCount = {};
 
   Object.keys(classSelector.values).forEach((v) => {
     classUsageCount[v] = classSelector.meta[v].appearanceCount;
