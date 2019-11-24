@@ -93,6 +93,13 @@ it('should modify the code properly | number oneline', () => {
   );
 });
 
+it('should check ~ and + directly after', () => {
+  replaceCssMacro(
+    '.test~.icon{}.test+.icon{}',
+    '.a~.b{}.a+.b{}',
+  );
+});
+
 it('should modify the code properly | filter oneline', () => {
   replaceCssMacro(
     '.somediv{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.anotherdiv{display:flex}',
