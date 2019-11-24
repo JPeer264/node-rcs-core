@@ -1,3 +1,13 @@
+3.0.0-alpha.3 - November, 24 2019
+
+* 09eb21b Fix: do not fail on ~ (JPeer264)
+* f5706a9 Chore: drop support for node v6 | add v12 (JPeer264)
+* dcb3ac3 Chore: add typescript eslint (JPeer264)
+* 95d0c95 Chore: update husky | add lint-staged (JPeer264)
+* bdfbd1a Chore: update eslint to 6.5.0 (JPeer264)
+* e5902a7 Refactor: change from babel to typescript (JPeer264)
+* 6449cda Remove ava and move to jest (closes #98) (#101) (Jan Peer Stöcklmair)
+
 3.0.0-alpha.2 - September, 16 2019
 
 * c2d35da Rework attribute selector to fix #96 (#97) (X-Ryl669)
