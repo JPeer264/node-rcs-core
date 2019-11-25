@@ -132,7 +132,7 @@ export class BaseLibrary {
         };
       }
 
-      this.meta[finalValue].appearanceCount = this.meta[finalValue].appearanceCount + 1;
+      this.meta[finalValue].appearanceCount += 1;
     }
 
     if (!found) {
