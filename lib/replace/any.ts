@@ -1,8 +1,8 @@
 import selectorsLibrary from '../selectorsLibrary';
-import replaceString from './string';
+import replaceString, { ReplaceStringOptions } from './string';
 import replaceRegex from './regex';
 
-const replaceAny = (code, opts = {}) => {
+const replaceAny = (code: string, opts: ReplaceStringOptions = {}): string => {
   const regex = selectorsLibrary.getAllRegex();
 
   let data = code.toString();
