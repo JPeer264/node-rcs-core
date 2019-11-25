@@ -5,3 +5,4 @@ declare module 'pug-parser';
 declare module 'pug-runtime/wrap';
 declare module 'pug-code-gen';
 declare module 'pug-source-gen';
+declare module 'parse5-traverse';

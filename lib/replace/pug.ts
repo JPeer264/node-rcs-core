@@ -9,11 +9,7 @@ import generateSource from 'pug-source-gen';
 import replaceJs from './js';
 import replaceCss from './css';
 import selectorsLibrary from '../selectorsLibrary';
-
-type Attr = {
-  name: string;
-  val: string;
-}
+import shouldTriggerAttribute, { Attr } from '../helpers/shouldTriggerAttribute';
 
 // todo jpeer: update options
 type EspreeOptions = {};
@@ -24,12 +20,6 @@ export interface ReplacePugOptions {
   triggerClassAttributes?: string[];
   triggerIdAttributes?: string[];
 }
-
-const shouldTriggerAttribute = (attr: Attr, item: string | RegExp) => (
-  item instanceof RegExp
-    ? attr.name.match(new RegExp(item))
-    : item === attr.name
-);
 
 const replacePug = (code: string, opts: ReplacePugOptions = {}): string => {
   const lexed = lex(code);

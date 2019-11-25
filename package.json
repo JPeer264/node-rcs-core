@@ -64,6 +64,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/lodash.merge": "^4.6.6",
+    "@types/parse5": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "coveralls": "^2.11.15",
