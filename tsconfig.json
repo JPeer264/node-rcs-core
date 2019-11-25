@@ -11,8 +11,7 @@
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dest",
-    "rootDir": "lib",
-    "declaration": true
+    "rootDir": "lib"
   },
   "include": [
     "lib"

@@ -40,13 +40,16 @@ export class BaseLibrary {
 
   constructor(name?: string) {
     this.nameGenerator = new NameGenerator(name);
-    this.reset();
+    // do not call this.reset() directly
+    // as it will invoke this.reset on SelectorsLibrary as well
+    // where this.selectors is not yet available
+    this.initReset();
   }
 
   // Transform the input value for the one that's stored in the map.
   prefetchValue = (value: string): string => value;
 
-  reset(): void {
+  initReset(): void {
     this.values = {};
     this.compressedValues = {};
     this.reserved = [];
@@ -56,6 +59,10 @@ export class BaseLibrary {
     this.suffix = '';
     this.meta = {};
     this.nameGenerator.reset();
+  }
+
+  reset(): void {
+    this.initReset();
   }
 
   // extend methods
@@ -147,8 +154,8 @@ export class BaseLibrary {
     let options = opts;
     let thisRenamedValue: string | undefined;
 
-    if (typeof thisRenamedValue === 'object') {
-      options = thisRenamedValue;
+    if (typeof renamedValue === 'object') {
+      options = renamedValue;
       thisRenamedValue = undefined;
     } else {
       thisRenamedValue = renamedValue as string;
