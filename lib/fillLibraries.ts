@@ -18,7 +18,7 @@ export default (code: string | Buffer, opts: BaseLibraryOptions = {}): void => {
   let cssCode = code;
 
   if (options.codeType === 'html') {
-    const htmlExtractedCss = extractFromHtml(code);
+    const htmlExtractedCss = extractFromHtml(code.toString());
 
     // no css code found to fill
     if (htmlExtractedCss.length <= 0) {

@@ -62,7 +62,7 @@ const replacePug = (code: string, opts: ReplacePugOptions = {}): string => {
       // this might be look like the correct ast,
       // but the begin and end loc numbers are wrong
       // eslint-disable-next-line no-param-reassign
-      node.block.nodes = node.block.nodes.map((n, i) => {
+      node.block.nodes = node.block.nodes.map((n: any, i: number) => {
         const { val, type } = scriptBlock.nodes[i];
 
         return { ...n, val, type };
