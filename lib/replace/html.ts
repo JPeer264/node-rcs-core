@@ -9,7 +9,7 @@ import replaceCss from './css';
 import htmlToAst from '../helpers/htmlToAst';
 
 // todo jpeer: update options
-type EspreeOptions = {};
+export type EspreeOptions = any;
 
 export interface ReplaceHtmlOptions {
   sourceFile?: string;
