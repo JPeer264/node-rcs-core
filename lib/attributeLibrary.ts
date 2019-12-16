@@ -12,6 +12,10 @@ interface AttributeSelector {
   nameGeneratorCounter: NameGenerator;
 }
 
+export interface AttributeLibraryOptions extends BaseLibraryOptions {
+  regex?: boolean;
+}
+
 // This abstract class implements the attribute parsing and replacing logic
 // It has to be specialized for each type (likely class or id), and thus
 // any logic of selection (like . or #) is defined in the child class, not this one.
@@ -153,7 +157,7 @@ export class AttributeLibrary extends BaseLibrary {
   // Prepare the value to store in the mapping
   prepareValue(
     repObj: Parameters<BaseLibrary['prepareValue']>[0],
-    options: BaseLibraryOptions = {},
+    options: AttributeLibraryOptions = {},
   ): ReturnType<BaseLibrary['prepareValue']> {
     if (!this.isValidSelector(repObj.value)) {
       return false;
@@ -183,7 +187,7 @@ export class AttributeLibrary extends BaseLibrary {
   }
 
   // todo jpeer: #104 remove any
-  postfetchValue(result: string, opts: BaseLibraryOptions): string | any {
+  postfetchValue(result: string, opts: AttributeLibraryOptions): string | any {
     const optionsDefault = {
       addSelectorType: false,
       extend: false,
@@ -205,7 +209,8 @@ export class AttributeLibrary extends BaseLibrary {
   }
 
   // todo jpeer: #104 remove any
-  getAll(opts: BaseLibraryOptions = {}): { [s: string]: string | any } | RegExp | undefined {
+  // eslint-disable-next-line max-len
+  getAll(opts: AttributeLibraryOptions = {}): { [s: string]: string | any } | RegExp | undefined | string {
     let originalSelector;
     let compressedSelector;
 

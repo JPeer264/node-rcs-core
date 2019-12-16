@@ -18,7 +18,6 @@ export interface ReplaceHtmlOptions {
   triggerIdAttributes?: string[];
 }
 
-
 const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
   const defaultOptions = {
     espreeOptions: {},

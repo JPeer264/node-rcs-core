@@ -7,6 +7,8 @@ export interface BaseLibraryOptions {
   ignoreAttributeSelectors?: boolean;
   source?: Source;
   preventRandomName?: boolean;
+  addSelectorType?: boolean;
+  countStats?: boolean;
 }
 
 export class BaseLibrary {
