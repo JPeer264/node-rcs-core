@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "tsc",
-    "lint": "eslint lib __tests__",
-    "fix": "eslint lib __tests__ --fix",
+    "lint": "eslint lib/**/*.ts __tests__",
+    "fix": "eslint lib/**/*.ts __tests__ --fix",
     "prepublish": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
