@@ -4,9 +4,17 @@ import cssVariablesLibrary from './cssVariablesLibrary';
 import extractFromHtml from './helpers/extractFromHtml';
 import { BaseLibraryOptions } from './baseLibrary';
 
-export default (code: string | Buffer, opts: BaseLibraryOptions = {}): void => {
-  const defaultOptions = {
-    codeType: 'css', // 'css' | 'html'
+export interface FillLibrariesOptions extends BaseLibraryOptions {
+  codeType?: 'css' | 'html';
+  ignoreCssVariables?: boolean;
+  replaceKeyframes?: boolean;
+  prefix?: string;
+  suffix?: string;
+}
+
+export default (code: string | Buffer, opts: FillLibrariesOptions = {}): void => {
+  const defaultOptions: FillLibrariesOptions = {
+    codeType: 'css',
     ignoreAttributeSelectors: false,
     ignoreCssVariables: false,
     replaceKeyframes: false,
@@ -30,8 +38,8 @@ export default (code: string | Buffer, opts: BaseLibraryOptions = {}): void => {
 
   const data = cssCode.toString();
 
-  selectorsLibrary.setPrefix(options.prefix);
-  selectorsLibrary.setSuffix(options.suffix);
+  selectorsLibrary.setPrefix(options.prefix as string);
+  selectorsLibrary.setSuffix(options.suffix as string);
 
   if (!options.ignoreAttributeSelectors) {
     selectorsLibrary.setAttributeSelector(data);
