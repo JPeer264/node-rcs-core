@@ -1,6 +1,10 @@
 import { BaseLibrary, BaseLibraryOptions } from './baseLibrary';
 import regex from './replace/regex';
 
+export interface KeyframesLibraryOptions extends BaseLibraryOptions {
+  origKeyframe?: boolean;
+}
+
 export class KeyframesLibrary extends BaseLibrary {
   constructor() {
     super('keyframe');
@@ -17,8 +21,8 @@ export class KeyframesLibrary extends BaseLibrary {
     }
   } // /fillLibrary
 
-  get(selector: string, opts: BaseLibraryOptions = {}): string {
-    const defaultOptions = {
+  get(selector: string, opts: KeyframesLibraryOptions = {}): string {
+    const defaultOptions: KeyframesLibraryOptions = {
       origKeyframe: true,
       ...opts,
     };
