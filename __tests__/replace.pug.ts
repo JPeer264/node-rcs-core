@@ -8,7 +8,7 @@ import rcs from '../lib';
 const fixturesCwd = '__tests__/files/fixtures';
 const resultsCwd = '__tests__/files/results';
 
-function replacePugMacro(selectors, input, expected, options) {
+function replacePugMacro(selectors, input, expected?, options?): void {
   const setter = {};
   const toExpect = expected || input;
 
