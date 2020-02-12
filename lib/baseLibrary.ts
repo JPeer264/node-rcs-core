@@ -10,6 +10,7 @@ export interface BaseLibraryOptions {
   preventRandomName?: boolean;
   addSelectorType?: boolean;
   countStats?: boolean;
+  getRenamedValues?: boolean;
 }
 
 export class BaseLibrary {

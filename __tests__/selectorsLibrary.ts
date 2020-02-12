@@ -1,7 +1,7 @@
 import rcs from '../lib';
 import attributeLibrary from '../lib/attributeLibrary';
 
-const setSelectors = () => {
+const setSelectors = (): void => {
   rcs.selectorsLibrary.set([
     '.test',
     '#id',
@@ -299,11 +299,13 @@ it('getall | should get all setted classes', () => {
   let array = rcs.selectorsLibrary.getClassSelector().getAll();
 
   expect(typeof array).toBe('object');
-  expect(array.test).toBe('a');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expect((array as any).test).toBe('a');
   expect(array['jp-selector']).toBe('b');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll();
-  expect(array.id).toBe('a');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expect((array as any).id).toBe('a');
 });
 
 it('getall | should get all setted compressed classes', () => {
@@ -314,21 +316,24 @@ it('getall | should get all setted compressed classes', () => {
   });
 
   expect(typeof array).toBe('object');
-  expect(array.a).toBe('test');
-  expect(array.b).toBe('jp-selector');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expect((array as any).a).toBe('test');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expect((array as any).b).toBe('jp-selector');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll({
     getRenamedValues: true,
   });
 
-  expect(array.a).toBe('id');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expect((array as any).a).toBe('id');
 });
 
 /* *** *
  * SET *
  * *** */
 it('set | should set nothing', () => {
-  rcs.selectorsLibrary.set();
+  (rcs.selectorsLibrary as any).set();
 
   expect(rcs.selectorsLibrary.getClassSelector().values).toEqual({});
   expect(rcs.selectorsLibrary.getIdSelector().values).toEqual({});

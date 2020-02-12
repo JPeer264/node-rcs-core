@@ -14,6 +14,7 @@ interface AttributeSelector {
 
 export interface AttributeLibraryOptions extends BaseLibraryOptions {
   regex?: boolean;
+  getRenamedValues?: boolean;
 }
 
 // This abstract class implements the attribute parsing and replacing logic
