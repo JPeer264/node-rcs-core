@@ -1,19 +1,24 @@
 import parse5 from 'parse5';
 import traverse from 'parse5-traverse';
 import merge from 'lodash.merge';
+import shouldTriggerAttribute, { Attr } from '../helpers/shouldTriggerAttribute';
 
 import selectorsLibrary from '../selectorsLibrary';
 import replaceJs from './js';
 import replaceCss from './css';
 import htmlToAst from '../helpers/htmlToAst';
 
-const shouldTriggerAttribute = (attr, item) => (
-  item instanceof RegExp
-    ? attr.name.match(new RegExp(item))
-    : item === attr.name
-);
+// todo jpeer: update options
+export type EspreeOptions = any;
 
-const replaceHtml = (code, opts = {}) => {
+export interface ReplaceHtmlOptions {
+  sourceFile?: string;
+  espreeOptions?: EspreeOptions;
+  triggerClassAttributes?: string[];
+  triggerIdAttributes?: string[];
+}
+
+const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
   const defaultOptions = {
     espreeOptions: {},
     triggerClassAttributes: [],
@@ -25,16 +30,17 @@ const replaceHtml = (code, opts = {}) => {
   const srcOpt = { sourceFile: opts.sourceFile };
 
   traverse(ast, {
-    pre: (node) => {
+    // todo jpeer: check correct type
+    pre: (node: any) => {
       // rename <script> tags
       if (
         node.parentNode
         && node.parentNode.tagName === 'script'
       ) {
         const hasAnyAttrs = node.parentNode.attrs.length === 0;
-        const hasType = node.parentNode.attrs.some((attr) => attr.name === 'type');
+        const hasType = node.parentNode.attrs.some((attr: Attr) => attr.name === 'type');
         const hasTypeAndJavaScript = (
-          node.parentNode.attrs.some((attr) => (
+          node.parentNode.attrs.some((attr: Attr) => (
             attr.name === 'type'
             && (
               attr.value === 'application/javascript'
@@ -60,13 +66,13 @@ const replaceHtml = (code, opts = {}) => {
 
       // rename attributes
       if (Array.isArray(node.attrs) && node.attrs.length >= 0) {
-        node.attrs.forEach((attr) => {
-          let selectorType;
+        node.attrs.forEach((attr: Attr) => {
+          let selectorType: string;
 
           if (
             attr.name === 'class'
-            || options.triggerClassAttributes.some((...params) => (
-              shouldTriggerAttribute(attr, ...params)
+            || options.triggerClassAttributes.some((item) => (
+              shouldTriggerAttribute(attr, item)
             ))
           ) {
             selectorType = '.';
@@ -74,8 +80,8 @@ const replaceHtml = (code, opts = {}) => {
 
           if (
             attr.name === 'id'
-            || options.triggerIdAttributes.some((...params) => (
-              shouldTriggerAttribute(attr, ...params)
+            || options.triggerIdAttributes.some((item) => (
+              shouldTriggerAttribute(attr, item)
             ))
           ) {
             selectorType = '#';
@@ -96,7 +102,7 @@ const replaceHtml = (code, opts = {}) => {
               selectorsLibrary
                 .get(`${selectorType}${value}`, {
                   source: {
-                    file: opts.sourceFile,
+                    file: opts.sourceFile || '',
                     line: node.sourceCodeLocation.startLine,
                     text: '',
                   },

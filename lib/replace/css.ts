@@ -5,14 +5,18 @@ import keyframesLibrary from '../keyframesLibrary';
 import selectorsLibrary from '../selectorsLibrary';
 import replaceRegex from './regex';
 
-const extractCssVariables = (value) => {
+const extractCssVariables = (value: string): string[] => {
   const regexMatches = value.match(new RegExp(replaceRegex.cssVariables));
 
-  let matches = [];
+  let matches: string[] = [];
 
   if (regexMatches) {
     regexMatches.forEach((matchWithVariables) => {
       const cssVariableMatch = new RegExp(replaceRegex.cssVariables).exec(matchWithVariables);
+
+      if (!cssVariableMatch) {
+        return;
+      }
 
       matches = [...matches, cssVariableMatch[1]];
 
@@ -30,9 +34,14 @@ const extractCssVariables = (value) => {
 // calls the selectorLibrary.getAttributeSelector internally
 // String.replace will call this function and
 // get call selectorLibrary.getAttributeSelector directly
-const getAttributeSelector = (match) => {
+const getAttributeSelector = (match: string): string => {
   const re = new RegExp(replaceRegex.commonAttributeSelectors);
   const exec = re.exec(match);
+
+  if (!exec) {
+    return match;
+  }
+
   const stringChar = exec[3].charAt(0);
   const stringWithoutStringChars = exec[3].slice(1, exec[3].length - 1);
 
@@ -53,23 +62,34 @@ const getAttributeSelector = (match) => {
   result = result.replace(replaceRegex.strings, newString);
 
   return result;
-}; // /getCssSelector
+};
 
-const replaceCss = (css, opts = {}) => {
+export interface ReplaceCssOptions {
+  sourceFile?: string;
+  triggerClassAttributes?: string[];
+  triggerIdAttributes?: string[];
+}
+
+const replaceCss = (css: string | Buffer, opts: ReplaceCssOptions = {}): string => {
   const cssAST = parse(css);
 
   /* ******************** *
    * replace id selectors *
    * ******************** */
-  cssAST.walk((node) => {
+  cssAST.walk((node: any) => {
     const parentName = node.parent.name || '';
     const selectorLib = selectorsLibrary.getIdSelector();
-    const source = { file: opts.sourceFile, line: node.source.start.line, text: '' };
+    const source = { file: opts.sourceFile || '', line: node.source.start.line, text: '' };
 
     if (node.selector && !parentName.match(/keyframes/)) {
       const regex = selectorLib.getAll({ regex: true, addSelectorType: true });
+
+      if (typeof regex !== 'string' && !(regex instanceof RegExp)) {
+        return;
+      }
+
       // eslint-disable-next-line no-param-reassign
-      node.selectors = node.selectors.map((selector) => {
+      node.selectors = node.selectors.map((selector: string) => {
         const prefixFreeSelector = selector.replace(/\\/g, '');
 
         return prefixFreeSelector.replace(regex, (match) => (
@@ -85,15 +105,20 @@ const replaceCss = (css, opts = {}) => {
   /* *********************** *
    * replace class selectors *
    * *********************** */
-  cssAST.walk((node) => {
+  cssAST.walk((node: any) => {
     const parentName = node.parent.name || '';
     const selectorLib = selectorsLibrary.getClassSelector();
-    const source = { file: opts.sourceFile, line: node.source.start.line, text: '' };
+    const source = { file: opts.sourceFile || '', line: node.source.start.line, text: '' };
 
     if (node.selector && !parentName.match(/keyframes/)) {
       const regex = selectorLib.getAll({ regex: true, addSelectorType: true });
+
+      if (typeof regex !== 'string' && !(regex instanceof RegExp)) {
+        return;
+      }
+
       // eslint-disable-next-line no-param-reassign
-      node.selectors = node.selectors.map((selector) => {
+      node.selectors = node.selectors.map((selector: string) => {
         const prefixFreeSelector = selector.replace(/\\/g, '');
 
         return prefixFreeSelector.replace(regex, (match) => (
@@ -110,20 +135,20 @@ const replaceCss = (css, opts = {}) => {
   /* ***************** *
    * replace keyframes *
    * ***************** */
-  cssAST.walkAtRules((node) => {
+  cssAST.walkAtRules((node: any) => {
     if (!node.name.match(/keyframes/)) {
       return;
     }
 
-    const source = { file: opts.sourceFile, line: node.source.start.line, text: '' };
+    const source = { file: opts.sourceFile || '', line: node.source.start.line, text: '' };
 
     // do not count stats, as these are just the declarations
     // eslint-disable-next-line no-param-reassign
     node.params = keyframesLibrary.get(node.params, { countStats: false, source });
   });
 
-  cssAST.walkDecls((node) => {
-    const source = { file: opts.sourceFile, line: node.source.start.line, text: '' };
+  cssAST.walkDecls((node: any) => {
+    const source = { file: opts.sourceFile || '', line: node.source.start.line, text: '' };
 
     /* ************************** *
     * replace css variables var() *
@@ -132,7 +157,7 @@ const replaceCss = (css, opts = {}) => {
       const matches = extractCssVariables(node.value);
 
       // eslint-disable-next-line no-param-reassign
-      node.value = node.value.replace(new RegExp(matches.join('|'), 'g'), (match) => (
+      node.value = node.value.replace(new RegExp(matches.join('|'), 'g'), (match: string) => (
         cssVariablesLibrary.get(match, { source })
       ));
     }
@@ -154,7 +179,7 @@ const replaceCss = (css, opts = {}) => {
       node.value = node.value
         .replace(',', ' , ')
         .split(' ')
-        .map((value) => (
+        .map((value: string) => (
           keyframesLibrary.get(value, { source })
         ))
         .join(' ')

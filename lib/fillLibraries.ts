@@ -2,8 +2,9 @@ import keyframesLibrary from './keyframesLibrary';
 import selectorsLibrary from './selectorsLibrary';
 import cssVariablesLibrary from './cssVariablesLibrary';
 import extractFromHtml from './helpers/extractFromHtml';
+import { BaseLibraryOptions } from './baseLibrary';
 
-export default (code, opts = {}) => {
+export default (code: string | Buffer, opts: BaseLibraryOptions = {}): void => {
   const defaultOptions = {
     codeType: 'css', // 'css' | 'html'
     ignoreAttributeSelectors: false,
@@ -17,7 +18,7 @@ export default (code, opts = {}) => {
   let cssCode = code;
 
   if (options.codeType === 'html') {
-    const htmlExtractedCss = extractFromHtml(code);
+    const htmlExtractedCss = extractFromHtml(code.toString());
 
     // no css code found to fill
     if (htmlExtractedCss.length <= 0) {

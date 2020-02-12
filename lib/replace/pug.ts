@@ -1,22 +1,27 @@
 import lex from 'pug-lexer';
 import walk from 'pug-walk';
 import parser from 'pug-parser';
+import merge from 'lodash.merge';
 import wrap from 'pug-runtime/wrap';
 import generateCode from 'pug-code-gen';
 import generateSource from 'pug-source-gen';
-import merge from 'lodash.merge';
 
-import replaceCss from './css';
 import replaceJs from './js';
+import replaceCss from './css';
 import selectorsLibrary from '../selectorsLibrary';
+import shouldTriggerAttribute, { Attr } from '../helpers/shouldTriggerAttribute';
 
-const shouldTriggerAttribute = (attr, item) => (
-  item instanceof RegExp
-    ? attr.name.match(new RegExp(item))
-    : item === attr.name
-);
+// todo jpeer: update options
+type EspreeOptions = {};
 
-const replacePug = (code, opts = {}) => {
+export interface ReplacePugOptions {
+  sourceFile?: string;
+  espreeOptions?: EspreeOptions;
+  triggerClassAttributes?: string[];
+  triggerIdAttributes?: string[];
+}
+
+const replacePug = (code: string, opts: ReplacePugOptions = {}): string => {
   const lexed = lex(code);
   const ast = parser(lexed);
   const defaultOptions = {
@@ -27,9 +32,9 @@ const replacePug = (code, opts = {}) => {
 
   const options = merge(opts, defaultOptions);
 
-  walk(ast, (node) => {
+  walk(ast, (node: any) => {
     if (node.name === 'script' || node.name === 'style') {
-      const modifiedBlockNodes = node.block.nodes.map((block) => {
+      const modifiedBlockNodes = node.block.nodes.map((block: any) => {
         if (block.type === 'Code') {
           // eslint-disable-next-line no-param-reassign
           block.type = 'Text';
@@ -57,7 +62,7 @@ const replacePug = (code, opts = {}) => {
       // this might be look like the correct ast,
       // but the begin and end loc numbers are wrong
       // eslint-disable-next-line no-param-reassign
-      node.block.nodes = node.block.nodes.map((n, i) => {
+      node.block.nodes = node.block.nodes.map((n: any, i: number) => {
         const { val, type } = scriptBlock.nodes[i];
 
         return { ...n, val, type };
@@ -65,14 +70,14 @@ const replacePug = (code, opts = {}) => {
     }
 
     if (Array.isArray(node.attrs) && node.attrs.length >= 0) {
-      node.attrs.forEach((attr) => {
-        let selectorType;
+      node.attrs.forEach((attr: Attr) => {
+        let selectorType: string;
         let shouldReplace = false;
 
         if (
           attr.name === 'class'
-          || options.triggerClassAttributes.some((...params) => (
-            shouldTriggerAttribute(attr, ...params)
+          || options.triggerClassAttributes.some((item) => (
+            shouldTriggerAttribute(attr, item)
           ))
         ) {
           selectorType = '.';
@@ -81,8 +86,8 @@ const replacePug = (code, opts = {}) => {
 
         if (
           attr.name === 'id'
-          || options.triggerIdAttributes.some((...params) => (
-            shouldTriggerAttribute(attr, ...params)
+          || options.triggerIdAttributes.some((item) => (
+            shouldTriggerAttribute(attr, item)
           ))
         ) {
           selectorType = '#';
@@ -107,7 +112,7 @@ const replacePug = (code, opts = {}) => {
             // renaming each value
             selectorsLibrary
               .get(`${selectorType}${value}`, {
-                source: { file: opts.sourceFile, line: node.line, text: '' },
+                source: { file: opts.sourceFile || '', line: node.line, text: '' },
               })
               .replace(new RegExp(`^\\${selectorType}`), '')
           ))

@@ -1,26 +1,33 @@
 import { parse } from 'postcss';
-import entries from 'object.entries';
 import merge from 'lodash.merge';
 
 import replaceRegex from './replace/regex';
 import { NameGenerator } from './nameGenerator';
-import { BaseLibrary } from './baseLibrary';
+import { BaseLibrary, BaseLibraryOptions } from './baseLibrary';
+
+interface AttributeSelector {
+  type: string;
+  originalString: string;
+  regexType: string;
+  nameGeneratorCounter: NameGenerator;
+}
+
+export interface AttributeLibraryOptions extends BaseLibraryOptions {
+  regex?: boolean;
+}
 
 // This abstract class implements the attribute parsing and replacing logic
 // It has to be specialized for each type (likely class or id), and thus
 // any logic of selection (like . or #) is defined in the child class, not this one.
 export class AttributeLibrary extends BaseLibrary {
-  constructor(name) {
-    super(name);
-    this.attributeSelectors = {};
-  }
+  attributeSelectors: { [s: string]: AttributeSelector } = {};
 
   // used at many place, let make a single function for this
-  static isSelector(selector) {
+  static isSelector(selector: string): boolean {
     return selector.charAt(0) === '.' || selector.charAt(0) === '#';
   }
 
-  static removePseudoElements(value) {
+  static removePseudoElements(value: string): string {
     const splits = value.split(/\\/g);
     const splittedEscapes = splits.map((split, i) => {
       if (splits.length - 1 > i) {
@@ -44,26 +51,74 @@ export class AttributeLibrary extends BaseLibrary {
     return splittedEscapes.join('');
   }
 
-  reset() {
-    super.reset();
+  static replaceAnAttributeSelector(
+    result: string | false,
+    attributeSelector: string,
+    value: AttributeSelector,
+    slicedSelector: string,
+  ): string | false {
+    if (result !== false) return result;
 
-    this.attributeSelectors = {};
-  } // /reset
+    const attributeString = attributeSelector.slice(1, attributeSelector.length);
 
-  fillLibrary(data, options = {}) {
-    const code = data.toString();
-    const result = parse(code);
+    if (attributeSelector.charAt(0) === '|') {
+      const match = slicedSelector.match(`^${attributeString}-`);
 
-    result.walk((root) => {
-      const parentName = root.parent.name || '';
+      if (match) {
+        const newMatch = match[0].replace(/-$/, '');
 
-      if (root.selector && !parentName.match(/keyframes/)) {
-        const matchedSelectors = root.selector.match(replaceRegex.selectors) || [];
-        this.set(matchedSelectors, options);
+        return `${newMatch}-${value.nameGeneratorCounter.generate(slicedSelector)}`;
       }
-    });
-  } // /fillLibrary
+    }
 
+    if (attributeSelector.charAt(0).match(/^[=~|]/)) {
+      const match = slicedSelector.match(attributeString);
+
+      if (match && slicedSelector === match[0]) {
+        return match[0];
+      }
+    }
+
+    switch (attributeSelector.charAt(0)) {
+      case '*': {
+        const match = slicedSelector.match(attributeString);
+
+        if (match) {
+          return value.nameGeneratorCounter.generate(slicedSelector)
+            + match[0]
+            + value.nameGeneratorCounter.generate(slicedSelector);
+        }
+        break;
+      }
+      case '^': {
+        const match = slicedSelector.match(`^${attributeString}`);
+
+        if (match) {
+          return match[0] + value.nameGeneratorCounter.generate(slicedSelector);
+        }
+
+        break;
+      }
+      case '$': {
+        const match = slicedSelector.match(`${attributeString}$`);
+
+        if (match) {
+          return value.nameGeneratorCounter.generate(slicedSelector) + match[0];
+        }
+
+        break;
+      }
+
+      default: break;
+    }
+
+    return false;
+  }
+
+  // Get the selector char for this child class
+  selectorFirstChar = (): string => '#';
+
+  prefetchValue = (selector: string): string => selector.replace(/(\.|#)/, '').replace(/\\/g, '');
 
   // Child class will override this to whatever regex that best fit their need
   // For example: form[class*=selector]
@@ -71,23 +126,39 @@ export class AttributeLibrary extends BaseLibrary {
   // First: The attribute name ('class' in previous example),
   // Second: The regular expression operator (* in previous example, '' when none)
   // Third: The term used ('selector' in the previous example)
-  // eslint-disable-next-line class-methods-use-this
-  getAttributeSelectorRegex() {
-    return replaceRegex.idAttributeSelectors;
+  getAttributeSelectorRegex = (): RegExp => replaceRegex.idAttributeSelectors;
+
+  reset(): ReturnType<BaseLibrary['reset']> {
+    super.reset();
+
+    this.attributeSelectors = {};
   }
 
-  // Get the selector char for this child class
-  // eslint-disable-next-line class-methods-use-this
-  selectorFirstChar() {
-    return '#';
+  fillLibrary(data: string | Buffer, options = {}): ReturnType<BaseLibrary['fillLibrary']> {
+    const code = data.toString();
+    const result = parse(code);
+
+    // todo jpeer: check postcss types
+    result.walk((root: any) => {
+      const parentName = (root.parent as any).name || '';
+
+      if (root.selector && !parentName.match(/keyframes/)) {
+        const matchedSelectors = root.selector.match(replaceRegex.selectors) || [];
+
+        this.set(matchedSelectors, options);
+      }
+    });
   }
 
-  isValidSelector(selector) {
+  isValidSelector(selector: string): boolean {
     return selector.charAt(0) === this.selectorFirstChar();
   }
 
   // Prepare the value to store in the mapping
-  prepareValue(repObj, options = {}) {
+  prepareValue(
+    repObj: Parameters<BaseLibrary['prepareValue']>[0],
+    options: AttributeLibraryOptions = {},
+  ): ReturnType<BaseLibrary['prepareValue']> {
     if (!this.isValidSelector(repObj.value)) {
       return false;
     }
@@ -115,13 +186,8 @@ export class AttributeLibrary extends BaseLibrary {
     return true;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  prefetchValue(selector) {
-    return selector.replace(/(\.|#)/, '').replace(/\\/g, '');
-  }
-
-  // eslint-disable-next-line class-methods-use-this, no-unused-vars
-  postfetchValue(result, opts) {
+  // todo jpeer: #104 remove any
+  postfetchValue(result: string, opts: AttributeLibraryOptions): string | any {
     const optionsDefault = {
       addSelectorType: false,
       extend: false,
@@ -134,16 +200,22 @@ export class AttributeLibrary extends BaseLibrary {
       return { selector: this.compressedValues[result], compressedSelector: result, type: this.selectorFirstChar() === '#' ? 'id' : 'class' };
     }
 
-    return (options.addSelectorType ? this.selectorFirstChar() : '')
-      + this.prefix + result + this.suffix;
+    return (
+      (options.addSelectorType ? this.selectorFirstChar() : '')
+      + this.prefix
+      + result
+      + this.suffix
+    );
   }
 
-  getAll(opts = {}) {
+  // todo jpeer: #104 remove any
+  // eslint-disable-next-line max-len
+  getAll(opts: AttributeLibraryOptions = {}): { [s: string]: string | any } | RegExp | undefined | string {
     let originalSelector;
     let compressedSelector;
 
-    let resultArray = [];
-    let result = {};
+    let resultArray: string[] = [];
+    let result: { [s: string]: string | any } = {};
 
     const selectors = this.values;
     const optionsDefault = {
@@ -171,7 +243,7 @@ export class AttributeLibrary extends BaseLibrary {
       }
 
       if (options.addSelectorType) {
-        const modifiedResult = {};
+        const modifiedResult: { [s: string]: string } = {};
 
         Object.keys(result).forEach((value) => {
           modifiedResult[this.selectorFirstChar() + value] = result[value];
@@ -219,7 +291,7 @@ export class AttributeLibrary extends BaseLibrary {
     }
 
     if (options.addSelectorType) {
-      const tempResult = {};
+      const tempResult: { [s: string]: string } = {};
 
       resultArray.forEach((value) => {
         const modValue = value.slice(1, value.length);
@@ -231,14 +303,14 @@ export class AttributeLibrary extends BaseLibrary {
     }
 
     return result;
-  } // /getAll
+  }
 
-  setAttributeSelector(attributeSelector) {
+  setAttributeSelector(attributeSelector: string | string[]): void {
     if (!attributeSelector) {
       return;
     }
 
-    if (typeof attributeSelector === 'object') {
+    if (Array.isArray(attributeSelector)) {
       attributeSelector.forEach((value) => this.setAttributeSelector(value));
 
       return;
@@ -277,72 +349,24 @@ export class AttributeLibrary extends BaseLibrary {
     // then, we need to replace any original selector that would be matching this rule with a
     // rename that still match the replacement
     Object.keys(this.values).forEach((key) => {
-      const r = AttributeLibrary.replaceAnAttributeSelector(false,
-        attributeSelectorKey, this.attributeSelectors[attributeSelectorKey], key);
+      const r = AttributeLibrary.replaceAnAttributeSelector(
+        false,
+        attributeSelectorKey,
+        this.attributeSelectors[attributeSelectorKey],
+        key,
+      );
+
       if (r !== false) {
         const prev = this.values[key];
+
         this.values[key] = r;
         delete this.compressedValues[prev];
         this.compressedValues[r] = key;
       }
     });
-  } // /setAttributeSelector
-
-  static replaceAnAttributeSelector(result, attributeSelector, value, slicedSelector) {
-    if (result !== false) return result;
-
-    const attributeString = attributeSelector.slice(1, attributeSelector.length);
-
-    if (attributeSelector.charAt(0) === '|') {
-      let match = slicedSelector.match(`^${attributeString}-`);
-
-      if (match) {
-        match = match[0].replace(/-$/, '');
-        return `${match}-${value.nameGeneratorCounter.generate(slicedSelector)}`;
-      }
-    }
-
-    if (attributeSelector.charAt(0).match(/^[=~|]/)) {
-      const match = slicedSelector.match(attributeString);
-
-      if (match && slicedSelector === match[0]) {
-        return match[0];
-      }
-    }
-
-    switch (attributeSelector.charAt(0)) {
-      case '*': {
-        const match = slicedSelector.match(attributeString);
-
-        if (match) {
-          return value.nameGeneratorCounter.generate(slicedSelector)
-            + match[0]
-            + value.nameGeneratorCounter.generate(slicedSelector);
-        }
-        break;
-      }
-      case '^': {
-        const match = slicedSelector.match(`^${attributeString}`);
-
-        if (match) {
-          return match[0] + value.nameGeneratorCounter.generate(slicedSelector);
-        }
-        break;
-      }
-      case '$': {
-        const match = slicedSelector.match(`${attributeString}$`);
-
-        if (match) {
-          return value.nameGeneratorCounter.generate(slicedSelector) + match[0];
-        }
-        break;
-      }
-      default: break;
-    }
-    return false;
   }
 
-  replaceAttributeSelector(selector) {
+  replaceAttributeSelector(selector: string): string | false {
     if (!this.isValidSelector(selector)) {
       return false;
     }
@@ -350,15 +374,15 @@ export class AttributeLibrary extends BaseLibrary {
     const slicedSelector = selector.replace(/^[.#]/, '');
 
     return (
-      entries(this.attributeSelectors)
-        .reduce(
+      Object.entries(this.attributeSelectors)
+        .reduce<string | false>(
           (a, entry) => (
             AttributeLibrary.replaceAnAttributeSelector(a, entry[0], entry[1], slicedSelector)
           ),
           false,
         )
     );
-  } // /replaceAttributeSelector
+  }
 }
 
 export default new AttributeLibrary();

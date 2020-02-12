@@ -18,6 +18,21 @@ module.exports = {
         ecmaVersion: 2018,
         sourceType: 'module',
     },
+    settings: {
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.ts'],
+            },
+        },
+    },
+    overrides: [
+        {
+            files: ['*.ts', '*.tsx'],
+            rules: {
+                'no-dupe-class-members': 'off',
+            },
+        },
+    ],
     rules: {
         '@typescript-eslint/explicit-function-return-type': ['warn', {
             allowTypedFunctionExpressions: true,

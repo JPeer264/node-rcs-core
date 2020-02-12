@@ -1,23 +1,34 @@
+export interface Source {
+  line: number;
+  file: string;
+  text: string;
+}
+
 export class Warnings {
+  ranOnMinifiedFiles = false;
+
+  warningArray: { [s: string]: Source[] } = {};
+
   constructor() {
     this.reset();
   }
 
-  summary(text) {
+  summary(text: string): string {
     if (text.length > 120) {
       this.ranOnMinifiedFiles = this.ranOnMinifiedFiles || text.length > 500;
 
       return `${text.slice(0, 120)}...`;
     }
+
     return text;
   }
 
-  reset() {
+  reset(): void {
     this.warningArray = {};
     this.ranOnMinifiedFiles = false;
   }
 
-  append(value, source) {
+  append(value: string, source: Source | undefined): void {
     if (value in this.warningArray) {
       if (
         source
@@ -34,7 +45,7 @@ export class Warnings {
     }
   }
 
-  warn() {
+  warn(): void {
     const keys = Object.keys(this.warningArray);
     if (!keys.length) return;
 

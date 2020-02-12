@@ -5,9 +5,9 @@
   "main": "dest",
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc",
-    "lint": "eslint lib __tests__",
-    "fix": "eslint lib __tests__ --fix",
+    "build": "tsc && babel dest -d dest",
+    "lint": "eslint lib/**/*.ts __tests__",
+    "fix": "eslint lib/**/*.ts __tests__ --fix",
     "prepublish": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
@@ -44,15 +44,12 @@
   },
   "homepage": "https://github.com/JPeer264/node-rcs-core#readme",
   "dependencies": {
-    "array-includes": "^3.0.2",
     "ast-traverse": "^0.1.1",
     "decimal-to-any": "1.0.0",
     "espree": "^5.0.0",
     "fs-extra": "^2.0.0",
     "json-extra": "^0.5.0",
     "lodash.merge": "^4.6.1",
-    "object.entries": "^1.0.4",
-    "object.values": "^1.0.4",
     "parse5": "^5.0.0",
     "parse5-traverse": "^1.0.3",
     "postcss": "^7.0.8",
@@ -65,9 +62,13 @@
     "recast": "^0.15.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.5",
     "@types/jest": "^24.0.18",
+    "@types/lodash.merge": "^4.6.6",
+    "@types/parse5": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "coveralls": "^2.11.15",
     "eslint": "^6.5.0",
     "eslint-config-airbnb-base": "^14.0.0",

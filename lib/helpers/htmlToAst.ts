@@ -1,11 +1,13 @@
 import parse5 from 'parse5';
 
-const htmlToAst = (code) => {
+type HtmlToAstReturn = ReturnType<typeof parse5.parseFragment> | ReturnType<typeof parse5.parse>;
+
+const htmlToAst = (code: string): HtmlToAstReturn => {
   let ast = parse5.parse(code, {
     sourceCodeLocationInfo: true,
   });
 
-  if (ast.mode === 'quirks') {
+  if ((ast as any).mode === 'quirks') {
     ast = parse5.parseFragment(code, {
       sourceCodeLocationInfo: true,
     });

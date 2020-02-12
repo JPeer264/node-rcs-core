@@ -3,9 +3,11 @@
     "target": "es2017",
     "module": "commonjs",
     "lib": [
-      "es2017"
+      "es2017",
+      "es2016"
     ],
     "allowJs": true,
+    "checkJs": false,
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dest",
@@ -13,5 +15,8 @@
   },
   "include": [
     "lib"
+  ],
+  "files": [
+    "./global.d.ts"
   ]
 }
