@@ -61,7 +61,7 @@ it('replace everything from file', () => {
   );
 });
 
-it.skip('replace react components', () => {
+it('replace react components', () => {
   replaceJsMacro(
     fs.readFileSync(path.join(fixturesCwd, '/js/react.txt'), 'utf8'),
     fs.readFileSync(path.join(resultsCwd, '/js/react.txt'), 'utf8'),
