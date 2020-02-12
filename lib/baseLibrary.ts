@@ -6,6 +6,7 @@ import warnings, { Source } from './allWarnings';
 export interface BaseLibraryOptions {
   ignoreAttributeSelectors?: boolean;
   source?: Source;
+  isOriginalValue?: boolean;
   preventRandomName?: boolean;
   addSelectorType?: boolean;
   countStats?: boolean;
@@ -98,11 +99,12 @@ export class BaseLibrary {
   }
 
   get(value: string, opts: BaseLibraryOptions = {}): string {
-    const optionsDefault = {
+    const optionsDefault: BaseLibraryOptions = {
       isOriginalValue: true,
       countStats: true,
     };
 
+    // todo jpeer: remove merge
     const options = merge({}, optionsDefault, opts);
     // We need the selector's without its decoration (for example, "test" for input ".test")
     const finalValue = this.prefetchValue(value);
@@ -235,7 +237,7 @@ export class BaseLibrary {
     ] = [val2, val1];
   }
 
-  setMultiple(values: { [s: string]: string }, options: BaseLibraryOptions = {}): void {
+  setMultiple(values: { [s: string]: string } = {}, options: BaseLibraryOptions = {}): void {
     if (Object.prototype.toString.call(values) !== '[object Object]') {
       return;
     }
@@ -280,10 +282,11 @@ export class BaseLibrary {
     }
   }
 
-  setReserved(toReserve: string): void {
+  setReserved(toReserve: string | string[]): void {
     if (!toReserve) return;
 
     this.reserved = [];
+
     if (!Array.isArray(toReserve)) {
       this.reserved.push(toReserve);
     } else {
