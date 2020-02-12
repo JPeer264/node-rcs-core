@@ -75,6 +75,8 @@ it('setMultiple | should set multiple values', () => {
 
 it('setMultiple | should set nothing', () => {
   rcs.baseLibrary.setMultiple();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rcs.baseLibrary.setMultiple([] as any);
 
   expect(Object.keys(rcs.baseLibrary.values).length).toBe(0);
 });
