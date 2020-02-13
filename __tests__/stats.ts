@@ -12,8 +12,8 @@ it('replace js and get correct classes', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual([]);
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual([]);
 });
 
 it('replace js and get correct classes and ids', () => {
@@ -22,10 +22,10 @@ it('replace js and get correct classes and ids', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual(['id']);
-  expect(stats.classUsageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
-  expect(stats.idUsageCount).toEqual({ id: 0 });
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual(['id']);
+  expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
+  expect(stats.ids.usageCount).toEqual({ id: 0 });
 });
 
 // following should pass after issue #51 is resolved
@@ -35,10 +35,10 @@ it('replace html and get correct classes and ids', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual(['id']);
-  expect(stats.classUsageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
-  expect(stats.idUsageCount).toEqual({ id: 0 });
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual(['id']);
+  expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
+  expect(stats.ids.usageCount).toEqual({ id: 0 });
 });
 
 it('replace html and get correct classes and ids', () => {
@@ -47,10 +47,10 @@ it('replace html and get correct classes and ids', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual(['id']);
-  expect(stats.classUsageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
-  expect(stats.idUsageCount).toEqual({ id: 0 });
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual(['id']);
+  expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
+  expect(stats.ids.usageCount).toEqual({ id: 0 });
 });
 
 it('replace css and get correct classes and ids', () => {
@@ -59,10 +59,10 @@ it('replace css and get correct classes and ids', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual([]);
-  expect(stats.classUsageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
-  expect(stats.idUsageCount).toEqual({ id: 1 });
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual([]);
+  expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
+  expect(stats.ids.usageCount).toEqual({ id: 1 });
 });
 
 it('replace all and get correct classes and ids', () => {
@@ -73,10 +73,10 @@ it('replace all and get correct classes and ids', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual([]);
-  expect(stats.classUsageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
-  expect(stats.idUsageCount).toEqual({ id: 1 });
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual([]);
+  expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
+  expect(stats.ids.usageCount).toEqual({ id: 1 });
 });
 
 
@@ -89,12 +89,12 @@ it('replace all and get correct classes and ids with all matching css variables'
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual([]);
-  expect(stats.classUsageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
-  expect(stats.idUsageCount).toEqual({ id: 1 });
-  expect(stats.cssVariablesUsageCount).toEqual({ 'my-variable': 1 });
-  expect(stats.unusedCssVariables).toEqual([]);
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual([]);
+  expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
+  expect(stats.ids.usageCount).toEqual({ id: 1 });
+  expect(stats.cssVariables.usageCount).toEqual({ 'my-variable': 1 });
+  expect(stats.cssVariables.unused).toEqual([]);
 });
 
 it('replace all and get correct classes and ids with css variables', () => {
@@ -106,12 +106,12 @@ it('replace all and get correct classes and ids with css variables', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.unusedClasses).toEqual(['not-used']);
-  expect(stats.unusedIds).toEqual([]);
-  expect(stats.classUsageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
-  expect(stats.idUsageCount).toEqual({ id: 1 });
-  expect(stats.cssVariablesUsageCount).toEqual({ 'my-variable': 1, 'other-variable': 0 });
-  expect(stats.unusedCssVariables).toEqual(['other-variable']);
+  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.ids.unused).toEqual([]);
+  expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
+  expect(stats.ids.usageCount).toEqual({ id: 1 });
+  expect(stats.cssVariables.usageCount).toEqual({ 'my-variable': 1, 'other-variable': 0 });
+  expect(stats.cssVariables.unused).toEqual(['other-variable']);
 });
 
 it('replace css and get correct keyframes count', () => {
@@ -122,6 +122,6 @@ it('replace css and get correct keyframes count', () => {
 
   const stats = rcs.stats();
 
-  expect(stats.keyframesUsageCount).toEqual({ 'another-move': 0, move: 1 });
-  expect(stats.unusedKeyframes).toEqual(['another-move']);
+  expect(stats.keyframes.usageCount).toEqual({ 'another-move': 0, move: 1 });
+  expect(stats.keyframes.unused).toEqual(['another-move']);
 });

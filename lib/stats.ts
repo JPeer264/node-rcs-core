@@ -10,8 +10,8 @@ interface UsageCount {
   [s: string]: number;
 }
 
-// todo jpeer: update types as soon as returns are refactored
-const stats = (): any => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const stats = () => {
   const classSelector = selectorsLibrary.getClassSelector();
   const idSelector = selectorsLibrary.getIdSelector();
   const cssVariables = Object.entries(cssVariablesLibrary.meta);
@@ -35,10 +35,10 @@ const stats = (): any => {
   Object.keys(classSelector.values).forEach((v) => {
     classUsageCount[v] = classSelector.meta[v].appearanceCount;
   });
+
   Object.keys(idSelector.values).forEach((v) => {
     idUsageCount[v] = idSelector.meta[v].appearanceCount;
   });
-
 
   cssVariables.forEach(([name, meta]) => {
     cssVariablesUsageCount[name] = meta.appearanceCount;
@@ -48,21 +48,23 @@ const stats = (): any => {
     keyframesUsageCount[name] = meta.appearanceCount;
   });
 
-  // todo jpeer: refactor in next major release
-  // { unused: { [s: string]: string[] } }
-  // { usageCount: { [s: string]: { [s: string]: number } } }
-  // or
-  // { classes: { usageCount: { [s: string]: number }; unused: string[] } }
-  // { cssVariables: { usageCount: { [s: string]: number }; unused: string[] } }
   return {
-    cssVariablesUsageCount,
-    unusedCssVariables,
-    unusedKeyframes,
-    keyframesUsageCount,
-    classUsageCount,
-    idUsageCount,
-    unusedClasses,
-    unusedIds,
+    ids: {
+      unused: unusedIds,
+      usageCount: idUsageCount,
+    },
+    classes: {
+      unsused: unusedClasses,
+      usageCount: classUsageCount,
+    },
+    cssVariables: {
+      unused: unusedCssVariables,
+      usageCount: cssVariablesUsageCount,
+    },
+    keyframes: {
+      unused: unusedKeyframes,
+      usageCount: keyframesUsageCount,
+    },
   };
 };
 
