@@ -191,15 +191,8 @@ export class AttributeLibrary extends BaseLibrary {
   postfetchValue(result: string, opts: AttributeLibraryOptions): string | any {
     const optionsDefault = {
       addSelectorType: false,
-      extend: false,
     };
     const options = merge({}, optionsDefault, opts);
-
-    if (options.extend) {
-      // emulate previous behavior to avoid breaking existing code
-      // should be better to deprecate this ?
-      return { selector: this.compressedValues[result], compressedSelector: result, type: this.selectorFirstChar() === '#' ? 'id' : 'class' };
-    }
 
     return (
       (options.addSelectorType ? this.selectorFirstChar() : '')
@@ -223,38 +216,9 @@ export class AttributeLibrary extends BaseLibrary {
       getRenamedValues: false,
       regex: false,
       addSelectorType: false,
-      extend: false,
     };
 
     const options = merge({}, optionsDefault, opts);
-
-    if (options.extend) {
-      if (options.getRenamedValues) {
-        // simulate previous behavior to avoid breaking existing code
-        // should probably deprecate this case if useless (it's not being called anywhere)
-        Object.keys(this.compressedValues).forEach((key) => {
-          result[key] = { selector: key, modifiedSelector: this.compressedValues[key], type: this.selectorFirstChar() === '#' ? 'id' : 'class' };
-        });
-      } else {
-        // simulate previous behavior to avoid breaking existing code
-        // should probably deprecate this case if useless (it's not being called anywhere)
-        Object.keys(this.values).forEach((key) => {
-          result[key] = { selector: key, compressedSelector: this.values[key], type: this.selectorFirstChar() === '#' ? 'id' : 'class' };
-        });
-      }
-
-      if (options.addSelectorType) {
-        const modifiedResult: { [s: string]: string } = {};
-
-        Object.keys(result).forEach((value) => {
-          modifiedResult[this.selectorFirstChar() + value] = result[value];
-        });
-
-        result = modifiedResult;
-      }
-
-      return result;
-    } // options.extend
 
     Object.keys(selectors).forEach((selector) => {
       compressedSelector = selectors[selector];

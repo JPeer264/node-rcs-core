@@ -90,16 +90,6 @@ it('get | should not get excluded selector', () => {
   expect(testSelector).toBe('test');
 });
 
-it('get | extend true', () => {
-  setSelectors();
-
-  const dotTestSelector = rcs.selectorsLibrary.get('.test', { extend: true });
-
-  expect(typeof dotTestSelector).toBe('object');
-  expect(dotTestSelector.compressedSelector).toBe('a');
-  expect(dotTestSelector.selector).toBe('test');
-});
-
 it('get | insure no mix if using existing selector', () => {
   setSelectors();
 
@@ -226,71 +216,6 @@ it('getall | should return a regex of compressed selectors', () => {
   const regex = rcs.selectorsLibrary.getAllRegex();
 
   expect(regex.source).toBe('((\\s|\\#)(id)[\\s)])|((\\s|\\.)(jp-selector|test)[\\s)])');
-});
-
-it('getall | should get all extend', () => {
-  setSelectors();
-
-  let cssObject = rcs.selectorsLibrary.getClassSelector().getAll({
-    extend: true,
-  });
-
-  expect(typeof cssObject.test).toBe('object');
-  expect(cssObject.test.type).toBe('class');
-  expect(cssObject.test.compressedSelector).toBe('a');
-
-  cssObject = rcs.selectorsLibrary.getIdSelector().getAll({
-    extend: true,
-  });
-  expect(typeof cssObject.id).toBe('object');
-  expect(cssObject.id.type).toBe('id');
-  expect(cssObject.id.compressedSelector).toBe('a');
-});
-
-it('getall | should get all extend with selectors', () => {
-  setSelectors();
-
-  let cssObject = rcs.selectorsLibrary.getClassSelector().getAll({
-    addSelectorType: true,
-    extend: true,
-  });
-
-  expect(typeof cssObject['.test']).toBe('object');
-  expect(cssObject['.test'].type).toBe('class');
-  expect(cssObject['.test'].compressedSelector).toBe('a');
-
-  cssObject = rcs.selectorsLibrary.getIdSelector().getAll({
-    addSelectorType: true,
-    extend: true,
-  });
-
-  expect(typeof cssObject['#id']).toBe('object');
-  expect(cssObject['#id'].type).toBe('id');
-  expect(cssObject['#id'].compressedSelector).toBe('a');
-});
-
-it('getall | should get all normal with selectors', () => {
-  setSelectors();
-
-  let cssObject = rcs.selectorsLibrary.getClassSelector().getAll({
-    getRenamedValues: true,
-    addSelectorType: true,
-    extend: true,
-  });
-
-  expect(typeof cssObject['.a']).toBe('object');
-  expect(cssObject['.a'].type).toBe('class');
-  expect(cssObject['.a'].modifiedSelector).toBe('test');
-
-  cssObject = rcs.selectorsLibrary.getIdSelector().getAll({
-    getRenamedValues: true,
-    addSelectorType: true,
-    extend: true,
-  });
-
-  expect(typeof cssObject['#a']).toBe('object');
-  expect(cssObject['#a'].type).toBe('id');
-  expect(cssObject['#a'].modifiedSelector).toBe('id');
 });
 
 it('getall | should get all setted classes', () => {
