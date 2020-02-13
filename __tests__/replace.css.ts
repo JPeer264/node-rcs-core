@@ -100,6 +100,12 @@ it('should check ~ and + directly after', () => {
   );
 });
 
+test('find selectors within targets | gulp-rcs#6', () => {
+  replaceCssMacro(
+    '.tabsIconed .tabs__nav a[href="#tabs_availability"]:before{}',
+    '.a .b a[href="#a"]:before{}',
+  );
+});
 it('should modify the code properly | filter oneline', () => {
   replaceCssMacro(
     '.somediv{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.anotherdiv{display:flex}',
