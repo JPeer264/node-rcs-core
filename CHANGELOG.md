@@ -1,3 +1,22 @@
+3.0.0 - February, 13 2020
+
+* 54ab9db Docs: add plugins (JPeer264)
+* 7876206 Docs: update docs (JPeer264)
+* 2e3e8c2 Chore: add more os to travis (JPeer264)
+* eb71b36 Chore: update travis badge (JPeer264)
+* 81a04f5 Chore: update dependencies (closes #99) (JPeer264)
+* 07a3be3 Chore: remove yarn.lock | remove node v8 support (JPeer264)
+* e552e73 Fix: more consistent getter when not defined (closes #102) (JPeer264)
+* 521cee8 Chore: update eslint files in __tests__ (JPeer264)
+* 81faae8 Refactor: more consistent stats (closes #103) (JPeer264)
+* e09944d Fix: remove merge whereever possible (closes #107) (JPeer264)
+* 4ec76f3 Fix: apply fix from 2.6.3 (closes #105) (JPeer264)
+* 295bd25 Feat: remove options.extend (closes #104) (JPeer264)
+* 1d95142 Refactor: add missing refactored test (JPeer264)
+* 9c2b8da Refactor: tests from JS to TS (#108) (Jan Peer Stöcklmair)
+* 8483ea7 Chore: update espree to make all tests work (JPeer264)
+* 857c3a9 Refactor: main lib to ts (no tests refactored) (#106) (Jan Peer Stöcklmair)
+
 3.0.0-alpha.3 - November, 24 2019
 
 * 09eb21b Fix: do not fail on ~ (JPeer264)
