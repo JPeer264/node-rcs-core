@@ -38,5 +38,9 @@ module.exports = {
             allowTypedFunctionExpressions: true,
             allowExpressions: true,
         }],
+        'import/extensions': ['error', 'ignorePackages', {
+            js: 'never',
+            ts: 'never',
+        }],
     }
 };

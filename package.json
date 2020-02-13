@@ -19,8 +19,7 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "keywords": [
@@ -45,40 +44,39 @@
   "homepage": "https://github.com/JPeer264/node-rcs-core#readme",
   "dependencies": {
     "ast-traverse": "^0.1.1",
-    "decimal-to-any": "1.0.0",
+    "decimal-to-any": "^1.0.5",
     "espree": "^6.1.2",
-    "fs-extra": "^2.0.0",
-    "json-extra": "^0.5.0",
-    "lodash.merge": "^4.6.1",
-    "parse5": "^5.0.0",
+    "lodash.merge": "^4.6.2",
+    "parse5": "^5.1.1",
     "parse5-traverse": "^1.0.3",
-    "postcss": "^7.0.8",
-    "pug-code-gen": "^2.0.1",
-    "pug-lexer": "^4.0.0",
-    "pug-parser": "^5.0.0",
-    "pug-runtime": "^2.0.4",
+    "postcss": "^7.0.26",
+    "pug-code-gen": "^2.0.2",
+    "pug-lexer": "^4.1.0",
+    "pug-parser": "^5.0.1",
+    "pug-runtime": "^2.0.5",
     "pug-source-gen": "^0.0.2",
-    "pug-walk": "^1.1.7",
-    "recast": "^0.15.0"
+    "pug-walk": "^1.1.8",
+    "recast": "^0.18.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@types/jest": "^24.0.18",
+    "@babel/cli": "^7.8.4",
+    "@types/jest": "^25.1.2",
     "@types/lodash.merge": "^4.6.6",
+    "@types/node": "^13.7.1",
     "@types/parse5": "^5.0.2",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
     "babel-plugin-add-module-exports": "^1.0.2",
-    "coveralls": "^2.11.15",
-    "eslint": "^6.5.0",
+    "coveralls": "^3.0.9",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "html-minifier": "^3.5.18",
-    "husky": "^3.0.7",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.4.0",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.6.3"
+    "eslint-plugin-import": "^2.20.1",
+    "html-minifier": "^4.0.0",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.7",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5"
   },
   "author": "Jan Peer Stöcklmair",
   "license": "MIT"

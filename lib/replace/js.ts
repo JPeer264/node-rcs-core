@@ -1,4 +1,4 @@
-import recast from 'recast';
+import { parse, print } from 'recast';
 import traverse from 'ast-traverse';
 import espree from 'espree';
 import merge from 'lodash.merge';
@@ -42,7 +42,7 @@ const replaceJs = (code: string | Buffer, espreeOptions: EspreeOptions = {}): st
     espreeOptions,
   );
 
-  const ast = recast.parse(code, {
+  const ast = parse(code, {
     parser: {
       parse: (source: string) => (
         espree.parse(source, {
@@ -131,7 +131,7 @@ const replaceJs = (code: string | Buffer, espreeOptions: EspreeOptions = {}): st
     },
   });
 
-  return recast.print(ast).code;
+  return print(ast).code;
 };
 
 export default replaceJs;
