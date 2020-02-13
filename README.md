@@ -60,7 +60,9 @@ fs.writeFileSync('./dist/index.html', html);
 - [rcs.useCustomGenerator](docs/api/usecustomgenerator.md)
 
 ## Plugins
+- Node Plugin: [rename-css-selectors](https://www.npmjs.com/package/rename-css-selectors)
+- Parcel Plugin: [parcel-plugin-rcs](https://www.npmjs.com/package/parcel-plugin-rcs)
+- Webpack Plugin: [rcs-webpack-plugin](https://www.npmjs.com/package/rcs-webpack-plugin)
+- PostCSS Plugin: [postcss-rcs](https://www.npmjs.com/package/postcss-rcs)
 - Gulp Plugin: [gulp-rcs](https://www.npmjs.com/package/gulp-rcs)
 - Grunt Plugin: [grunt-rcs](https://www.npmjs.com/package/grunt-rcs)
-- PostCSS Plugin: [postcss-rcs](https://www.npmjs.com/package/postcss-rcs)
-- Node Plugin: [rename-css-selectors](https://www.npmjs.com/package/rename-css-selectors)
