@@ -42,7 +42,17 @@ it('get | should not get any', () => {
 
   const selector = rcs.selectorsLibrary.get('.nothing-to-get');
 
-  expect(selector).toBe('.nothing-to-get');
+  expect(selector).toBe('nothing-to-get');
+});
+
+it('get | return correct selector when addSelectorType is false and selector not set', () => {
+  setSelectors();
+
+  const dotTestSelector = rcs.selectorsLibrary.get('.other-one', { addSelectorType: false });
+  const dotTestSelectorWith = rcs.selectorsLibrary.get('.other-one', { addSelectorType: true });
+
+  expect(dotTestSelector).toBe('other-one');
+  expect(dotTestSelectorWith).toBe('.other-one');
 });
 
 it('get | should get every single selectors', () => {
@@ -112,7 +122,7 @@ it('get | insure no mix between id and class selector', () => {
 
   rcs.selectorsLibrary.set('.other');
 
-  const otherIdSelector = rcs.selectorsLibrary.get('#other');
+  const otherIdSelector = rcs.selectorsLibrary.get('#other', { addSelectorType: true });
   const otherSelector = rcs.selectorsLibrary.get('other', { addSelectorType: true });
   expect(otherIdSelector).toBe('#other');
   expect(otherSelector).toBe('.b');
@@ -123,7 +133,7 @@ it('get | insure no mix between id and class selector', () => {
   const otheroneSelector = rcs.selectorsLibrary.get('.other-one');
 
   expect(otheroneIdSelector).toBe('b');
-  expect(otheroneSelector).toBe('.other-one');
+  expect(otheroneSelector).toBe('other-one');
 });
 
 /* ****** *

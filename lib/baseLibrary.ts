@@ -139,7 +139,7 @@ export class BaseLibrary {
     }
 
     if (!found) {
-      return value;
+      return !options.addSelectorType ? finalValue : value;
     }
 
     return this.postfetchValue(result, options);
