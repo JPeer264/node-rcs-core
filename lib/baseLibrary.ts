@@ -1,5 +1,3 @@
-import merge from 'lodash.merge';
-
 import { NameGenerator } from './nameGenerator';
 import warnings, { Source } from './allWarnings';
 
@@ -11,6 +9,7 @@ export interface BaseLibraryOptions {
   addSelectorType?: boolean;
   countStats?: boolean;
   getRenamedValues?: boolean;
+  regex?: boolean;
 }
 
 export class BaseLibrary {
@@ -100,13 +99,12 @@ export class BaseLibrary {
   }
 
   get(value: string, opts: BaseLibraryOptions = {}): string {
-    const optionsDefault: BaseLibraryOptions = {
+    const options: BaseLibraryOptions = {
       isOriginalValue: true,
       countStats: true,
+      ...opts,
     };
 
-    // todo jpeer: remove merge
-    const options = merge({}, optionsDefault, opts);
     // We need the selector's without its decoration (for example, "test" for input ".test")
     const finalValue = this.prefetchValue(value);
 

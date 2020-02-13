@@ -25,7 +25,7 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
     triggerIdAttributes: [],
   };
 
-  const options = merge(opts, defaultOptions);
+  const options = merge({}, opts, defaultOptions);
   const ast = htmlToAst(code);
   const srcOpt = { sourceFile: opts.sourceFile };
 
@@ -54,7 +54,7 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
         // type set to application/json || module
         if (hasAnyAttrs || !hasType || hasTypeAndJavaScript) {
           // eslint-disable-next-line no-param-reassign
-          node.value = replaceJs(node.value, merge(options.espreeOptions, srcOpt));
+          node.value = replaceJs(node.value, merge({}, options.espreeOptions, srcOpt));
         }
       }
 

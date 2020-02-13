@@ -30,7 +30,7 @@ const replacePug = (code: string, opts: ReplacePugOptions = {}): string => {
     triggerIdAttributes: [],
   };
 
-  const options = merge(opts, defaultOptions);
+  const options = merge({}, opts, defaultOptions);
 
   walk(ast, (node: any) => {
     if (node.name === 'script' || node.name === 'style') {
@@ -50,7 +50,7 @@ const replacePug = (code: string, opts: ReplacePugOptions = {}): string => {
         ))
       ))();
       const replacedCode = node.name === 'script'
-        ? replaceJs(newCode, merge(options.espreeOptions, { sourceFile: opts.sourceFile }))
+        ? replaceJs(newCode, merge({}, options.espreeOptions, { sourceFile: opts.sourceFile }))
         : replaceCss(newCode, { sourceFile: opts.sourceFile });
 
       // add one tab after each new line

@@ -1,4 +1,3 @@
-import merge from 'lodash.merge';
 import { AttributeLibrary } from './attributeLibrary';
 import idSelectorLibrary, { IdSelectorLibrary } from './idSelectorLibrary';
 import classSelectorLibrary, { ClassSelectorLibrary } from './classSelectorLibrary';
@@ -117,7 +116,12 @@ export class SelectorsLibrary extends BaseLibrary {
 
   // With return values, specific logic
   getAllRegex(opts: BaseLibraryOptions = {}): RegExp {
-    const ret = this.callOnBoth('getAll', merge({ regex: true }, opts));
+    const options: BaseLibraryOptions = {
+      regex: true,
+      ...opts,
+    };
+
+    const ret = this.callOnBoth('getAll', options);
 
     return new RegExp(`(${ret.filter(Boolean).map((x) => x.source).join(')|(')})`, 'g');
   }

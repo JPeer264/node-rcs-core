@@ -1,5 +1,4 @@
 import { parse } from 'postcss';
-import merge from 'lodash.merge';
 
 import replaceRegex from './replace/regex';
 import { NameGenerator } from './nameGenerator';
@@ -189,10 +188,10 @@ export class AttributeLibrary extends BaseLibrary {
 
   // todo jpeer: #104 remove any
   postfetchValue(result: string, opts: AttributeLibraryOptions): string | any {
-    const optionsDefault = {
+    const options: AttributeLibraryOptions = {
       addSelectorType: false,
+      ...opts,
     };
-    const options = merge({}, optionsDefault, opts);
 
     return (
       (options.addSelectorType ? this.selectorFirstChar() : '')
@@ -212,13 +211,12 @@ export class AttributeLibrary extends BaseLibrary {
     let result: { [s: string]: string | any } = {};
 
     const selectors = this.values;
-    const optionsDefault = {
+    const options: AttributeLibraryOptions = {
       getRenamedValues: false,
       regex: false,
       addSelectorType: false,
+      ...opts,
     };
-
-    const options = merge({}, optionsDefault, opts);
 
     Object.keys(selectors).forEach((selector) => {
       compressedSelector = selectors[selector];
