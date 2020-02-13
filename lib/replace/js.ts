@@ -27,7 +27,7 @@ const makeSource = (node: any, file: string): Source => {
   return { file, line: currentLine, text: sourceLine };
 };
 
-const replaceJs = (code: string | Buffer, espreeOptions: EspreeOptions): string => {
+const replaceJs = (code: string | Buffer, espreeOptions: EspreeOptions = {}): string => {
   // We can only use the common regex if we don't care about specific class/id processing
   const regex = selectorsLibrary.getAllRegex();
 

@@ -113,7 +113,8 @@ it('get | should get the minified values', () => {
  * SET *
  * *** */
 it('set | should do nothing', () => {
-  rcs.cssVariablesLibrary.set();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (rcs.cssVariablesLibrary as any).set();
 
   expect(rcs.cssVariablesLibrary.cssVariables).toEqual({});
 });

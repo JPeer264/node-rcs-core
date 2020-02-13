@@ -12,7 +12,11 @@ export interface ReplaceStringOptions extends BaseLibraryOptions {
   addSelectorType?: boolean;
 }
 
-const replaceString = (string: string, regex: RegExp, options: ReplaceStringOptions): string => {
+const replaceString = (
+  string: string,
+  regex: RegExp,
+  options: ReplaceStringOptions = {},
+): string => {
   let result;
   let tempString = string;
 
@@ -27,13 +31,13 @@ const replaceString = (string: string, regex: RegExp, options: ReplaceStringOpti
   // detect if it's a selector
   let surelySelector = tempString.match(regexp.likelySelector) !== null;
 
-  if (options && options.isJSX) {
+  if (options.isJSX) {
     // with JSX, you can have code in JS that contains HTML's attribute directly so we
     // can't say if it is a selector in case like 'if (something) return <div class="a b">;'
     surelySelector = false;
   }
 
-  if (options && options.classOnly !== undefined) {
+  if (options.classOnly !== undefined) {
     surelySelector = false;
     // if we know that it's a class or an id, let's only search those
     selectorLib = options.classOnly

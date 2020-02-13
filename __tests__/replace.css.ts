@@ -6,14 +6,14 @@ import rcs from '../lib';
 const fixturesCwd = '__tests__/files/fixtures';
 const resultsCwd = '__tests__/files/results';
 
-function replaceCssMacro(input, expected = input, options = {}) {
+function replaceCssMacro(input, expected = input, options = {}): void {
   rcs.fillLibraries(input, options);
 
   expect(rcs.replace.css(input)).toBe(expected);
   expect(rcs.replace.css(Buffer.from(input))).toBe(expected);
 }
 
-function replaceMultipleCssMacro(inputs, expects, options = {}) {
+function replaceMultipleCssMacro(inputs, expects, options = {}): void {
   inputs.forEach((input, i) => {
     rcs.fillLibraries(input, options);
 

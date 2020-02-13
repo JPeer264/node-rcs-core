@@ -6,11 +6,11 @@ import rcs from '../lib';
 const fixturesCwd = '__tests__/files/fixtures';
 const resultsCwd = '__tests__/files/results';
 
-function replaceAnyMacro(input, expected, fillLibrary = '') {
+function replaceAnyMacro(input, expected, fillLibrary = ''): void {
   rcs.selectorsLibrary.fillLibrary(fillLibrary);
 
   expect(rcs.replace.any(input)).toBe(expected);
-  expect(rcs.replace.any(Buffer.from(input))).toBe(expected);
+  expect(rcs.replace.any(Buffer.from(input).toString())).toBe(expected);
 }
 
 beforeEach(() => {

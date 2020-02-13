@@ -6,7 +6,7 @@ import rcs from '../lib';
 const fixturesCwd = '__tests__/files/fixtures';
 const resultsCwd = '__tests__/files/results';
 
-function replaceJsMacro(input, expected, fillLibrary = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8')) {
+function replaceJsMacro(input, expected, fillLibrary = fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8')): void {
   rcs.selectorsLibrary.fillLibrary(fillLibrary);
   rcs.cssVariablesLibrary.fillLibrary(fillLibrary);
 

@@ -22,7 +22,8 @@ it('exclude | should just exclude once', () => {
 });
 
 it('exclude | should exclude nothing', () => {
-  rcs.baseLibrary.setExclude();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (rcs.baseLibrary as any).setExclude();
 
   expect(rcs.baseLibrary.excludes.length).toBe(0);
 });
@@ -44,7 +45,8 @@ it('reserved | should just reserve once', () => {
 });
 
 it('reserved | should support resetting', () => {
-  rcs.baseLibrary.setReserved();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (rcs.baseLibrary as any).setReserved();
 
   expect(rcs.baseLibrary.reserved.length).toBe(0);
 });
@@ -73,6 +75,8 @@ it('setMultiple | should set multiple values', () => {
 
 it('setMultiple | should set nothing', () => {
   rcs.baseLibrary.setMultiple();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rcs.baseLibrary.setMultiple([] as any);
 
   expect(Object.keys(rcs.baseLibrary.values).length).toBe(0);
 });
@@ -87,11 +91,13 @@ it('setPrefix', () => {
 
   expect(rcs.baseLibrary.prefix).toBe('pre-');
 
-  rcs.baseLibrary.setPrefix(1);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rcs.baseLibrary.setPrefix(1 as any);
 
   expect(rcs.baseLibrary.prefix).toBe('pre-');
 
-  rcs.baseLibrary.setPrefix({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rcs.baseLibrary.setPrefix({} as any);
 
   expect(rcs.baseLibrary.prefix).toBe('pre-');
 
@@ -110,11 +116,13 @@ it('setSuffix', () => {
 
   expect(rcs.baseLibrary.suffix).toBe('-suf');
 
-  rcs.baseLibrary.setSuffix(1);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rcs.baseLibrary.setSuffix(1 as any);
 
   expect(rcs.baseLibrary.suffix).toBe('-suf');
 
-  rcs.baseLibrary.setSuffix({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rcs.baseLibrary.setSuffix({} as any);
 
   expect(rcs.baseLibrary.suffix).toBe('-suf');
 
@@ -217,7 +225,8 @@ it('swap | functional swap', () => {
  * SET *
  * *** */
 it('set | should do nothing', () => {
-  rcs.baseLibrary.set();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (rcs.baseLibrary as any).set();
 
   expect(rcs.baseLibrary.values).toEqual({});
 });

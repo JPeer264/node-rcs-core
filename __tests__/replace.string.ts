@@ -1,6 +1,6 @@
 import rcs from '../lib';
 
-const getRegex = () => rcs.selectorsLibrary.getAllRegex();
+const getRegex = (): RegExp => rcs.selectorsLibrary.getAllRegex();
 
 beforeEach(() => {
   rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');

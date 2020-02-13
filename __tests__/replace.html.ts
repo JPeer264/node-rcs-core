@@ -7,7 +7,7 @@ import rcs from '../lib';
 const fixturesCwd = '__tests__/files/fixtures';
 const resultsCwd = '__tests__/files/results';
 
-function replaceHtmlMacro(selectors, input, expected, options) {
+function replaceHtmlMacro(selectors, input, expected?, options?): void {
   const toExpect = expected || input;
 
   rcs.selectorsLibrary.fillLibrary(selectors);
