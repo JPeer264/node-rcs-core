@@ -23,6 +23,31 @@ or
 $ yarn add rcs-core
 ```
 
+## Example
+
+1. Fill your library with all selectors (we assume there is just one CSS file)
+
+```js
+rcs.fillLibraries(fs.readFileSync('./src/styles.css', 'utf8'));
+
+// excluding specific selectors
+rcs.selectorsLibrary.setExclude('selector-to-ignore');
+```
+
+2. Rewrite all files
+
+> **Note:** Do not forget to replace your CSS file
+
+```js
+const css = rcs.replace.css(fs.readFileSync('./src/styles.css', 'utf8'));
+const js = rcs.replace.js(fs.readFileSync('./src/App.js', 'utf8'));
+const html = rcs.replace.html(fs.readFileSync('./src/index.html', 'utf8'));
+
+fs.writeFileSync('./dist/styles.css', css);
+fs.writeFileSync('./dist/App.js', js);
+fs.writeFileSync('./dist/index.html', html);
+```
+
 ## API documentation
 - [rcs.stats](docs/api/stats.md)
 - [rcs.replace](docs/api/replace.md)

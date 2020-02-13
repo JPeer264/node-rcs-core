@@ -134,7 +134,7 @@ Example:
 const rcs = require('rcs-core');
 
 rcs.baseLibrary.setReserved('a'); // or:
-rcs.baseLibrary.setReserved(['a', 'b']); 
+rcs.baseLibrary.setReserved(['a', 'b']);
 
 // the value will not be mapped to either 'a' or 'b'
 rcs.baseLibrary.set('something');
@@ -175,7 +175,7 @@ Example:
 ```js
 const rcs = require('rcs-core');
 
-rcs.baseLibrary.setPrefix('lib-'); 
+rcs.baseLibrary.setPrefix('lib-');
 rcs.baseLibrary.set('my-id'); // sets to 'lib-a'
 
 rcs.baseLibrary.get('my-id'); // 'lib-a'
@@ -195,7 +195,7 @@ Example:
 ```js
 const rcs = require('rcs-core');
 
-rcs.baseLibrary.setSuffix('-bad'); 
+rcs.baseLibrary.setSuffix('-bad');
 rcs.baseLibrary.set('my-id'); // sets to 'a-bad'
 
 rcs.baseLibrary.get('my-id'); // 'a-bad'

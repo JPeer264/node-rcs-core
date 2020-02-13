@@ -1,6 +1,6 @@
 # rcs.fillLibraries
 
-> This fills `selectorLibrary` and `keyframesLibrary` with all necessary information. Just put in your CSS code.
+> This fills `selectorLibrary`, `keyframesLibrary` and `cssVariablesLibrary` with all necessary information. Just put in your CSS code.
 
 > **Note:** Put your stylesheets in here before you call any [rcs.replace](replace.md) method.
 
