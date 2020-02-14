@@ -14,7 +14,7 @@ Some live projects:
 - AMP Project (https://amp.dev/)
 - My personal webpage (https://jpeer.at/)
 
-## Usage
+## Installation
 ```sh
 $ npm install --save rcs-core
 ```
@@ -23,7 +23,7 @@ or
 $ yarn add rcs-core
 ```
 
-## Example
+## Usage
 
 1. Fill your library with all selectors (we assume there is just one CSS file)
 
