@@ -67,7 +67,7 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
       // rename attributes
       if (Array.isArray(node.attrs) && node.attrs.length >= 0) {
         node.attrs.forEach((attr: Attr) => {
-          let selectorType: string;
+          let selectorType: string | undefined;
 
           if (
             attr.name === 'class'
@@ -89,6 +89,10 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
 
           if (node.tagName === 'label' && attr.name === 'for') {
             selectorType = '#';
+          }
+
+          if (!selectorType) {
+            return;
           }
 
 

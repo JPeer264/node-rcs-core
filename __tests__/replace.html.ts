@@ -29,6 +29,13 @@ it('should replace nothing', () => {
   );
 });
 
+it('should not replace style', () => {
+  replaceHtmlMacro(
+    '.css {}',
+    '<link rel="stylesheet" href="style.css" type="text/css">',
+  );
+});
+
 it('should replace class selectors', () => {
   replaceHtmlMacro(
     '.selector {} .another-selector {}',
