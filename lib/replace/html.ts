@@ -95,7 +95,6 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
             return;
           }
 
-
           // following will replace each whitespace
           // seperated value with its renamed one
           // eslint-disable-next-line no-param-reassign
