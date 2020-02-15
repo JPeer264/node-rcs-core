@@ -5,7 +5,7 @@
   "main": "dest",
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc && babel dest -d dest",
+    "build": "rimraf dest && tsc && babel dest -d dest",
     "lint": "eslint lib/**/*.ts __tests__/**/*.ts",
     "fix": "eslint lib/**/*.ts __tests__/**/*.ts --fix",
     "prepublish": "npm run build",
@@ -75,6 +75,7 @@
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.7",
+    "rimraf": "^3.0.2",
     "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
   },
