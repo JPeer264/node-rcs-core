@@ -1,3 +1,9 @@
+3.0.2 - February, 15 2020
+
+* 8aa23a7 Chore: rimraf dest before building (JPeer264)
+* 8188d23 Chore: add correct declaration types (JPeer264)
+* c40818a Docs: wording (JPeer264)
+
 3.0.1 - February, 14 2020
 
 * 0008a41 Fix: do not rewrite href, src etc (JPeer264)
