@@ -6,7 +6,7 @@ interface Stat {
   appearanceCount: number;
 }
 
-interface UsageCount {
+export interface UsageCount {
   [s: string]: number;
 }
 
