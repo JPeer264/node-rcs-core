@@ -2,3 +2,5 @@ coverage/
 __tests__/
 .travis.yml
 lib
+examples
+docs
