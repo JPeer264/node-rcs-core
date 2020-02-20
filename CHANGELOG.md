@@ -1,3 +1,7 @@
+3.0.3 - February, 20 2020
+
+* 6cb593d Chore: do not include examples into npm package (minify download size) (JPeer264)
+
 3.0.2 - February, 15 2020
 
 * 8aa23a7 Chore: rimraf dest before building (JPeer264)
