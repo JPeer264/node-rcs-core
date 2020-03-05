@@ -159,7 +159,7 @@ it('replace css variables | issue rename-css-selectors#38', () => {
   );
 });
 
-it('it should add no conflict with jsx enabled', () => {
+it('should add no conflict with jsx enabled', () => {
   replaceJsMacro(
     `
       const text = 'This has no conflicts';
@@ -171,7 +171,7 @@ it('it should add no conflict with jsx enabled', () => {
   );
 });
 
-it('it should add no conflicts on jsx with jsx enabled', () => {
+it('should add no conflicts on jsx with jsx enabled', () => {
   replaceJsMacro(
     `
       <div class="this has conflicts">
