@@ -158,3 +158,31 @@ it('replace css variables | issue rename-css-selectors#38', () => {
     ':root { --header-height: #7EA }',
   );
 });
+
+it('it should add no conflict with jsx enabled', () => {
+  replaceJsMacro(
+    `
+      const text = 'This has no conflicts';
+    `,
+    `
+      const text = 'This has no conflicts';
+    `,
+    '.has { content: "nothing" } .no {} .conflicts { content: "at all" }',
+  );
+});
+
+it('it should add no conflicts on jsx with jsx enabled', () => {
+  replaceJsMacro(
+    `
+      <div class="this has conflicts">
+        This has no conflicts
+      </div>
+    `,
+    `
+      <div class="this a c">
+        This has no conflicts
+      </div>
+    `,
+    '.has { content: "nothing" } .no {} .conflicts { content: "at all" }',
+  );
+});

@@ -57,13 +57,18 @@ const replaceJs = (code: string | Buffer, espreeOptions: EspreeOptions = {}): st
     },
   });
 
-  const isJSX = options.ecmaFeatures.jsx;
-
   traverse(ast, {
-    pre: (node: any) => {
+    pre: (node: any, parentNode: any) => {
+      let isJSX = false;
+
       // Avoid recursing into a "in" node since it can't be a CSS class or variable.
       if (node.type === 'BinaryExpression' && node.operator === 'in') {
         return false;
+      }
+
+      // check if parent is JSXAttribute
+      if (parentNode && parentNode.type === 'JSXAttribute' && ['class', 'id', 'for'].includes(parentNode.name.name)) {
+        isJSX = true;
       }
 
       if (node.type === 'TemplateElement' && 'raw' in node.value) {
