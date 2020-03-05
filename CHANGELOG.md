@@ -1,3 +1,9 @@
+3.0.4 - March, 05 2020
+
+* 82dd759 Test: wording (JPeer264)
+* af7159f Fix: correct way of transforming JSX and non JSX strings (JPeer264)
+* 18ac2d6 Docs: add links in readme for npm overview (JPeer264)
+
 3.0.3 - February, 20 2020
 
 * 6cb593d Chore: do not include examples into npm package (minify download size) (JPeer264)
