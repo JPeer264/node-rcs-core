@@ -51,6 +51,7 @@ fs.writeFileSync('./dist/index.html', html);
 ## API documentation
 - [rcs.stats](docs/api/stats.md)
 - [rcs.replace](docs/api/replace.md)
+- [rcs.mapping](docs/api/mapping.md)
 - [rcs.baseLibrary](docs/api/baselibrary.md)
 - [rcs.fillLibraries](docs/api/filllibraries.md)
 - [rcs.nameGenerator](docs/api/namegenerator.md)
