@@ -7,6 +7,9 @@ import selectorsLibrary from './selectorsLibrary';
 import keyframesLibrary from './keyframesLibrary';
 import cssVariablesLibrary from './cssVariablesLibrary';
 
+import generate from './mapping/generate';
+import load from './mapping/load';
+
 import extractFromHtml from './helpers/extractFromHtml';
 import htmlToAst from './helpers/htmlToAst';
 import warnings from './allWarnings';
@@ -23,6 +26,10 @@ export default {
   helpers: {
     htmlToAst,
     extractFromHtml,
+  },
+  mapping: {
+    generate,
+    load,
   },
   warnings,
 };

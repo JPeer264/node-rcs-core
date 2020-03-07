@@ -16,6 +16,12 @@ export interface AttributeLibraryOptions extends BaseLibraryOptions {
   getRenamedValues?: boolean;
 }
 
+export interface GetAllOptions {
+  getRenamedValues?: boolean;
+  regex?: boolean;
+  addSelectorType?: boolean;
+}
+
 // This abstract class implements the attribute parsing and replacing logic
 // It has to be specialized for each type (likely class or id), and thus
 // any logic of selection (like . or #) is defined in the child class, not this one.
@@ -201,17 +207,19 @@ export class AttributeLibrary extends BaseLibrary {
     );
   }
 
-  // todo jpeer: #104 remove any
-  // eslint-disable-next-line max-len
-  getAll(opts: AttributeLibraryOptions = {}): { [s: string]: string | any } | RegExp | undefined | string {
+  getAll(opts: Omit<GetAllOptions, 'regex'> & { regex: true }): RegExp | undefined;
+
+  getAll(opts: Omit<GetAllOptions, 'regex'> & { regex?: false }): { [s: string]: string };
+
+  getAll(opts: GetAllOptions = {}): { [s: string]: string } | RegExp | undefined {
     let originalSelector;
     let compressedSelector;
 
     let resultArray: string[] = [];
-    let result: { [s: string]: string | any } = {};
+    let result: { [s: string]: string } = {};
 
     const selectors = this.values;
-    const options: AttributeLibraryOptions = {
+    const options: Required<GetAllOptions> = {
       getRenamedValues: false,
       regex: false,
       addSelectorType: false,
