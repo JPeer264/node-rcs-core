@@ -1,6 +1,8 @@
 import rcs from '../../lib';
 
 beforeEach(() => {
+  rcs.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.cssVariablesLibrary.reset();
   rcs.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.keyframesLibrary.reset();
   rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
@@ -135,6 +137,10 @@ test('should add everything', () => {
 
 test('should compile readme example', () => {
   rcs.fillLibraries(`
+    :root {
+      --var: 200;
+    }
+
     @my-animation {
       from {}
       to {}
@@ -165,6 +171,7 @@ test('should compile readme example', () => {
       '#my-id': 'a',
       '.test-selector': 'b',
       '.selector': 'selt',
+      '-var': 'a',
     },
   });
 
@@ -175,6 +182,7 @@ test('should compile readme example', () => {
       '#a': 'my-id',
       '.b': 'test-selector',
       '.selt': 'selector',
+      '-a': 'var',
     },
   });
 });

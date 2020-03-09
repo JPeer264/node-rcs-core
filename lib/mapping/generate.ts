@@ -2,6 +2,7 @@ import selectorsLibrary from '../selectorsLibrary';
 import { Mapping } from './load';
 import { AttributeSelector } from '../attributeLibrary';
 import keyframesLibrary from '../keyframesLibrary';
+import cssVariablesLibrary from '../cssVariablesLibrary';
 
 export interface GenerateMappingOptions {
   origValues?: boolean;
@@ -49,6 +50,16 @@ const generate = (opts: GenerateMappingOptions = {}): Mapping => {
     }), {});
   }
 
+  // css variables
+  let cssVariables = origValues
+    ? cssVariablesLibrary.values
+    : cssVariablesLibrary.compressedCssVariables;
+
+  cssVariables = Object.entries(cssVariables).reduce((prev, [key, value]) => ({
+    ...prev,
+    [`-${key}`]: value,
+  }), {});
+
   // attributeSelectors
   const cssClassAttributesMapping = getAttributesMapping((
     selectorsLibrary.getClassSelector().attributeSelectors
@@ -59,7 +70,12 @@ const generate = (opts: GenerateMappingOptions = {}): Mapping => {
   ));
 
   const result: Mapping = {};
-  const allSelectors = { ...cssClassMapping, ...cssIdMapping, ...keyframes };
+  const allSelectors = {
+    ...cssClassMapping,
+    ...cssIdMapping,
+    ...keyframes,
+    ...cssVariables,
+  };
   const allAttributeSelectors = [...cssClassAttributesMapping, ...cssIdAttributesMapping];
 
   if (Object.keys(allSelectors).length > 0) {

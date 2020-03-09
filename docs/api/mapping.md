@@ -21,6 +21,10 @@ Example:
 const rcs = require('rcs-core');
 
 rcs.fillLibraries(`
+  :root {
+      --var: 200;
+  }
+
   @my-animation {
     from {}
     to {}
@@ -55,6 +59,7 @@ const mapping = rcs.mapping.generate();
  *     '#my-id': 'a',
  *     '.test-selector': 'b',
  *     '.selector': 'sela',
+ *     '-var': 'a',
  *   }
  * }
  *
@@ -67,6 +72,7 @@ const mapping = rcs.mapping.generate();
  *     '#a': 'my-id',
  *     '.b': 'test-selector',
  *     '.sela': 'selector',
+ *     '-a': 'var',
  *   }
  * }
  */

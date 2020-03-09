@@ -63,6 +63,18 @@ test('should generate keyframes mapping', () => {
   expect(rcs.keyframesLibrary.get('@more-keyframes')).toBe('b');
 });
 
+test('should generate css variables mapping', () => {
+  rcs.mapping.load({
+    selectors: {
+      '-var': 'a',
+      '-my-variable': 'test',
+    },
+  });
+
+  expect(rcs.cssVariablesLibrary.get('--var')).toBe('--a');
+  expect(rcs.cssVariablesLibrary.get('--my-variable')).toBe('--test');
+});
+
 test('should generate attribute selectors mapping', () => {
   rcs.mapping.load({
     attributeSelectors: [

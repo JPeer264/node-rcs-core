@@ -1,5 +1,6 @@
 import selectorsLibrary from '../selectorsLibrary';
 import keyframesLibrary from '../keyframesLibrary';
+import cssVariablesLibrary from '../cssVariablesLibrary';
 
 export interface LoadMappingOptions {
   origValues?: boolean;
@@ -56,6 +57,10 @@ const load = (mapping: Mapping, options: LoadMappingOptions = {}): void => {
 
   Object.entries(sortedSelectors).forEach(([key, value]) => {
     switch (key.charAt(0)) {
+      case '-':
+        cssVariablesLibrary.set(`-${key}`, value);
+        break;
+
       case '@':
         keyframesLibrary.set(key, value);
         break;
