@@ -2,6 +2,7 @@
 
 ## Methods
 - [generate](#generate)
+- [load](#load)
 
 ### generate
 
@@ -10,14 +11,9 @@
 **rcs.statistics.generate()**
 
 Returns object with:
-- classUsageCount `<Object>`: Key is the class and value is how often this selector got used
-- idUsageCount `<Object>`: Same as `classUsageCount`, but for ids
-- unsusedClasses `<String[]>`: A list of unused classes
-- unsusedIds `<String[]>`: A list of unused ids
-- unsusedKeyframes `<String[]>`: A list of unused keyframes
-- keyframesUsageCount `<Object>`: Same as `classUsageCount`, but for keyframes
-- unsusedCssVariables `<String[]>`: A list of unused css variables
-- cssVariablesUsageCount `<Object>`: Same as `classUsageCount`, but for css variables
+- ['ids' | 'classes' | 'cssVariables' | 'keyframes']:
+  - unused `<Number>`: the count of the given object
+  - usageCount `<Object>`: The key is the given variable and the value is the count
 
 Example:
 
@@ -30,5 +26,44 @@ rcs.replace.html('<div class="selector used"></div>');
 rcs.replace.css('#id {} .selector {} .used {}');
 
 // analyze
-const stats = rcs.stats();
+const stats = rcs.statistics.generate();
+
+/**
+ * will generate:
+ *
+ * {
+ *   ids: {
+ *     unused: 0,
+ *     usageCount: {
+ *       id: 1,
+ *     },
+ *   },
+ *   classes: {
+ *     unsused: 1,
+ *     usageCount: {
+ *       selector: 1,
+ *       used: 1,
+ *       '.not-used': 0,
+ *     },
+ *   },
+ *   cssVariables: {
+ *     unused: 0,
+ *     usageCount: {},
+ *   },
+ *   keyframes: {
+ *     unused: 0,
+ *     usageCount: {},
+ *   },
+ * }
+ */
+
 ```
+
+### load
+
+> Load some previous generated statistics
+
+**rcs.statistics.load(statisticsMap)**
+
+Parameters:
+- statisticsMap `<Object>`: The produced map of [rcs.statistics.generate](#generate)

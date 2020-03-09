@@ -11,7 +11,7 @@ export interface UsageCount {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const stats = () => {
+const generate = () => {
   const classSelector = selectorsLibrary.getClassSelector();
   const idSelector = selectorsLibrary.getIdSelector();
   const cssVariables = Object.entries(cssVariablesLibrary.meta);
@@ -68,4 +68,4 @@ const stats = () => {
   };
 };
 
-export default stats;
+export default generate;

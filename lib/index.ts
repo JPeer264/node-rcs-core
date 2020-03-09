@@ -11,6 +11,7 @@ import generate from './mapping/generate';
 import load from './mapping/load';
 
 import generateStats from './statistics/generate';
+import loadStats from './statistics/load';
 
 import extractFromHtml from './helpers/extractFromHtml';
 import htmlToAst from './helpers/htmlToAst';
@@ -35,6 +36,7 @@ export default {
   },
   statistics: {
     generate: generateStats,
+    load: loadStats,
   },
   warnings,
 };
