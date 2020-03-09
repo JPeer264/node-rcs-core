@@ -10,6 +10,8 @@ import cssVariablesLibrary from './cssVariablesLibrary';
 import generate from './mapping/generate';
 import load from './mapping/load';
 
+import generateStats from './statistics/generate';
+
 import extractFromHtml from './helpers/extractFromHtml';
 import htmlToAst from './helpers/htmlToAst';
 import warnings from './allWarnings';
@@ -30,6 +32,9 @@ export default {
   mapping: {
     generate,
     load,
+  },
+  statistics: {
+    generate: generateStats,
   },
   warnings,
 };

@@ -1,4 +1,4 @@
-import rcs from '../lib';
+import rcs from '../../lib';
 
 beforeEach(() => {
   rcs.selectorsLibrary.reset();
@@ -10,7 +10,7 @@ it('replace js and get correct classes', () => {
   rcs.selectorsLibrary.fillLibrary('#id {} .selector {} .not-used {} .used {}');
   rcs.replace.js('var a = \'.selector .used #id\';');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
@@ -20,7 +20,7 @@ it('replace js and get correct classes and ids', () => {
   rcs.selectorsLibrary.fillLibrary('#id {} .selector {} .not-used {} .used {}');
   rcs.replace.js('var a = ".selector .used";');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual(['id']);
@@ -33,7 +33,7 @@ it('replace html and get correct classes and ids', () => {
   rcs.selectorsLibrary.fillLibrary('#id {} .selector {} .not-used {} .used {}');
   rcs.replace.html('<div class="selector id used"></div>');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual(['id']);
@@ -45,7 +45,7 @@ it('replace html and get correct classes and ids', () => {
   rcs.selectorsLibrary.fillLibrary('#id {} .selector {} .not-used {} .used {}');
   rcs.replace.html('<div class="selector used"></div>');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual(['id']);
@@ -57,7 +57,7 @@ it('replace css and get correct classes and ids', () => {
   rcs.selectorsLibrary.fillLibrary('#id {} .selector {} .not-used {} .used {}');
   rcs.replace.css('#id {} .selector {} .used {}');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
@@ -71,7 +71,7 @@ it('replace all and get correct classes and ids', () => {
   rcs.replace.html('<div class="selector used"></div>');
   rcs.replace.js('var a = "used";');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
@@ -87,7 +87,7 @@ it('replace all and get correct classes and ids with all matching css variables'
   rcs.replace.html('<div class="selector used"></div>');
   rcs.replace.js('var a = "used";');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
@@ -104,7 +104,7 @@ it('replace all and get correct classes and ids with css variables', () => {
   rcs.replace.html('<div class="selector used"></div>');
   rcs.replace.js('var a = "used";');
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.classes.unsused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
@@ -120,8 +120,18 @@ it('replace css and get correct keyframes count', () => {
   rcs.keyframesLibrary.fillLibrary(css);
   rcs.replace.css(css);
 
-  const stats = rcs.stats();
+  const stats = rcs.statistics.generate();
 
   expect(stats.keyframes.usageCount).toEqual({ 'another-move': 0, move: 1 });
   expect(stats.keyframes.unused).toEqual(['another-move']);
+});
+
+it('should have deperaction warning', () => {
+  // eslint-disable-next-line no-console
+  console.warn = jest.fn();
+
+  rcs.stats();
+
+  // eslint-disable-next-line no-console
+  expect(console.warn).toHaveBeenCalledTimes(1);
 });
