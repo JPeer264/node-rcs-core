@@ -1,3 +1,10 @@
+3.1.0 - March, 09 2020
+
+* 989fcd2 Feat: add css variables to mapping (JPeer264)
+* 739fc79 Feat: add keyframes, attributeSelectors (JPeer264)
+* 00a5c02 Docs: add mapping documentation (JPeer264)
+* 9cb18e5 Feat: add mapping for selectors (JPeer264)
+
 3.0.4 - March, 05 2020
 
 * 82dd759 Test: wording (JPeer264)
