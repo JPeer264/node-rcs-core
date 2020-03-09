@@ -4,7 +4,7 @@ import replaceRegex from './replace/regex';
 import { NameGenerator } from './nameGenerator';
 import { BaseLibrary, BaseLibraryOptions } from './baseLibrary';
 
-interface AttributeSelector {
+export interface AttributeSelector {
   type: string;
   originalString: string;
   regexType: string;
