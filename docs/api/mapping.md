@@ -17,7 +17,6 @@ Parameters:
 Example:
 
 ```js
-
 const rcs = require('rcs-core');
 
 rcs.fillLibraries(`
@@ -76,3 +75,47 @@ const mapping = rcs.mapping.generate();
  *   }
  * }
  */
+```
+
+### load
+
+> Loads an already generated mapping
+
+**rcs.mapping.load(mapping[, options])**
+
+Parameters:
+- mapping `<Object>`:
+  - attributeSelectors `<Array>` (optional): An array of strings
+  - selectors `<Object>` (optional): A set of key value pairs, where the key is the selector and the value is the shortened name
+- options `<Object>`:
+  - origValues `<Boolean>`: If `false` the key/value pairs are reversed. Default: `true`
+
+**Prefixes in `attributeSelectors`:**
+
+First prefix is `.` or `#` depending if it is a `class` or an `id`.
+
+Second prefix is the css attribute selector type: [all types are supported](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors#Syntax)
+
+**Prefixes in `selectors`:**
+
+`@`: Keyframes<br />
+`.`: Classes<br />
+`#`: IDs<br />
+`-`: CSS Variables<br />
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.mapping.load({
+  attributeSelectors: ['.^sel', '.*beta', '.|f'],
+  selectors: {
+    '.my-selector': 'a',
+    '#my-id': 'a',
+    '.test-selector': 'b',
+    '.selector': 'selt',
+    '-var': 'a',
+  },
+});
+```
