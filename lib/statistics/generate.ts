@@ -54,7 +54,7 @@ const generate = () => {
       usageCount: idUsageCount,
     },
     classes: {
-      unsused: unusedClasses,
+      unused: unusedClasses,
       usageCount: classUsageCount,
     },
     cssVariables: {

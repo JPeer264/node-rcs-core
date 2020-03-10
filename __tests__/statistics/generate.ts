@@ -12,7 +12,7 @@ it('replace js and get correct classes', () => {
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
 });
 
@@ -22,7 +22,7 @@ it('replace js and get correct classes and ids', () => {
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual(['id']);
   expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
   expect(stats.ids.usageCount).toEqual({ id: 0 });
@@ -35,7 +35,7 @@ it('replace html and get correct classes and ids', () => {
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual(['id']);
   expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
   expect(stats.ids.usageCount).toEqual({ id: 0 });
@@ -47,7 +47,7 @@ it('replace html and get correct classes and ids', () => {
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual(['id']);
   expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
   expect(stats.ids.usageCount).toEqual({ id: 0 });
@@ -59,7 +59,7 @@ it('replace css and get correct classes and ids', () => {
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
   expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 1, selector: 1 });
   expect(stats.ids.usageCount).toEqual({ id: 1 });
@@ -73,7 +73,7 @@ it('replace all and get correct classes and ids', () => {
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
   expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
   expect(stats.ids.usageCount).toEqual({ id: 1 });
@@ -89,7 +89,7 @@ it('replace all and get correct classes and ids with all matching css variables'
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
   expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
   expect(stats.ids.usageCount).toEqual({ id: 1 });
@@ -106,7 +106,7 @@ it('replace all and get correct classes and ids with css variables', () => {
 
   const stats = rcs.statistics.generate();
 
-  expect(stats.classes.unsused).toEqual(['not-used']);
+  expect(stats.classes.unused).toEqual(['not-used']);
   expect(stats.ids.unused).toEqual([]);
   expect(stats.classes.usageCount).toEqual({ 'not-used': 0, used: 3, selector: 2 });
   expect(stats.ids.usageCount).toEqual({ id: 1 });
