@@ -1,7 +1,7 @@
 .box-xs, .box-sm, .box-md, .box-lg {
   margin: 10px;
 }
-.footer > [class^='box-'] {
+.my-footer > [class^='box-'] {
   display: flex;
   align-items: center
 }

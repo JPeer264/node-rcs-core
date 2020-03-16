@@ -45,6 +45,16 @@ it('get | should not get any', () => {
   expect(selector).toBe('nothing-to-get');
 });
 
+it('get | should not get any excludeList selector', () => {
+  rcs.selectorsLibrary.set('.test');
+  rcs.selectorsLibrary.set('.header');
+  rcs.selectorsLibrary.set('.new-selector');
+
+  expect(rcs.selectorsLibrary.get('.test')).toBe('a');
+  expect(rcs.selectorsLibrary.get('.header')).toBe('.header');
+  expect(rcs.selectorsLibrary.get('.new-selector')).toBe('b');
+});
+
 it('get | return correct selector when addSelectorType is false and selector not set', () => {
   setSelectors();
 
@@ -101,13 +111,13 @@ it('get | should not get excluded selector', () => {
 });
 
 it('get | insure no mix if using existing selector', () => {
-  setSelectors();
+  rcs.selectorsLibrary.set('.test', 'renamed_test');
 
   const testSelector = rcs.selectorsLibrary.get('test');
-  const aSelector = rcs.selectorsLibrary.get('a');
+  const aSelector = rcs.selectorsLibrary.get('renamed_test');
 
-  expect(testSelector).toBe('a');
-  expect(aSelector).not.toBe('a');
+  expect(testSelector).toBe('renamed_test');
+  expect(aSelector).not.toBe('renamed_test');
 });
 
 it('get | insure no mix between id and class selector', () => {

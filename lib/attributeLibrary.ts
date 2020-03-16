@@ -1,6 +1,7 @@
 import { parse } from 'postcss';
 
 import replaceRegex from './replace/regex';
+import excludeList from './helpers/excludeList';
 import { NameGenerator } from './nameGenerator';
 import { BaseLibrary, BaseLibraryOptions } from './baseLibrary';
 
@@ -335,6 +336,14 @@ export class AttributeLibrary extends BaseLibrary {
         this.compressedValues[r] = key;
       }
     });
+  }
+
+  isExcluded(string: string): boolean {
+    if (excludeList.includes(string)) {
+      return true;
+    }
+
+    return super.isExcluded(string);
   }
 
   replaceAttributeSelector(selector: string): string | false {

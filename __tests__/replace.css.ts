@@ -166,7 +166,7 @@ it('attribute selectors $', () => {
 
 it('match after pseudo element', () => {
   replaceCssMacro(
-    '.div:hover .anotherdiv,.anotherdiv.somediv{}',
+    '.my-div:hover .anotherdiv,.anotherdiv.somediv{}',
     '.a:hover .b,.b.c{}',
   );
 });
