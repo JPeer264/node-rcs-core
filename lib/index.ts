@@ -6,6 +6,7 @@ import * as nameGenerator from './nameGenerator';
 import selectorsLibrary from './selectorsLibrary';
 import keyframesLibrary from './keyframesLibrary';
 import cssVariablesLibrary from './cssVariablesLibrary';
+import optimize from './optimize';
 
 import generate from './mapping/generate';
 import load from './mapping/load';
@@ -34,6 +35,7 @@ export default {
     generate,
     load,
   },
+  optimize,
   statistics: {
     generate: generateStats,
     load: loadStats,
