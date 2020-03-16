@@ -1,3 +1,10 @@
+3.2.0 - March, 16 2020
+
+* 347b639 Fix: statistics had unsused instead of unused (JPeer264)
+* b894240 Feat: add load to statistics (JPeer264)
+* 95a3441 Feat: add rcs.statistics.generate | deprecate rcs.stats (JPeer264)
+* 69e5ec2 Docs: add missing load doc (JPeer264)
+
 3.1.0 - March, 09 2020
 
 * 989fcd2 Feat: add css variables to mapping (JPeer264)
