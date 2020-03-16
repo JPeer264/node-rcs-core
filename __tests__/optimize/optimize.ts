@@ -23,9 +23,9 @@ test('should optimize', () => {
   rcs.mapping.load({
     selectors: {
       '#test': 'a',
-      '.c': 'a',
-      '.b': 'b',
-      '.a': 'c',
+      '.ca': 'a',
+      '.ba': 'b',
+      '.aa': 'c',
     },
   });
   rcs.statistics.load({
@@ -56,9 +56,9 @@ test('should optimize', () => {
   expect(rcs.mapping.generate()).toEqual({
     selectors: {
       '#test': 'a',
-      '.a': 'a',
-      '.b': 'b',
-      '.c': 'c',
+      '.aa': 'a',
+      '.ba': 'b',
+      '.ca': 'c',
     },
   });
 });
