@@ -20,6 +20,10 @@ import { Statistic } from '../statistics/generate';
  * Length:
  *   'short-selector': 14
  *   'a-very-long-selector': 20
+ *
+ * In this case 'short-selector' is used much more often
+ * so multiplying with the length will output the total
+ * amount of saved chars
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 const sortSelectors = (selectors: string[][], statistic: Statistic): string[] => {
