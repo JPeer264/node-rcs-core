@@ -1,3 +1,7 @@
+3.3.0 - March, 17 2020
+
+* bbd93bc Feat: add basic exclude list to make the renaming safer (closes #110) (JPeer264)
+
 3.2.0 - March, 16 2020
 
 * 347b639 Fix: statistics had unsused instead of unused (JPeer264)
