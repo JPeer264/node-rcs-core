@@ -208,9 +208,9 @@ export class AttributeLibrary extends BaseLibrary {
     );
   }
 
-  getAll(opts: Omit<GetAllOptions, 'regex'> & { regex: true }): RegExp | undefined;
+  getAll(opts?: Omit<GetAllOptions, 'regex'> & { regex: true }): RegExp | undefined;
 
-  getAll(opts: Omit<GetAllOptions, 'regex'> & { regex?: false }): { [s: string]: string };
+  getAll(opts?: Omit<GetAllOptions, 'regex'> & { regex?: false }): { [s: string]: string };
 
   getAll(opts: GetAllOptions = {}): { [s: string]: string } | RegExp | undefined {
     let originalSelector;
