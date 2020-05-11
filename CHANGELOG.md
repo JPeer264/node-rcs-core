@@ -1,3 +1,8 @@
+3.3.1 - May, 11 2020
+
+* cd47f54 Chore: fix types for AttributeLibrary.getAll (JPeer264)
+* c5e9f0d Chore: add funding.yml (Jan Peer Stöcklmair)
+
 3.3.0 - March, 17 2020
 
 * bbd93bc Feat: add basic exclude list to make the renaming safer (closes #110) (JPeer264)
