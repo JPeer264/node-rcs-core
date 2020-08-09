@@ -34,7 +34,13 @@ rcs.fillLibraries(fs.readFileSync('./src/styles.css', 'utf8'));
 rcs.selectorsLibrary.setExclude('selector-to-ignore');
 ```
 
-2. Rewrite all files
+2. Optimize the selectors compression (optional)
+
+```js
+rcs.optimize();
+```
+
+3. Rewrite all files
 
 > **Note:** Do not forget to replace your CSS file
 

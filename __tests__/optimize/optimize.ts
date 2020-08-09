@@ -7,12 +7,36 @@ beforeEach(() => {
   rcs.keyframesLibrary.reset();
   rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
+  rcs.statistics.load(undefined);
 });
 
-test('should ignore everything without selectors', () => {
+test('should ignore everything without selectors but with statistics', () => {
   const input = { };
 
   rcs.mapping.load(input);
+  rcs.statistics.load({
+    ids: {
+      unused: [],
+      usageCount: {
+        test: 2,
+      },
+    },
+    classes: {
+      unused: [],
+      usageCount: {
+        'my-selector': 2,
+      },
+    },
+    keyframes: {
+      unused: [],
+      usageCount: {},
+    },
+    cssVariables: {
+      unused: [],
+      usageCount: {},
+    },
+  });
+
   rcs.optimize();
 
   expect(rcs.mapping.generate()).toEqual(input);

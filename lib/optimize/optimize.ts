@@ -19,7 +19,12 @@ const optimize = (): void => {
   // sorting
   // renaming into new mapping
   const separateMapping = separateMappingSelectors(mapping.selectors);
-  const optimizedMapping: { [key in keyof ReturnType<typeof generateStatistics>]?: string[] } = {};
+  const optimizedMapping: { [key in keyof ReturnType<typeof generateStatistics>]: string[] } = {
+    ids: [],
+    classes: [],
+    keyframes: [],
+    cssVariables: [],
+  };
 
   // optimize each library
   Object.entries(separateMapping).forEach(([key, selectors]) => {
@@ -37,10 +42,6 @@ const optimize = (): void => {
 
   // fill libraries with optimized mapping
   Object.entries(optimizedMapping).forEach(([key, selectors]) => {
-    if (!selectors) {
-      return;
-    }
-
     switch (key) {
       case 'ids':
         selectors.forEach((selector) => selectorsLibrary.set(`#${selector}`));
