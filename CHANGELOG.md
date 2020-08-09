@@ -1,3 +1,8 @@
+3.4.0 - August, 09 2020
+
+* c32aa0e Docs: improve optimize docs (JPeer264)
+* 6dc7b0c Feat: add first draft of optimize (closes #111) (#114) (Jan Peer Stöcklmair)
+
 3.3.1 - May, 11 2020
 
 * cd47f54 Chore: fix types for AttributeLibrary.getAll (JPeer264)
