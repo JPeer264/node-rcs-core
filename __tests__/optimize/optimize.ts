@@ -1,10 +1,4 @@
 import rcs from '../../lib';
-import sortSelectors from '../../lib/optimize/sortSelectors';
-
-jest.mock('../../lib/optimize/sortSelectors');
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockedSortSelectors = (sortSelectors as any) as jest.Mock<typeof sortSelectors>;
 
 beforeEach(() => {
   rcs.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
@@ -13,13 +7,34 @@ beforeEach(() => {
   rcs.keyframesLibrary.reset();
   rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcs.selectorsLibrary.reset();
-
-  mockedSortSelectors.mockImplementation((array) => (
-    array.map(([selector]) => selector).sort()
-  ));
 });
 
-test('should optimize', () => {
+test('should ignore everything without selectors', () => {
+  const input = { };
+
+  rcs.mapping.load(input);
+  rcs.optimize();
+
+  expect(rcs.mapping.generate()).toEqual(input);
+});
+
+test('should ignore when no statistics are available', () => {
+  const input = {
+    selectors: {
+      '#test': 'a',
+      '.ca': 'a',
+      '.ba': 'b',
+      '.aa': 'c',
+    },
+  };
+
+  rcs.mapping.load(input);
+  rcs.optimize();
+
+  expect(rcs.mapping.generate()).toEqual(input);
+});
+
+test('should optimize without usageCount', () => {
   rcs.mapping.load({
     selectors: {
       '#test': 'a',
@@ -56,9 +71,114 @@ test('should optimize', () => {
   expect(rcs.mapping.generate()).toEqual({
     selectors: {
       '#test': 'a',
-      '.aa': 'a',
+      '.aa': 'c',
       '.ba': 'b',
-      '.ca': 'c',
+      '.ca': 'a',
+    },
+  });
+});
+
+test('should optimize with usageCount', () => {
+  rcs.mapping.load({
+    selectors: {
+      '#test': 'a',
+      '.ca': 'a',
+      '.ba': 'b',
+      '.aa': 'c',
+    },
+  });
+  rcs.statistics.load({
+    ids: {
+      unused: [],
+      usageCount: {
+        test: 2,
+      },
+    },
+    classes: {
+      unused: [],
+      usageCount: {
+        ca: 3,
+        ba: 10,
+      },
+    },
+    keyframes: {
+      unused: [],
+      usageCount: {},
+    },
+    cssVariables: {
+      unused: [],
+      usageCount: {},
+    },
+  });
+
+  rcs.optimize();
+
+  expect(rcs.mapping.generate()).toEqual({
+    selectors: {
+      '#test': 'a',
+      '.aa': 'c',
+      '.ba': 'a',
+      '.ca': 'b',
+    },
+  });
+});
+
+test('should optimize everything', () => {
+  rcs.mapping.load({
+    selectors: {
+      '#a-first': 'a',
+      '#b-second': 'b',
+      '.a-first': 'a',
+      '.b-second': 'b',
+      '@a-first': 'a',
+      '@b-second': 'b',
+      '-a-first': 'a',
+      '-b-second': 'b',
+    },
+  });
+  rcs.statistics.load({
+    ids: {
+      unused: [],
+      usageCount: {
+        'a-first': 1,
+        'b-second': 3,
+      },
+    },
+    classes: {
+      unused: [],
+      usageCount: {
+        'a-first': 1,
+        'b-second': 3,
+      },
+    },
+    keyframes: {
+      unused: [],
+      usageCount: {
+        'a-first': 1,
+        'b-second': 3,
+      },
+    },
+    cssVariables: {
+      unused: [],
+      usageCount: {
+        'a-first': 1,
+        'b-second': 3,
+      },
+    },
+  });
+
+  rcs.optimize();
+
+  expect(rcs.mapping.generate()).toEqual({
+    selectors: {
+      '#a-first': 'b',
+      '#b-second': 'a',
+      '.a-first': 'b',
+      '.b-second': 'a',
+      '@a-first': 'b',
+      '@b-second': 'a',
+      '-a-first': 'b',
+      '-b-second': 'a',
     },
   });
 });

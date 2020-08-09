@@ -24,7 +24,7 @@ const optimize = (): void => {
   // optimize each library
   Object.entries(separateMapping).forEach(([key, selectors]) => {
     const statisticsData = statistics[key as 'ids'];
-    const newSortedSelectors = sortSelectors(selectors, statisticsData);
+    const newSortedSelectors = sortSelectors(selectors.map(([s]) => s), statisticsData);
 
     optimizedMapping[key as 'ids'] = newSortedSelectors;
   });
