@@ -10,6 +10,11 @@ export interface UsageCount {
   [s: string]: number;
 }
 
+export interface Statistic {
+  unused: string[];
+  usageCount: UsageCount;
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const generate = () => {
   const classSelector = selectorsLibrary.getClassSelector();
