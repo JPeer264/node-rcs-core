@@ -7,6 +7,7 @@ import selectorsLibrary from '../selectorsLibrary';
 import replaceJs from './js';
 import replaceCss from './css';
 import htmlToAst from '../helpers/htmlToAst';
+import replaceString from './string';
 
 // todo jpeer: update options
 export type EspreeOptions = any;
@@ -69,8 +70,12 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
         node.attrs.forEach((attr: Attr) => {
           let selectorType: string | undefined;
 
+          const isVueClass = attr.name === 'v-bind:class' || attr.name === ':class';
+          const isVueId = attr.name === 'v-bind:id' || attr.name === ':id';
+
           if (
             attr.name === 'class'
+            || isVueClass
             || options.triggerClassAttributes.some((item) => (
               shouldTriggerAttribute(attr, item)
             ))
@@ -80,6 +85,7 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
 
           if (
             attr.name === 'id'
+            || isVueId
             || options.triggerIdAttributes.some((item) => (
               shouldTriggerAttribute(attr, item)
             ))
@@ -97,22 +103,40 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
 
           // following will replace each whitespace
           // seperated value with its renamed one
-          // eslint-disable-next-line no-param-reassign
-          attr.value = attr.value
-            .split(' ')
-            .map((value) => (
-              // renaming each value
-              selectorsLibrary
-                .get(`${selectorType}${value}`, {
-                  source: {
-                    file: opts.sourceFile || '',
-                    line: node.sourceCodeLocation.startLine,
-                    text: '',
-                  },
-                })
-                .replace(new RegExp(`^\\${selectorType}`), '')
-            ))
-            .join(' ');
+          if (isVueClass || isVueId) {
+            // eslint-disable-next-line no-param-reassign
+            attr.value = attr.value.replace(/'[\s\S]*?'|"[\s\S]*?"/g, (match) => {
+              const replacedString = replaceString(match, undefined, {
+                forceReplace: true,
+                source: {
+                  file: opts.sourceFile || '',
+                  line: node.sourceCodeLocation.startLine,
+                  text: '',
+                },
+              });
+
+              // in case HTML has been written with wrong quotes
+              // turn them back as parse5 will serialize it correctly
+              return replacedString.replace(/"/g, "'");
+            });
+          } else {
+            // eslint-disable-next-line no-param-reassign
+            attr.value = attr.value
+              .split(' ')
+              .map((value) => (
+                // renaming each value
+                selectorsLibrary
+                  .get(`${selectorType}${value}`, {
+                    source: {
+                      file: opts.sourceFile || '',
+                      line: node.sourceCodeLocation.startLine,
+                      text: '',
+                    },
+                  })
+                  .replace(new RegExp(`^\\${selectorType}`), '')
+              ))
+              .join(' ');
+          }
         });
       }
     },

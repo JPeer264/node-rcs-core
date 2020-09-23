@@ -104,8 +104,19 @@ it('replace multiple strings', () => {
 });
 
 it('does not replace the text', () => {
+  rcs.selectorsLibrary.set('.test');
+
   const expectedString = '"   test "';
   const replacedString = rcs.replace.string('"   test "', getRegex());
+
+  expect(replacedString).toBe(expectedString);
+});
+
+it('does force replace the text', () => {
+  rcs.selectorsLibrary.set('.test');
+
+  const expectedString = '"   a "';
+  const replacedString = rcs.replace.string('"   test "', getRegex(), { forceReplace: true });
 
   expect(replacedString).toBe(expectedString);
 });
