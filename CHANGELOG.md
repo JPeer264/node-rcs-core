@@ -1,3 +1,7 @@
+3.5.0 - September, 23 2020
+
+* 076761e Feat: replace vue class selectors (#117) (Jan Peer Stöcklmair)
+
 3.4.0 - August, 09 2020
 
 * c32aa0e Docs: improve optimize docs (JPeer264)
