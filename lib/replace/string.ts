@@ -10,11 +10,12 @@ export interface ReplaceStringOptions extends BaseLibraryOptions {
   classOnly?: boolean;
   isJSX?: boolean;
   addSelectorType?: boolean;
+  forceReplace?: boolean;
 }
 
 const replaceString = (
   string: string,
-  regex: RegExp,
+  regex?: RegExp,
   options: ReplaceStringOptions = {},
 ): string => {
   let result;
@@ -100,7 +101,12 @@ const replaceString = (
 
     previousAttr = interestingValue;
 
-    if (surelySelector && !startWithSelector && (!prevEqual || !isAttributeInteresting)) {
+    if (
+      !options.forceReplace
+      && surelySelector
+      && !startWithSelector
+      && (!prevEqual || !isAttributeInteresting)
+    ) {
       // expecting a selector, but got a tag name, let's return it unmodified
       // except for "class=" or "id=" or "for="
       return startSplitChar + tempElement;
