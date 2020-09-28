@@ -12,6 +12,7 @@ It basically just rename/minify all CSS selectors in all files. First the librar
 
 Some live projects:
 - AMP Project ([https://amp.dev/](https://amp.dev/))
+- Analyse ([https://analyse.org/](https://analyse.org/))
 - My personal webpage ([https://jpeer.at/](https://jpeer.at/))
 
 ## Installation
