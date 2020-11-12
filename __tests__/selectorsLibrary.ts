@@ -45,6 +45,21 @@ it('get | should not get any', () => {
   expect(selector).toBe('nothing-to-get');
 });
 
+it('get | should get a value with line breaks and whitespace', () => {
+  rcs.selectorsLibrary.set('.test');
+
+  expect(rcs.selectorsLibrary.get('.test\n')).toBe('a\n');
+  expect(rcs.selectorsLibrary.get('.test  ')).toBe('a  ');
+  expect(rcs.selectorsLibrary.get('   .test\n')).toBe('   a\n');
+  expect(rcs.selectorsLibrary.get(`
+    .test
+
+  `)).toBe(`
+    a
+
+  `);
+});
+
 it('get | should not get any excludeList selector', () => {
   rcs.selectorsLibrary.set('.test');
   rcs.selectorsLibrary.set('.header');

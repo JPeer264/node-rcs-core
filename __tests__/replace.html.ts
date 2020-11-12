@@ -274,3 +274,19 @@ it('should replace vue class bindings | issue gulp-rcs#14', () => {
     `,
   );
 });
+
+it('should replace line breaks | issue rename-css-selectors#70', () => {
+  replaceHtmlMacro(
+    '.container {} .text-center {} .d-flex {} .flex-column {} .justify-content-center {} .align-items-center {} .align-content-center {} .ct-fluid {}',
+    `
+      <div class="container text-center d-flex flex-column justify-content-center align-items-center
+          align-content-center ct-fluid">
+      </div>
+    `,
+    `
+      <div class="a b c d e f
+          g h">
+      </div>
+    `,
+  );
+});
