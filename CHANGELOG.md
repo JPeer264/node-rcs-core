@@ -1,3 +1,8 @@
+3.5.1 - November, 12 2020
+
+* 0537718 Fix: get values even if they have some line breaks and whitespaces (JPeer264)
+* af50ba1 Docs: add Analyse.org (Jan Peer Stöcklmair)
+
 3.5.0 - September, 23 2020
 
 * 076761e Feat: replace vue class selectors (#117) (Jan Peer Stöcklmair)
