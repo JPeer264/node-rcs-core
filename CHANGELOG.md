@@ -1,3 +1,8 @@
+3.6.0 - January, 07 2021
+
+* 9f59986 Feat: setInclude | warn on already excluded values (#121) (Jan Peer Stöcklmair)
+* 2907583 Chore(deps): bump lodash from 4.17.15 to 4.17.20 (#118) (dependabot[bot])
+
 3.5.1 - November, 12 2020
 
 * 0537718 Fix: get values even if they have some line breaks and whitespaces (JPeer264)
