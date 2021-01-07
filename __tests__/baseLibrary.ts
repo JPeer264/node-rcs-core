@@ -164,6 +164,14 @@ it('setExclude | should enable excludes', () => {
   expect(rcs.baseLibrary.excludes.length).toBe(2);
 });
 
+it('setInclude | should enable includes', () => {
+  rcs.baseLibrary.setExclude('one-value');
+  rcs.baseLibrary.setInclude('second-value');
+
+  expect(rcs.baseLibrary.excludes.length).toBe(1);
+  expect(rcs.baseLibrary.includes.length).toBe(1);
+});
+
 /* ********** */
 /* ISEXCLUDED */
 /* ********** */

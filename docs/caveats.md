@@ -24,7 +24,7 @@ HTML replacement should be quite solid for now, since the core can inspect attri
 
 ## Caveats for step 2
 
-> **tl;dr:** Do not name your selectors like standard HTML attributes. Such selectors are [excluded by default](https://github.com/JPeer264/node-rcs-core/blob/master/lib/helpers/excludeList.ts)
+> **tl;dr:** Do not name your selectors like standard HTML attributes. Such selectors are [excluded by default](../lib/helpers/excludeList.ts)
 
 It's very important that the assigned *minified* name for each entry does not collide with a valid CSS selector that you could encounter.
 Paradoxically, if your initial selectors are very large, you'll have less chances to encounter an issue. Using `rcs-core` or any of its [plugins](../README.md#plugins) in your pipeline should encourage more meaningful selectors in your file.

@@ -99,6 +99,25 @@ rcs.baseLibrary.set('anything'); // will not set the minified one, as it matches
 rcs.baseLibrary.get('anything'); // anything
 ```
 
+### setInclude
+
+> To include values which has been already excluded before
+
+**rcs.baseLibrary.setInclude(value)**
+
+Parameters:
+- value `<String | RegExp>`
+
+Example:
+
+```js
+const rcs = require('rcs-core');
+
+rcs.baseLibrary.setInclude('center');
+
+rcs.baseLibrary.set('center'); // will be minified although it is ignored by default
+```
+
 ### isExcluded
 
 > Checks if the string is excluded, which was set by `rcs.baseLibrary.setExclude`

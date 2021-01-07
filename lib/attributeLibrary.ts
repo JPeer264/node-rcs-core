@@ -122,6 +122,12 @@ export class AttributeLibrary extends BaseLibrary {
     return false;
   }
 
+  constructor() {
+    super();
+
+    this.setExclude(excludeList);
+  }
+
   // Get the selector char for this child class
   selectorFirstChar = (): string => '#';
 
@@ -139,6 +145,7 @@ export class AttributeLibrary extends BaseLibrary {
     super.reset();
 
     this.attributeSelectors = {};
+    this.setExclude(excludeList);
   }
 
   fillLibrary(data: string | Buffer, options = {}): ReturnType<BaseLibrary['fillLibrary']> {
@@ -336,14 +343,6 @@ export class AttributeLibrary extends BaseLibrary {
         this.compressedValues[r] = key;
       }
     });
-  }
-
-  isExcluded(string: string): boolean {
-    if (excludeList.includes(string)) {
-      return true;
-    }
-
-    return super.isExcluded(string);
   }
 
   replaceAttributeSelector(selector: string): string | false {

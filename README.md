@@ -32,13 +32,17 @@ $ yarn add rcs-core
 
 ## Usage
 
+> **Note** couple of selectors are [excluded by default](./lib/helpers/excludeList.ts). You can activate them by using `.setInclude` **before** you fill the library
+
 1. Fill your library with all selectors (we assume there is just one CSS file)
 
 ```js
-rcs.fillLibraries(fs.readFileSync('./src/styles.css', 'utf8'));
-
 // excluding specific selectors
 rcs.selectorsLibrary.setExclude('selector-to-ignore');
+// include specific selectors which has been ignored by default
+rcs.selectorsLibrary.setInclude('center');
+
+rcs.fillLibraries(fs.readFileSync('./src/styles.css', 'utf8'));
 ```
 
 2. Optimize the selectors compression (optional)
