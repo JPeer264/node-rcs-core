@@ -80,6 +80,10 @@ export class SelectorsLibrary extends BaseLibrary {
     this.callOnBoth<BaseLibrary['setExclude']>('setExclude', ...args);
   }
 
+  setInclude(...args: Parameters<BaseLibrary['setInclude']>): ReturnType<BaseLibrary['setInclude']> {
+    this.callOnBoth<BaseLibrary['setInclude']>('setInclude', ...args);
+  }
+
   setReserved(...args: Parameters<BaseLibrary['setReserved']>): ReturnType<BaseLibrary['setReserved']> {
     this.callOnBoth<BaseLibrary['setReserved']>('setReserved', ...args);
   }

@@ -4,7 +4,7 @@
   "description": "Rename css selectors across all files",
   "main": "dest",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "tsc --noEmit && jest --coverage",
     "build": "rimraf dest && tsc && babel dest -d dest",
     "lint": "eslint lib/**/*.ts __tests__/**/*.ts",
     "fix": "eslint lib/**/*.ts __tests__/**/*.ts --fix",

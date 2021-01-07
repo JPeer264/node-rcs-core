@@ -25,6 +25,10 @@ export class BaseLibrary {
 
   excludesRegex: (RegExp | string)[] = [];
 
+  includes: string[] = [];
+
+  includesRegex: (RegExp | string)[] = [];
+
   prefix = '';
 
   suffix = '';
@@ -36,7 +40,7 @@ export class BaseLibrary {
   } = {};
 
   static hasReservedValue(value: string, source?: Source): string {
-    warnings.append(value, source);
+    warnings.append(value, source, 'compressed');
 
     return `${value}_conflict`;
   }
@@ -58,6 +62,8 @@ export class BaseLibrary {
     this.reserved = [];
     this.excludes = [];
     this.excludesRegex = [];
+    this.includes = [];
+    this.includesRegex = [];
     this.prefix = '';
     this.suffix = '';
     this.meta = {};
@@ -110,6 +116,8 @@ export class BaseLibrary {
 
     // fail on setted excludes
     if (this.isExcluded(finalValue)) {
+      warnings.append(finalValue, opts.source, 'ignoredFound');
+
       return value;
     }
 
@@ -260,25 +268,37 @@ export class BaseLibrary {
     this.suffix = suffix;
   }
 
-  setExclude(toExclude: string | RegExp | (string | RegExp)[]): void {
-    if (!toExclude) return;
+  private setInternalLists(
+    string: string | RegExp | (string | RegExp)[],
+    listPointer: string[],
+    regexListPointer: (string | RegExp)[],
+  ): void {
+    if (!string) return;
 
-    if (Array.isArray(toExclude)) {
-      toExclude.forEach((e) => this.setExclude(e));
+    if (Array.isArray(string)) {
+      string.forEach((e) => this.setInternalLists(e, listPointer, regexListPointer));
 
       return;
     }
 
     // todo jpeer: check if failes
-    if (this.excludes.includes(toExclude as any) || this.excludesRegex.includes(toExclude)) {
+    if (listPointer.includes(string as any) || regexListPointer.includes(string)) {
       return;
     }
 
-    if (toExclude instanceof RegExp) {
-      (this.excludesRegex).push(toExclude);
+    if (string instanceof RegExp) {
+      (regexListPointer).push(string);
     } else {
-      (this.excludes).push(toExclude);
+      (listPointer).push(string);
     }
+  }
+
+  setExclude(toExclude: string | RegExp | (string | RegExp)[]): void {
+    this.setInternalLists(toExclude, this.excludes, this.excludesRegex);
+  }
+
+  setInclude(toInclude: string | RegExp | (string | RegExp)[]): void {
+    this.setInternalLists(toInclude, this.includes, this.includesRegex);
   }
 
   setReserved(toReserve: string | string[]): void {
@@ -302,13 +322,19 @@ export class BaseLibrary {
       // Since this.values['__proto__'] always exists, we mustn't accept this as a renaming
       return true;
     }
+
     if (this.excludes.includes(string)) {
-      return true;
+      if (this.includesRegex.some((includeRegex) => string.match(includeRegex))) {
+        return false;
+      }
+
+      return !this.includes.includes(string);
     }
 
     return (
       this.excludesRegex.some((excludeRegex) => (
         string.match(excludeRegex)
+        && !this.includesRegex.some((includeRegex) => string.match(includeRegex))
       ))
     );
   }

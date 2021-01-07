@@ -96,3 +96,19 @@ test('should generate attribute selectors mapping', () => {
   expect(rcs.selectorsLibrary.get('.a-test')).toBe('a');
   expect(rcs.selectorsLibrary.get('#a-selector')).toBe('tsen');
 });
+
+test('should include center (#119)', () => {
+  rcs.selectorsLibrary.setInclude('center');
+
+  rcs.mapping.load({
+    selectors: {
+      '.pv5-m': 'py-4',
+      '.w-100-m': 'w-full-m',
+      '.center': 'mx-auto',
+    },
+  });
+
+  expect(rcs.selectorsLibrary.get('.pv5-m')).toBe('py-4');
+  expect(rcs.selectorsLibrary.get('.w-100-m')).toBe('w-full-m');
+  expect(rcs.selectorsLibrary.get('.center')).toBe('mx-auto');
+});
