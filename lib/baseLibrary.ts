@@ -36,7 +36,7 @@ export class BaseLibrary {
   } = {};
 
   static hasReservedValue(value: string, source?: Source): string {
-    warnings.append(value, source);
+    warnings.append(value, source, 'compressed');
 
     return `${value}_conflict`;
   }

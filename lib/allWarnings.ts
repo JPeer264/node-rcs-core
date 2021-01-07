@@ -4,9 +4,20 @@ export interface Source {
   text: string;
 }
 
+export type WarningTypes = 'compressed' | 'ignoredFound';
+
 export class Warnings {
   ranOnMinifiedFiles = false;
 
+  list: Record<WarningTypes, { [s: string]: Source[] }> = {
+    compressed: {},
+    ignoredFound: {},
+  };
+
+  /**
+  * @deprecated This has been renamed to
+  *   'rcs.warnings.list.compressed' instead of 'rcs.warnings.warningArray
+  */
   warningArray: { [s: string]: Source[] } = {};
 
   constructor() {
@@ -24,30 +35,38 @@ export class Warnings {
   }
 
   reset(): void {
-    this.warningArray = {};
+    this.list = {
+      compressed: {},
+      ignoredFound: {},
+    };
     this.ranOnMinifiedFiles = false;
   }
 
-  append(value: string, source: Source | undefined): void {
-    if (value in this.warningArray) {
-      if (
-        source
-        && (
-          this.warningArray[value].findIndex((e) => ((
-            e.file === source.file && e.line === source.line)
-          )) === -1
-        )
-      ) {
-        this.warningArray[value].push(source);
+  append(value: string, source: Source | undefined, warningType: WarningTypes = 'compressed'): void {
+    if (warningType === 'compressed') {
+      if (value in this.list) {
+        if (
+          source
+          && (
+            this.list[warningType][value].findIndex((e) => ((
+              e.file === source.file && e.line === source.line)
+            )) === -1
+          )
+        ) {
+          this.list[warningType][value].push(source);
+        }
+      } else {
+        this.list[warningType][value] = source ? [source] : [];
       }
-    } else {
-      this.warningArray[value] = source ? [source] : [];
+
+      this.warningArray = this.list.compressed;
     }
   }
 
   warn(): void {
-    const keys = Object.keys(this.warningArray);
-    if (!keys.length) return;
+    const compressedEntries = Object.entries(this.list.compressed);
+
+    if (!compressedEntries.length) return;
 
     // eslint-disable-next-line no-console
     console.warn('WARNING: The following selectors were not found in the rename table, but '
@@ -63,8 +82,8 @@ export class Warnings {
 
     // eslint-disable-next-line no-console
     console.warn('The failing selector are:');
-    keys.forEach((key) => {
-      const line = this.warningArray[key];
+
+    compressedEntries.forEach(([key, line]) => {
       if (line.length) {
         // eslint-disable-next-line no-console
         console.warn(` - '${key}' found in: `);
