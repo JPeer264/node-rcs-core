@@ -60,6 +60,9 @@ const css = rcs.replace.css(fs.readFileSync('./src/styles.css', 'utf8'));
 const js = rcs.replace.js(fs.readFileSync('./src/App.js', 'utf8'));
 const html = rcs.replace.html(fs.readFileSync('./src/index.html', 'utf8'));
 
+// output some warnings which has been stacked through the process
+rcs.warnings.warn();
+
 fs.writeFileSync('./dist/styles.css', css);
 fs.writeFileSync('./dist/App.js', js);
 fs.writeFileSync('./dist/index.html', html);
