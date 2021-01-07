@@ -122,8 +122,8 @@ export class AttributeLibrary extends BaseLibrary {
     return false;
   }
 
-  constructor() {
-    super();
+  constructor(name?: string) {
+    super(name);
 
     this.setExclude(excludeList);
   }
