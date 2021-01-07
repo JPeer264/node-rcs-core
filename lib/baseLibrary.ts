@@ -110,6 +110,8 @@ export class BaseLibrary {
 
     // fail on setted excludes
     if (this.isExcluded(finalValue)) {
+      warnings.append(finalValue, opts.source, 'ignoredFound');
+
       return value;
     }
 

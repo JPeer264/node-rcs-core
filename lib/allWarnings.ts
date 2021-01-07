@@ -43,47 +43,34 @@ export class Warnings {
   }
 
   append(value: string, source: Source | undefined, warningType: WarningTypes = 'compressed'): void {
-    if (warningType === 'compressed') {
-      if (value in this.list) {
-        if (
-          source
-          && (
-            this.list[warningType][value].findIndex((e) => ((
-              e.file === source.file && e.line === source.line)
-            )) === -1
-          )
-        ) {
-          this.list[warningType][value].push(source);
-        }
-      } else {
-        this.list[warningType][value] = source ? [source] : [];
-      }
+    const typeList = this.list[warningType];
 
-      this.warningArray = this.list.compressed;
+    // check if these values are some reserved values like __proto__
+    // as these can be found in the ignored selectors
+    if (value in typeList && !typeList[value].findIndex) {
+      return;
     }
+
+    if (value in typeList) {
+      if (
+        source
+        && (
+          typeList[value].findIndex((e) => ((
+            e.file === source.file && e.line === source.line)
+          )) === -1
+        )
+      ) {
+        typeList[value].push(source);
+      }
+    } else {
+      typeList[value] = source ? [source] : [];
+    }
+
+    this.warningArray = this.list.compressed;
   }
 
-  warn(): void {
-    const compressedEntries = Object.entries(this.list.compressed);
-
-    if (!compressedEntries.length) return;
-
-    // eslint-disable-next-line no-console
-    console.warn('WARNING: The following selectors were not found in the rename table, but '
-      + 'appears in the compressed map. In order to avoid that some other selectors '
-      + 'are used instead, they were appended with \'_conflict\'. You need to fix this '
-      + 'either by:\n');
-    // eslint-disable-next-line no-console
-    console.warn('- Creating a CSS rule with the selector name and re-run the process, or');
-    // eslint-disable-next-line no-console
-    console.warn('- Excluding the selectors so it\'s not renamed, or');
-    // eslint-disable-next-line no-console
-    console.warn('- Adding the value to the reserved selectors table so it\'s not used as a possible short name\n\n');
-
-    // eslint-disable-next-line no-console
-    console.warn('The failing selector are:');
-
-    compressedEntries.forEach(([key, line]) => {
+  private warnList = (list: { [s: string]: Source[] }): void => {
+    Object.entries(list).forEach(([key, line]) => {
       if (line.length) {
         // eslint-disable-next-line no-console
         console.warn(` - '${key}' found in: `);
@@ -94,11 +81,44 @@ export class Warnings {
         console.warn(` - '${key}'`);
       }
     });
+  }
 
-    if (this.ranOnMinifiedFiles) {
+  warn(): void {
+    const compressedEntries = Object.entries(this.list.compressed);
+    const ignoredFoundEntries = Object.entries(this.list.ignoredFound);
+
+    // warn if some ignored selectors has been searched for
+    if (ignoredFoundEntries.length) {
+      console.warn('WARNING: The following selectors got found but were ignored. '
+        + 'please check if you do not want to allow these selectors instead');
+
+      this.warnList(this.list.ignoredFound);
+    }
+
+    // warn if compressed selectors has been found
+    if (compressedEntries.length) {
       // eslint-disable-next-line no-console
-      console.warn('WARNING: You shouldn\'t run this software on minified files as it\'ll be '
-        + 'hard to debug errors whenever they happens.\n');
+      console.warn('WARNING: The following selectors were not found in the rename table, but '
+        + 'appears in the compressed map. In order to avoid that some other selectors '
+        + 'are used instead, they were appended with \'_conflict\'. You need to fix this '
+        + 'either by:\n');
+      // eslint-disable-next-line no-console
+      console.warn('- Creating a CSS rule with the selector name and re-run the process, or');
+      // eslint-disable-next-line no-console
+      console.warn('- Excluding the selectors so it\'s not renamed, or');
+      // eslint-disable-next-line no-console
+      console.warn('- Adding the value to the reserved selectors table so it\'s not used as a possible short name\n\n');
+
+      // eslint-disable-next-line no-console
+      console.warn('The failing selector are:');
+
+      this.warnList(this.list.compressed);
+
+      if (this.ranOnMinifiedFiles) {
+        // eslint-disable-next-line no-console
+        console.warn('WARNING: You shouldn\'t run this software on minified files as it\'ll be '
+          + 'hard to debug errors whenever they happens.\n');
+      }
     }
   }
 }
