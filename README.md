@@ -15,6 +15,12 @@ Some live projects:
 - Analyse ([https://analyse.org/](https://analyse.org/))
 - My personal webpage ([https://jpeer.at/](https://jpeer.at/))
 
+## Caveats
+
+Correctly using `rcs-core` or any of its [plugins](#plugins) on large project means few rules should be followed.
+
+[This document](docs/caveats.md) explains most of them.
+
 ## Installation
 ```sh
 $ npm install --save rcs-core
