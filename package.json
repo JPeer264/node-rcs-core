@@ -49,7 +49,7 @@
     "lodash.merge": "^4.6.2",
     "parse5": "^5.1.1",
     "parse5-traverse": "^1.0.3",
-    "postcss": "^7.0.26",
+    "postcss": "^8.2.10",
     "pug-code-gen": "^2.0.2",
     "pug-lexer": "^4.1.0",
     "pug-parser": "^5.0.1",
