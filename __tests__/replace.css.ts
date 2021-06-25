@@ -634,3 +634,12 @@ it('should classes with square brackets | rcs-core#133', () => {
     '.a.b[class="test"] {bottom: 99999px;}',
   );
 });
+
+it('should classes with and ignore them | rcs-core#133', () => {
+  rcs.selectorsLibrary.setExclude('bottom-[99999px]');
+
+  replaceCssMacro(
+    '.test\\:hello.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
+    '.a.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
+  );
+});
