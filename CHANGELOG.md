@@ -1,3 +1,7 @@
+3.6.2 - June, 25 2021
+
+* 992dfe7 Fix: also add escaped brackets (closes #133) (#135) (Jan Peer Stöcklmair)
+
 3.6.1 - June, 25 2021
 
 * 66cc023 Fix: do not remove special characters when there is no match (#130) (Jan Peer Stöcklmair)
