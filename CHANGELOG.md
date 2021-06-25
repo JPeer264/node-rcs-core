@@ -1,3 +1,7 @@
+3.6.1 - June, 25 2021
+
+* 66cc023 Fix: do not remove special characters when there is no match (#130) (Jan Peer Stöcklmair)
+
 3.6.0 - January, 07 2021
 
 * 9f59986 Feat: setInclude | warn on already excluded values (#121) (Jan Peer Stöcklmair)
