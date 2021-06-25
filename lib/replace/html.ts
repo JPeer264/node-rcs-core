@@ -36,7 +36,10 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
       // rename <script> tags
       if (
         node.parentNode
-        && node.parentNode.tagName === 'script'
+        && (
+          node.parentNode.tagName === 'script'
+          || node.parentNode.tagName === 'noscript'
+        )
       ) {
         const hasAnyAttrs = node.parentNode.attrs.length === 0;
         const hasType = node.parentNode.attrs.some((attr: Attr) => attr.name === 'type');

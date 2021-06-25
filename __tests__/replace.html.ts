@@ -290,3 +290,11 @@ it('should replace line breaks | issue rename-css-selectors#70', () => {
     `,
   );
 });
+
+it('should replace everything in noscript tags | #134', () => {
+  replaceHtmlMacro(
+    '.text-h2 {} .text-gray-800 {} .font-heading {}',
+    '<noscript><p class="text-h2 text-gray-800 font-heading">Some text goes here</p></noscript>',
+    '<noscript><p class="a b c">Some text goes here</p></noscript>',
+  );
+});
