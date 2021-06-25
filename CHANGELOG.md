@@ -1,3 +1,7 @@
+3.6.4 - June, 25 2021
+
+* 2385e68 Fix: use replaceHTML for noscript tags (ref: #134) (JPeer264)
+
 3.6.3 - June, 25 2021
 
 * 9b87f3c Fix: replace noscript html elements (closes #134) (JPeer264)
