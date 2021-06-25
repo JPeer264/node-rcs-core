@@ -9,6 +9,8 @@ const resultsCwd = '__tests__/files/results';
 function replaceCssMacro(input, expected = input, options = {}): void {
   rcs.fillLibraries(input, options);
 
+  rcs.optimize();
+
   expect(rcs.replace.css(input)).toBe(expected);
   expect(rcs.replace.css(Buffer.from(input))).toBe(expected);
 }
