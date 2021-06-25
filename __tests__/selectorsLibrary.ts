@@ -5,7 +5,7 @@ const setSelectors = (): void => {
   rcs.selectorsLibrary.set([
     '.test',
     '#id',
-    '.jp-selector',
+    '.bottom-\\[9px\\]',
   ]);
 };
 
@@ -244,7 +244,7 @@ it('getall | should return an array with selectors', () => {
   });
 
   expect(array['.test']).toBeTruthy();
-  expect(array['.jp-selector']).toBeTruthy();
+  expect(array['.bottom-[9px]']).toBeTruthy();
 
   expect(array['.a']).toBeFalsy();
   expect(array['.b']).toBeFalsy();
@@ -293,7 +293,7 @@ it('getall | should return a regex of non compressed with classes', () => {
     addSelectorType: true,
   });
 
-  expect(regex.source).toBe('(\\#id)|(\\.jp-selector|\\.test)');
+  expect(regex.source).toBe('(\\#id)|(\\.bottom-\\[9px]|\\.test)');
 });
 
 it('getall | should return a regex of non compressed selecotrs', () => {
@@ -311,7 +311,7 @@ it('getall | should return a regex of compressed selectors', () => {
 
   const regex = rcs.selectorsLibrary.getAllRegex();
 
-  expect(regex.source).toBe('((\\s|\\#)(id)[\\s)])|((\\s|\\.)(jp-selector|test)[\\s)])');
+  expect(regex.source).toBe('((\\s|\\#)(id)[\\s)])|((\\s|\\.)(bottom-\\[9px]|test)[\\s)])');
 });
 
 it('getall | should get all setted classes', () => {
@@ -322,7 +322,7 @@ it('getall | should get all setted classes', () => {
   expect(typeof array).toBe('object');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect((array as any).test).toBe('a');
-  expect(array['jp-selector']).toBe('b');
+  expect(array['bottom-[9px]']).toBe('b');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -340,7 +340,7 @@ it('getall | should get all setted compressed classes', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect((array as any).a).toBe('test');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  expect((array as any).b).toBe('jp-selector');
+  expect((array as any).b).toBe('bottom-[9px]');
 
   array = rcs.selectorsLibrary.getIdSelector().getAll({
     getRenamedValues: true,
@@ -522,19 +522,19 @@ it('setAttributeSelector | should set attribute all attribute selectors', () => 
 it('setAttributeSelector | attribute selector should fix previous mapping (see #96)', () => {
   setSelectors();
 
-  let dotTestSelector = rcs.selectorsLibrary.get('.jp-selector');
+  let dotTestSelector = rcs.selectorsLibrary.get('.bottom-[9px]');
   expect(dotTestSelector).toBe('b');
 
   rcs.selectorsLibrary.getClassSelector().setAttributeSelector([
-    '[class^=jp-]',
+    '[class^=bottom-]',
   ]);
 
-  dotTestSelector = rcs.selectorsLibrary.get('.jp-selector');
-  expect(dotTestSelector).toBe('jp-t');
+  dotTestSelector = rcs.selectorsLibrary.get('.bottom-[9px]');
+  expect(dotTestSelector).toBe('bottom-t');
 
-  rcs.selectorsLibrary.set('.jp-trick');
-  dotTestSelector = rcs.selectorsLibrary.get('.jp-trick');
-  expect(dotTestSelector).toBe('jp-n');
+  rcs.selectorsLibrary.set('.bottom-trick');
+  dotTestSelector = rcs.selectorsLibrary.get('.bottom-trick');
+  expect(dotTestSelector).toBe('bottom-n');
 });
 
 /* ************************ *

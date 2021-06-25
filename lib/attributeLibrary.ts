@@ -173,11 +173,13 @@ export class AttributeLibrary extends BaseLibrary {
     repObj: Parameters<BaseLibrary['prepareValue']>[0],
     options: AttributeLibraryOptions = {},
   ): ReturnType<BaseLibrary['prepareValue']> {
-    if (!this.isValidSelector(repObj.value)) {
-      return false;
+    const replacedObject = { ...repObj };
+
+    if (!this.isValidSelector(replacedObject.value)) {
+      return null;
     }
 
-    const escapeFreeSelector = AttributeLibrary.removePseudoElements(repObj.value);
+    const escapeFreeSelector = AttributeLibrary.removePseudoElements(replacedObject.value);
 
     // checks if this value was already set
     const realSelector = escapeFreeSelector.slice(1, escapeFreeSelector.length);
@@ -186,18 +188,22 @@ export class AttributeLibrary extends BaseLibrary {
       const newName = this.replaceAttributeSelector(escapeFreeSelector);
 
       if (newName) {
-        // eslint-disable-next-line no-param-reassign
-        repObj.renamedValue = newName;
+        replacedObject.renamedValue = newName;
       }
     }
 
-    if (repObj.renamedValue !== undefined && AttributeLibrary.isSelector(repObj.renamedValue)) {
-      // eslint-disable-next-line no-param-reassign
-      repObj.renamedValue = repObj.renamedValue.slice(1, repObj.renamedValue.length);
+    if (
+      replacedObject.renamedValue !== undefined
+      && AttributeLibrary.isSelector(replacedObject.renamedValue)
+    ) {
+      replacedObject.renamedValue = (
+        replacedObject.renamedValue.slice(1, replacedObject.renamedValue.length)
+      );
     }
-    // eslint-disable-next-line no-param-reassign
-    repObj.value = realSelector;
-    return true;
+
+    replacedObject.value = realSelector;
+
+    return replacedObject;
   }
 
   // todo jpeer: #104 remove any
@@ -260,9 +266,9 @@ export class AttributeLibrary extends BaseLibrary {
 
     if (options.regex) {
       const regex = options.addSelectorType
-        ? new RegExp(resultArray.map((v) => `\\${v}`).join('|'), 'g')
+        ? new RegExp(resultArray.map((v) => `\\${v.replace(/\[/, '\\[')}`).join('|'), 'g')
         // the next MUST be options.regex === true
-        : new RegExp(`(\\s|\\${this.selectorFirstChar()})(${resultArray.join('|')})[\\s)]`, 'g');
+        : new RegExp(`(\\s|\\${this.selectorFirstChar()})(${resultArray.map((v) => v.replace(/\[/, '\\[')).join('|')})[\\s)]`, 'g');
 
       const regexResult = resultArray.length === 0 ? undefined : regex;
 

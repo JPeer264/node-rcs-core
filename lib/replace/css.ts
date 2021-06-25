@@ -89,16 +89,29 @@ const replaceCss = (css: string | Buffer, opts: ReplaceCssOptions = {}): string 
       }
 
       // eslint-disable-next-line no-param-reassign
-      node.selectors = node.selectors.map((selector: string) => {
-        const prefixFreeSelector = selector.replace(/\\/g, '');
+      node.selectors = node.selectors.map((selector: string) => selector
+        // split selectors so it is easier to skip non matching selectors
+        .split('#')
+        .map((splittedSelector) => {
+          const splittedSelectorWithDot = `#${splittedSelector}`;
+          const prefixFreeSelector = splittedSelectorWithDot.replace(/\\/g, '');
 
-        return prefixFreeSelector.replace(regex, (match) => (
-          selectorLib.get(match, {
-            addSelectorType: true,
-            source,
-          })
-        ));
-      });
+          // prevent returning prefixFreeSelectors
+          // when there is not even a match
+          if (!prefixFreeSelector.match(regex)) {
+            return splittedSelector;
+          }
+
+          return prefixFreeSelector
+            .replace(regex, (match) => (
+              selectorLib.get(match, {
+                addSelectorType: true,
+                source,
+              })
+            ))
+            .slice(1);
+        })
+        .join('#'));
     }
   });
 
@@ -118,22 +131,29 @@ const replaceCss = (css: string | Buffer, opts: ReplaceCssOptions = {}): string 
       }
 
       // eslint-disable-next-line no-param-reassign
-      node.selectors = node.selectors.map((selector: string) => {
-        const prefixFreeSelector = selector.replace(/\\/g, '');
+      node.selectors = node.selectors.map((selector: string) => selector
+        // split selectors so it is easier to skip non matching selectors
+        .split('.')
+        .map((splittedSelector) => {
+          const splittedSelectorWithDot = `.${splittedSelector}`;
+          const prefixFreeSelector = splittedSelectorWithDot.replace(/\\/g, '');
 
-        // prevent returning prefixFreeSelectors
-        // when there is not even a match
-        if (!prefixFreeSelector.match(regex)) {
-          return selector;
-        }
+          // prevent returning prefixFreeSelectors
+          // when there is not even a match
+          if (!prefixFreeSelector.match(regex)) {
+            return splittedSelector;
+          }
 
-        return prefixFreeSelector.replace(regex, (match) => (
-          selectorLib.get(match, {
-            addSelectorType: true,
-            source,
-          })
-        ));
-      });
+          return prefixFreeSelector
+            .replace(regex, (match) => (
+              selectorLib.get(match, {
+                addSelectorType: true,
+                source,
+              })
+            ))
+            .slice(1);
+        })
+        .join('.'));
     }
   });
 

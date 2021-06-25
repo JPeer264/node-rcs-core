@@ -9,6 +9,8 @@ const resultsCwd = '__tests__/files/results';
 function replaceCssMacro(input, expected = input, options = {}): void {
   rcs.fillLibraries(input, options);
 
+  rcs.optimize();
+
   expect(rcs.replace.css(input)).toBe(expected);
   expect(rcs.replace.css(Buffer.from(input))).toBe(expected);
 }
@@ -625,5 +627,21 @@ it('should replace excluded special characters | rename-css-selectors#77', () =>
   replaceCssMacro(
     '.somediv\\:test-me{}.anotherdiv{}',
     '.somediv\\:test-me{}.a{}',
+  );
+});
+
+it('should classes with square brackets | rcs-core#133', () => {
+  replaceCssMacro(
+    '.test\\:hello.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
+    '.a.b[class="test"] {bottom: 99999px;}',
+  );
+});
+
+it('should classes with and ignore them | rcs-core#133', () => {
+  rcs.selectorsLibrary.setExclude('bottom-[99999px]');
+
+  replaceCssMacro(
+    '.test\\:hello.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
+    '.a.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
   );
 });
