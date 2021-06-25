@@ -36,10 +36,7 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
       // rename <script> tags
       if (
         node.parentNode
-        && (
-          node.parentNode.tagName === 'script'
-          || node.parentNode.tagName === 'noscript'
-        )
+        && node.parentNode.tagName === 'script'
       ) {
         const hasAnyAttrs = node.parentNode.attrs.length === 0;
         const hasType = node.parentNode.attrs.some((attr: Attr) => attr.name === 'type');
@@ -60,6 +57,12 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
           // eslint-disable-next-line no-param-reassign
           node.value = replaceJs(node.value, merge({}, options.espreeOptions, srcOpt));
         }
+      }
+
+      // rename <noscript> tags
+      if (node.parentNode && node.parentNode.tagName === 'noscript') {
+        // eslint-disable-next-line no-param-reassign
+        node.value = replaceHtml(node.value, opts);
       }
 
       // rename <style> tags

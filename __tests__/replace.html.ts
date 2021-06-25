@@ -298,3 +298,11 @@ it('should replace everything in noscript tags | #134', () => {
     '<noscript><p class="a b c">Some text goes here</p></noscript>',
   );
 });
+
+it('should replace everything in noscript tags | #134', () => {
+  replaceHtmlMacro(
+    '.text-h2 {}',
+    '<noscript><img class="text-h2"></noscript>',
+    '<noscript><img class="a"></noscript>',
+  );
+});
