@@ -93,8 +93,8 @@ export class BaseLibrary {
     replacementObject: { value: string; renamedValue: string | undefined },
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     opts: BaseLibraryOptions,
-  ): boolean {
-    return true;
+  ): { value: string; renamedValue: string | undefined } | null {
+    return replacementObject;
   }
 
   // Transform the fetched value before returning.
@@ -178,8 +178,9 @@ export class BaseLibrary {
       return;
     }
 
-    const repObj = { value, renamedValue: thisRenamedValue };
-    if (!this.prepareValue(repObj, options)) {
+    const repObj = this.prepareValue({ value, renamedValue: thisRenamedValue }, options);
+
+    if (!repObj) {
       return;
     }
 

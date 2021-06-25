@@ -627,3 +627,10 @@ it('should replace excluded special characters | rename-css-selectors#77', () =>
     '.somediv\\:test-me{}.a{}',
   );
 });
+
+it('should classes with square brackets | rcs-core#133', () => {
+  replaceCssMacro(
+    '.test\\:hello.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
+    '.a.b[class="test"] {bottom: 99999px;}',
+  );
+});

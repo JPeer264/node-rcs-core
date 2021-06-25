@@ -1,5 +1,10 @@
+/* eslint-disable max-len */
 export default {
-  selectors: /(#|\.)[^\s.{)[>+,~"]+/g, // matches all selectors beginning with . or # - e.g. .matching#alsomatch .matchmetoo
+  //                          - matches all selectors beginning with . or # - e.g. .matching#alsomatch .matchmetoo
+  //                         |            - matches backslash and something after
+  //                         |           |           - matches everything after AGAIN, basically a copy from the beginning
+  //                 (       v       )(  v  )(      v      )
+  selectors: /(#|\.)[^\s.{)>+,~")[\\]+(\\.)?[^\s.{)>+,~")[]+/g,
   strings: /"\s*[\S\s]*?\s*"|'\s*[\S\s]*?\s*'/g, // matches strings such as: 'hello' or "hello"
   classAttributeSelectors: /\[\s*(class)\s*([*^$|~]?)=\s*("[^\]]*?"|'[^\]]*?'|[^\]]*)[^\]]*?\]/g, // matches attribute selectors of html just with class in it with `$=`, `^=` or `*=`, e.g.: [class*="selector"]. 3 group matches, first `class`, second regex operator, third the string
   idAttributeSelectors: /\[\s*(id|for)\s*([*^$|~]?)=\s*("[^\]]*?"|'[^\]]*?'|[^\]]*)[^\]]*?\]/g, // matches attribute selectors of html just with 'for' or 'id' in it with `$=`, `^=` or `*=`, e.g.: [id*="selector"]. 3 group matches, first `for` or `id`, second regex operator, third the string
