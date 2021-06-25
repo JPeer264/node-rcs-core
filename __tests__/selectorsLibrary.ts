@@ -45,6 +45,21 @@ it('get | should not get any', () => {
   expect(selector).toBe('nothing-to-get');
 });
 
+it('get | should get a value with line breaks and whitespace', () => {
+  rcs.selectorsLibrary.set('.test');
+
+  expect(rcs.selectorsLibrary.get('.test\n')).toBe('a\n');
+  expect(rcs.selectorsLibrary.get('.test  ')).toBe('a  ');
+  expect(rcs.selectorsLibrary.get('   .test\n')).toBe('   a\n');
+  expect(rcs.selectorsLibrary.get(`
+    .test
+
+  `)).toBe(`
+    a
+
+  `);
+});
+
 it('get | should not get any excludeList selector', () => {
   rcs.selectorsLibrary.set('.test');
   rcs.selectorsLibrary.set('.header');
@@ -108,6 +123,67 @@ it('get | should not get excluded selector', () => {
 
   expect(dotTestSelector).toBe('.test');
   expect(testSelector).toBe('test');
+});
+
+it('get | should include already excluded selector', () => {
+  setSelectors();
+
+  rcs.selectorsLibrary.set('center');
+  rcs.selectorsLibrary.setExclude('test');
+
+  const ignoredSelector = rcs.selectorsLibrary.get('.test');
+
+  rcs.selectorsLibrary.setInclude('test');
+
+  const includedSelector = rcs.selectorsLibrary.get('.test');
+
+  expect(ignoredSelector).toBe('.test');
+  expect(includedSelector).toBe('a');
+});
+
+it('get | should include already pre excluded types', () => {
+  rcs.selectorsLibrary.set('.center');
+
+  const ignoredSelector = rcs.selectorsLibrary.get('.center');
+
+  rcs.selectorsLibrary.setInclude('center');
+  rcs.selectorsLibrary.set('.center');
+
+  const includedSelector = rcs.selectorsLibrary.get('.center');
+
+  expect(ignoredSelector).toBe('.center');
+  expect(includedSelector).toBe('a');
+});
+
+it('get | should include already pre excluded types as regex', () => {
+  rcs.selectorsLibrary.set('.center');
+
+  const ignoredSelector = rcs.selectorsLibrary.get('.center');
+
+  rcs.selectorsLibrary.setInclude(/cen/);
+  rcs.selectorsLibrary.set('.center');
+
+  const includedSelector = rcs.selectorsLibrary.get('.center');
+
+  expect(ignoredSelector).toBe('.center');
+  expect(includedSelector).toBe('a');
+});
+
+it('get | should include already pre excluded types as both regex', () => {
+  rcs.selectorsLibrary.setExclude(/tes/);
+
+  const ignoredSelector = rcs.selectorsLibrary.get('.test');
+
+  rcs.selectorsLibrary.setInclude(/te/);
+  rcs.selectorsLibrary.set('.test');
+  rcs.selectorsLibrary.set('.telescope');
+
+  const includedSelector = rcs.selectorsLibrary.get('.test');
+  const anotherIncludedSelector = rcs.selectorsLibrary.get('.telescope');
+
+  expect(ignoredSelector).toBe('.test');
+  expect(includedSelector).toBe('a');
+  expect(anotherIncludedSelector).toBe('b');
 });
 
 it('get | insure no mix if using existing selector', () => {

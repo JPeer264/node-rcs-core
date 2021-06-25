@@ -248,3 +248,45 @@ it('should ignore JSON | issue #70', () => {
     `,
   );
 });
+
+it('should replace vue class bindings | issue gulp-rcs#14', () => {
+  replaceHtmlMacro(
+    '.selector {} .another-selector {} .more-selectors {} #my-id {} #second-id {}',
+    `
+      <div :class='{ "selector another-selector": active }'></div>
+      <div v-bind:class="{ 'selector another-selector': active }"></div>
+      <div v-bind:id="{ 'my-id second-id': active }"></div>
+      <div :class="{
+        'selector another-selector': active,
+        'more-selectors': active,
+        'another-selector selector': active,
+      }"></div>
+    `,
+    `
+      <div :class="{ 'a b': active }"></div>
+      <div v-bind:class="{ 'a b': active }"></div>
+      <div v-bind:id="{ 'a b': active }"></div>
+      <div :class="{
+        'a b': active,
+        'c': active,
+        'b a': active,
+      }"></div>
+    `,
+  );
+});
+
+it('should replace line breaks | issue rename-css-selectors#70', () => {
+  replaceHtmlMacro(
+    '.container {} .text-center {} .d-flex {} .flex-column {} .justify-content-center {} .align-items-center {} .align-content-center {} .ct-fluid {}',
+    `
+      <div class="container text-center d-flex flex-column justify-content-center align-items-center
+          align-content-center ct-fluid">
+      </div>
+    `,
+    `
+      <div class="a b c d e f
+          g h">
+      </div>
+    `,
+  );
+});

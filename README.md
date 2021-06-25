@@ -12,7 +12,14 @@ It basically just rename/minify all CSS selectors in all files. First the librar
 
 Some live projects:
 - AMP Project ([https://amp.dev/](https://amp.dev/))
+- Analyse ([https://analyse.org/](https://analyse.org/))
 - My personal webpage ([https://jpeer.at/](https://jpeer.at/))
+
+## Caveats
+
+Correctly using `rcs-core` or any of its [plugins](#plugins) on large project means few rules should be followed.
+
+[This document](docs/caveats.md) explains most of them.
 
 ## Installation
 ```sh
@@ -25,13 +32,17 @@ $ yarn add rcs-core
 
 ## Usage
 
+> **Note** couple of selectors are [excluded by default](./lib/helpers/excludeList.ts). You can activate them by using `.setInclude` **before** you fill the library
+
 1. Fill your library with all selectors (we assume there is just one CSS file)
 
 ```js
-rcs.fillLibraries(fs.readFileSync('./src/styles.css', 'utf8'));
-
 // excluding specific selectors
 rcs.selectorsLibrary.setExclude('selector-to-ignore');
+// include specific selectors which has been ignored by default
+rcs.selectorsLibrary.setInclude('center');
+
+rcs.fillLibraries(fs.readFileSync('./src/styles.css', 'utf8'));
 ```
 
 2. Optimize the selectors compression (optional)
@@ -48,6 +59,9 @@ rcs.optimize();
 const css = rcs.replace.css(fs.readFileSync('./src/styles.css', 'utf8'));
 const js = rcs.replace.js(fs.readFileSync('./src/App.js', 'utf8'));
 const html = rcs.replace.html(fs.readFileSync('./src/index.html', 'utf8'));
+
+// output some warnings which has been stacked through the process
+rcs.warnings.warn();
 
 fs.writeFileSync('./dist/styles.css', css);
 fs.writeFileSync('./dist/App.js', js);

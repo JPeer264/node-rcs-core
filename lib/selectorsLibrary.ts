@@ -80,6 +80,10 @@ export class SelectorsLibrary extends BaseLibrary {
     this.callOnBoth<BaseLibrary['setExclude']>('setExclude', ...args);
   }
 
+  setInclude(...args: Parameters<BaseLibrary['setInclude']>): ReturnType<BaseLibrary['setInclude']> {
+    this.callOnBoth<BaseLibrary['setInclude']>('setInclude', ...args);
+  }
+
   setReserved(...args: Parameters<BaseLibrary['setReserved']>): ReturnType<BaseLibrary['setReserved']> {
     this.callOnBoth<BaseLibrary['setReserved']>('setReserved', ...args);
   }
@@ -127,19 +131,31 @@ export class SelectorsLibrary extends BaseLibrary {
   }
 
   get(value: string, opts: BaseLibraryOptions = {}): string {
-    const hasType = AttributeLibrary.isSelector(value);
+    const stringifyLineBreaks = value.replace(/\n/g, '\\n');
+    const [beginningWhitespace] = stringifyLineBreaks.match(/^(\\.| )+/) || [''];
+    const [endWhitespace] = stringifyLineBreaks.match(/(\\.| )+$/) || [''];
+    const modifiedValue = stringifyLineBreaks.replace(beginningWhitespace, '').replace(endWhitespace, '');
+    const hasType = AttributeLibrary.isSelector(modifiedValue);
+
+    const reconstructValue = (v: string): string => (
+      (beginningWhitespace + v + endWhitespace).replace(/\\n/g, '\n')
+    );
 
     if (!hasType) {
-      const ret = this.selectors[0].get(value, opts);
+      const ret = this.selectors[0].get(modifiedValue, opts);
 
-      return ret === value ? this.selectors[1].get(value, opts) : ret;
+      return reconstructValue((
+        ret === modifiedValue
+          ? this.selectors[1].get(modifiedValue, opts)
+          : ret
+      ));
     }
 
-    if (this.selectors[0].isValidSelector(value)) {
-      return this.selectors[0].get(value, opts);
+    if (this.selectors[0].isValidSelector(modifiedValue)) {
+      return reconstructValue(this.selectors[0].get(modifiedValue, opts));
     }
 
-    return this.selectors[1].get(value, opts);
+    return reconstructValue(this.selectors[1].get(modifiedValue, opts));
   }
 
   // If it's reserved in any case, consider it reserved everywhere
