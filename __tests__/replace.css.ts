@@ -106,6 +106,7 @@ test('find selectors within targets | gulp-rcs#6', () => {
     '.a .b a[href="#a"]:before{}',
   );
 });
+
 it('should modify the code properly | filter oneline', () => {
   replaceCssMacro(
     '.somediv{filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)}.anotherdiv{display:flex}',
@@ -615,5 +616,14 @@ it('replace css variables with deep nested and multiline | rename-css-selectors#
                 var(--c, var(--a, var(--not-renamed, 5px)))
       }
     `,
+  );
+});
+
+it('should replace excluded special characters | rename-css-selectors#77', () => {
+  rcs.selectorsLibrary.setExclude('somediv:test-me');
+
+  replaceCssMacro(
+    '.somediv\\:test-me{}.anotherdiv{}',
+    '.somediv\\:test-me{}.a{}',
   );
 });

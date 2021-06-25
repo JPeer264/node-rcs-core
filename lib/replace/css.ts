@@ -121,6 +121,12 @@ const replaceCss = (css: string | Buffer, opts: ReplaceCssOptions = {}): string 
       node.selectors = node.selectors.map((selector: string) => {
         const prefixFreeSelector = selector.replace(/\\/g, '');
 
+        // prevent returning prefixFreeSelectors
+        // when there is not even a match
+        if (!prefixFreeSelector.match(regex)) {
+          return selector;
+        }
+
         return prefixFreeSelector.replace(regex, (match) => (
           selectorLib.get(match, {
             addSelectorType: true,
