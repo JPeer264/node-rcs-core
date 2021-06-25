@@ -34,10 +34,7 @@ const replaceHtml = (code: string, opts: ReplaceHtmlOptions = {}): string => {
     // todo jpeer: check correct type
     pre: (node: any) => {
       // rename <script> tags
-      if (
-        node.parentNode
-        && node.parentNode.tagName === 'script'
-      ) {
+      if (node.parentNode && node.parentNode.tagName === 'script') {
         const hasAnyAttrs = node.parentNode.attrs.length === 0;
         const hasType = node.parentNode.attrs.some((attr: Attr) => attr.name === 'type');
         const hasTypeAndJavaScript = (
