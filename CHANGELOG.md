@@ -1,3 +1,7 @@
+3.6.3 - June, 25 2021
+
+* 9b87f3c Fix: replace noscript html elements (closes #134) (JPeer264)
+
 3.6.2 - June, 25 2021
 
 * 992dfe7 Fix: also add escaped brackets (closes #133) (#135) (Jan Peer Stöcklmair)
