@@ -1,3 +1,9 @@
+3.6.5 - July, 14 2021
+
+* aa4fec1 Fix: replace multiple variables after each other (closes #137) (#138) (Jan Peer Stöcklmair)
+* 47f88e2 Chore: add gh workflow (JPeer264)
+* b2fdb13 Style: update styling (JPeer264)
+
 3.6.4 - June, 25 2021
 
 * 2385e68 Fix: use replaceHTML for noscript tags (ref: #134) (JPeer264)
