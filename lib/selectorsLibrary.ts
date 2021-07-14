@@ -2,6 +2,7 @@ import { AttributeLibrary } from './attributeLibrary';
 import idSelectorLibrary, { IdSelectorLibrary } from './idSelectorLibrary';
 import classSelectorLibrary, { ClassSelectorLibrary } from './classSelectorLibrary';
 import { BaseLibrary, BaseLibraryOptions } from './baseLibrary';
+import arrayToRegex from './helpers/arrayToRegex';
 
 // Simple aggregate class to avoid duplicating code dealing with any CSS selector.
 export class SelectorsLibrary extends BaseLibrary {
@@ -127,7 +128,9 @@ export class SelectorsLibrary extends BaseLibrary {
 
     const ret = this.callOnBoth('getAll', options);
 
-    return new RegExp(`(${ret.filter(Boolean).map((x) => x.source).join(')|(')})`, 'g');
+    // null assertion to keep the same functionality
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return arrayToRegex(ret.filter(Boolean).map((x) => x.source))!;
   }
 
   get(value: string, opts: BaseLibraryOptions = {}): string {

@@ -588,38 +588,6 @@ it('replace css variables in calc and multiple variables | rename-css-selectors#
   );
 });
 
-it('replace css variables with deep nested and multiline | rename-css-selectors#43', () => {
-  replaceCssMacro(
-    `
-      :root {
-        --top: 2px;
-        --right: 2px;
-        --left: 2px;
-      }
-
-      .my-selector {
-        margin: var(--top, var(--right))
-                var(--right, var(--top, 3px))
-                5px
-                var(--left, var(--top, var(--not-renamed, 5px)))
-      }
-    `,
-    `
-      :root {
-        --a: 2px;
-        --b: 2px;
-        --c: 2px;
-      }
-
-      .a {
-        margin: var(--a, var(--b))
-                var(--b, var(--a, 3px))
-                5px
-                var(--c, var(--a, var(--not-renamed, 5px)))
-      }
-    `,
-  );
-});
 
 it('should replace excluded special characters | rename-css-selectors#77', () => {
   rcs.selectorsLibrary.setExclude('somediv:test-me');
@@ -643,5 +611,36 @@ it('should classes with and ignore them | rcs-core#133', () => {
   replaceCssMacro(
     '.test\\:hello.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
     '.a.bottom-\\[99999px\\][class="test"] {bottom: 99999px;}',
+  );
+});
+
+it('replace multiple variables after each other | #137', () => {
+  replaceCssMacro(
+    `
+      *, ::before, ::after {
+        --tw-shadow: 0 0 transparent;
+        --tw-ring-offset-shadow: 0 0 transparent;
+        --tw-ring-shadow: 0 0 transparent;
+      }
+
+      .shadow-small {
+        --tw-shadow: 0 2px 4px 0 rgb(151, 145, 151, 0.1);
+        box-shadow: 0 0 transparent, 0 0 transparent, var(--tw-shadow);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
+      }
+    `,
+    `
+      *, ::before, ::after {
+        --a: 0 0 transparent;
+        --b: 0 0 transparent;
+        --c: 0 0 transparent;
+      }
+
+      .a {
+        --a: 0 2px 4px 0 rgb(151, 145, 151, 0.1);
+        box-shadow: 0 0 transparent, 0 0 transparent, var(--a);
+        box-shadow: var(--b, 0 0 transparent), var(--c, 0 0 transparent), var(--a);
+      }
+    `,
   );
 });

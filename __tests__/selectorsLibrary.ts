@@ -233,7 +233,7 @@ it('getall | should return a regex of compressed with classes', () => {
     addSelectorType: true,
   });
 
-  expect(regex.source).toBe('(\\#a)|(\\.a|\\.b)');
+  expect(regex.source).toBe('(\\.a|\\.b)|(\\#a)');
 });
 
 it('getall | should return an array with selectors', () => {
@@ -293,7 +293,7 @@ it('getall | should return a regex of non compressed with classes', () => {
     addSelectorType: true,
   });
 
-  expect(regex.source).toBe('(\\#id)|(\\.bottom-\\[9px]|\\.test)');
+  expect(regex.source).toBe('(\\.bottom-\\[9px]|\\.test)|(\\#id)');
 });
 
 it('getall | should return a regex of non compressed selecotrs', () => {
@@ -303,7 +303,7 @@ it('getall | should return a regex of non compressed selecotrs', () => {
     getRenamedValues: true,
   });
 
-  expect(regex.source).toBe('((\\s|\\#)(a)[\\s)])|((\\s|\\.)(a|b)[\\s)])');
+  expect(regex.source).toBe('((\\s|\\.)(a|b)[\\s)])|((\\s|\\#)(a)[\\s)])');
 });
 
 it('getall | should return a regex of compressed selectors', () => {
@@ -311,7 +311,7 @@ it('getall | should return a regex of compressed selectors', () => {
 
   const regex = rcs.selectorsLibrary.getAllRegex();
 
-  expect(regex.source).toBe('((\\s|\\#)(id)[\\s)])|((\\s|\\.)(bottom-\\[9px]|test)[\\s)])');
+  expect(regex.source).toBe('((\\s|\\.)(bottom-\\[9px]|test)[\\s)])|((\\s|\\#)(id)[\\s)])');
 });
 
 it('getall | should get all setted classes', () => {

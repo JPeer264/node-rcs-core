@@ -1,35 +1,10 @@
 import { parse } from 'postcss';
 
 import cssVariablesLibrary from '../cssVariablesLibrary';
+import arrayToRegex from '../helpers/arrayToRegex';
 import keyframesLibrary from '../keyframesLibrary';
 import selectorsLibrary from '../selectorsLibrary';
 import replaceRegex from './regex';
-
-const extractCssVariables = (value: string): string[] => {
-  const regexMatches = value.match(new RegExp(replaceRegex.cssVariables));
-
-  let matches: string[] = [];
-
-  if (regexMatches) {
-    regexMatches.forEach((matchWithVariables) => {
-      const cssVariableMatch = new RegExp(replaceRegex.cssVariables).exec(matchWithVariables);
-
-      if (!cssVariableMatch) {
-        return;
-      }
-
-      matches = [...matches, cssVariableMatch[1]];
-
-      if (cssVariableMatch[2]) {
-        const innerMatches = extractCssVariables(cssVariableMatch[2]);
-
-        matches = [...matches, ...innerMatches];
-      }
-    });
-  }
-
-  return [...(new Set(matches))];
-};
 
 // calls the selectorLibrary.getAttributeSelector internally
 // String.replace will call this function and
@@ -180,12 +155,14 @@ const replaceCss = (css: string | Buffer, opts: ReplaceCssOptions = {}): string 
     * replace css variables var() *
     * *************************** */
     if (node.value.match(replaceRegex.cssVariables)) {
-      const matches = extractCssVariables(node.value);
+      const regex = arrayToRegex(Object.keys(cssVariablesLibrary.values), (v) => `--${v}`);
 
-      // eslint-disable-next-line no-param-reassign
-      node.value = node.value.replace(new RegExp(matches.join('|'), 'g'), (match: string) => (
-        cssVariablesLibrary.get(match, { source })
-      ));
+      if (regex) {
+        // eslint-disable-next-line no-param-reassign
+        node.value = node.value.replace(regex, (match: string) => (
+          `--${cssVariablesLibrary.get(match.replace(/^--/, ''), { source })}`
+        ));
+      }
     }
 
     /* ******************************************** *
