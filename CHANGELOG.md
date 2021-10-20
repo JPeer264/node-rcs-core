@@ -1,3 +1,7 @@
+3.7.0 - October, 20 2021
+
+* 4a2378c Chore: update dependencies | remove package-lock.json (closes #143) (#144) (Jan Peer Stöcklmair)
+
 3.6.5 - July, 14 2021
 
 * aa4fec1 Fix: replace multiple variables after each other (closes #137) (#138) (Jan Peer Stöcklmair)
