@@ -1,6 +1,6 @@
 import { parse, print } from 'recast';
 import traverse from 'ast-traverse';
-import espree from 'espree';
+import * as espree from 'espree';
 import merge from 'lodash.merge';
 
 import selectorsLibrary from '../selectorsLibrary';
@@ -33,7 +33,7 @@ const replaceJs = (code: string | Buffer, espreeOptions: EspreeOptions = {}): st
 
   const options: EspreeOptions = merge(
     {
-      ecmaVersion: 10,
+      ecmaVersion: 'latest',
       sourceType: 'module',
       ecmaFeatures: {
         jsx: true,

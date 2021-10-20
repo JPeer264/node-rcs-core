@@ -10,3 +10,5 @@ npm-debug.log
 .vscode
 dest
 coverage
+package-lock.json
+yarn.lock
