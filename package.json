@@ -8,7 +8,7 @@
     "build": "rimraf dest && tsc && babel dest -d dest",
     "lint": "eslint lib/**/*.ts __tests__/**/*.ts",
     "fix": "eslint lib/**/*.ts __tests__/**/*.ts --fix",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "husky": {
