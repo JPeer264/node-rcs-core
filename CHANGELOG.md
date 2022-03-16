@@ -1,3 +1,7 @@
+3.7.1 - March, 16 2022
+
+* bb02b33 Fix: do not replace standard html tags (JPeer264)
+
 3.7.0 - October, 20 2021
 
 * 4a2378c Chore: update dependencies | remove package-lock.json (closes #143) (#144) (Jan Peer Stöcklmair)
