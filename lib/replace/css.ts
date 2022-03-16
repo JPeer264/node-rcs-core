@@ -48,12 +48,15 @@ export interface ReplaceCssOptions {
 const replaceCss = (css: string | Buffer, opts: ReplaceCssOptions = {}): string => {
   const cssAST = parse(css);
 
-  /* ******************** *
-   * replace id selectors *
-   * ******************** */
-  cssAST.walk((node: any) => {
+  const walker = (
+    node: any,
+    selectorType: 'class' | 'id',
+  ): void => {
+    const selectorChar = selectorType === 'class' ? '.' : '#';
+    const selectorLib = selectorType === 'class'
+      ? selectorsLibrary.getClassSelector()
+      : selectorsLibrary.getIdSelector();
     const parentName = node.parent.name || '';
-    const selectorLib = selectorsLibrary.getIdSelector();
     const source = { file: opts.sourceFile || '', line: node.source.start.line, text: '' };
 
     if (node.selector && !parentName.match(/keyframes/)) {
@@ -64,74 +67,43 @@ const replaceCss = (css: string | Buffer, opts: ReplaceCssOptions = {}): string 
       }
 
       // eslint-disable-next-line no-param-reassign
-      node.selectors = node.selectors.map((selector: string) => selector
-        // split selectors so it is easier to skip non matching selectors
-        .split('#')
-        .map((splittedSelector) => {
-          const splittedSelectorWithDot = `#${splittedSelector}`;
-          const prefixFreeSelector = splittedSelectorWithDot.replace(/\\/g, '');
+      node.selectors = node.selectors
+        .map((selector: string) => (
+          selector
+            // split selectors so it is easier to skip non matching selectors
+            .replace(
+              replaceRegex.selectors,
+              (splittedSelector) => {
+                const splittedSelectorWithDot = `${selectorChar}${splittedSelector}`;
+                const prefixFreeSelector = splittedSelectorWithDot.replace(/\\/g, '');
 
-          // prevent returning prefixFreeSelectors
-          // when there is not even a match
-          if (!prefixFreeSelector.match(regex)) {
-            return splittedSelector;
-          }
+                // prevent returning prefixFreeSelectors
+                // when there is not even a match
+                if (!prefixFreeSelector.match(regex)) {
+                  return splittedSelector;
+                }
 
-          return prefixFreeSelector
-            .replace(regex, (match) => (
-              selectorLib.get(match, {
-                addSelectorType: true,
-                source,
-              })
-            ))
-            .slice(1);
-        })
-        .join('#'));
+                return prefixFreeSelector
+                  .replace(regex, (match) => (
+                    selectorLib.get(match, {
+                      addSelectorType: true,
+                      source,
+                    })
+                  ))
+                  .slice(1);
+              },
+            )
+        ));
     }
-  });
+  };
 
   /* *********************** *
    * replace class selectors *
    * *********************** */
-  cssAST.walk((node: any) => {
-    const parentName = node.parent.name || '';
-    const selectorLib = selectorsLibrary.getClassSelector();
-    const source = { file: opts.sourceFile || '', line: node.source.start.line, text: '' };
-
-    if (node.selector && !parentName.match(/keyframes/)) {
-      const regex = selectorLib.getAll({ regex: true, addSelectorType: true });
-
-      if (typeof regex !== 'string' && !(regex instanceof RegExp)) {
-        return;
-      }
-
-      // eslint-disable-next-line no-param-reassign
-      node.selectors = node.selectors.map((selector: string) => selector
-        // split selectors so it is easier to skip non matching selectors
-        .split('.')
-        .map((splittedSelector) => {
-          const splittedSelectorWithDot = `.${splittedSelector}`;
-          const prefixFreeSelector = splittedSelectorWithDot.replace(/\\/g, '');
-
-          // prevent returning prefixFreeSelectors
-          // when there is not even a match
-          if (!prefixFreeSelector.match(regex)) {
-            return splittedSelector;
-          }
-
-          return prefixFreeSelector
-            .replace(regex, (match) => (
-              selectorLib.get(match, {
-                addSelectorType: true,
-                source,
-              })
-            ))
-            .slice(1);
-        })
-        .join('.'));
-    }
+  cssAST.walk((node) => {
+    walker(node, 'id');
+    walker(node, 'class');
   });
-
 
   /* ***************** *
    * replace keyframes *

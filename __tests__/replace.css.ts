@@ -588,7 +588,6 @@ it('replace css variables in calc and multiple variables | rename-css-selectors#
   );
 });
 
-
 it('should replace excluded special characters | rename-css-selectors#77', () => {
   rcs.selectorsLibrary.setExclude('somediv:test-me');
 
@@ -642,5 +641,12 @@ it('replace multiple variables after each other | #137', () => {
         box-shadow: var(--b, 0 0 transparent), var(--c, 0 0 transparent), var(--a);
       }
     `,
+  );
+});
+
+it('should ignore normal html attributes | rename-css-selectors#84', () => {
+  replaceCssMacro(
+    '.text {} textarea {}',
+    '.a {} textarea {}',
   );
 });

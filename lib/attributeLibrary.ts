@@ -43,7 +43,6 @@ export class AttributeLibrary extends BaseLibrary {
         return split;
       }
 
-
       // remove the first char
       // in case it is a :
       const firstChar = split.charAt(0) || '';
